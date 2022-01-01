@@ -1,0 +1,56 @@
+= Pomegranates
+Author Minetest-Docs and Contributors 
+v1.0, 2022-01-01
+:description: A sample template for using AsciiDoc.
+:keywords: sample
+:toc:
+
+// Using an image directory is a good idea, for relative paths!
+:imagesdir: ../assets
+
+// URL references:
+:url-source: https://github.com/minetest/minetest_docs
+
+This is a sample template of how a good AsciiDoc can be structured.
+This pragraph describes the purpose of the document.
+In this sample, an imaginary API
+for producing pomegranates will be documented.
+
+So without further ado, here is what we should see when we are done.
+
+[#img-pomegranate]
+.The Expected Result
+image::pomegranate.png[Pomegranate]
+
+== Pomegranate API Methods
+
+=== `plant_tree(pos, name)`
+* `pos`: `vector`
+* `name`: `string`
+
+Plants a tree of type `name` at `pos`
+if `name` is a registered pomegranate tree.
+
+.Planting A Tree
+====
+
+[source,lua]
+----
+plant_tree(vector.new(35, 42, 36), "regular")
+----
+
+====
+
+=== `grow_tree(pos)`
+* `pos`: `vector`
+
+Grows the tree at `pos` if the node at `pos` is a valid pomegranate tree.
+
+=== `spray_tree(pos, pesticide)`
+* `pos`: `vector`
+* `pesticide`: `string`
+
+Sprays tree at `pos` with `pesticide` if it is a registered chemical.
+
+== Source
+You can contribute to the documentation at {url-source}[our GitHub repository]!
