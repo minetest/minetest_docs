@@ -26,7 +26,7 @@ image::pomegranate.png[Pomegranate]
 == Pomegranate API Methods
 
 === `plant_tree(pos, name)`
-* `pos`: `Vector`
+* `pos`: `vector`
 * `name`: `string`
 
 Plants a tree of type `name` at `pos` if `name` is a registered pomegranate tree.
@@ -34,16 +34,16 @@ Plants a tree of type `name` at `pos` if `name` is a registered pomegranate tree
 .Planting A Tree
 [example, lua]
 ---
-plant_tree(Vector.new(35, 42, 36), "regular")
+plant_tree(vector.new(35, 42, 36), "regular")
 ---
 
 === `grow_tree(pos)`
-* `pos`: `Vector`
+* `pos`: `vector`
 
 Grows the tree at `pos` if the node at `pos` is a valid pomegranate tree.
 
 === `spray_tree(pos, pesticide)`
-* `pos`: `Vector`
+* `pos`: `vector`
 * `pesticide`: `string`
 
 Sprays tree at `pos` with `pesticide` if it is a registered chemical.
