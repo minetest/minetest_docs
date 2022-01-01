@@ -1,6 +1,6 @@
 = Formspecs
 
-Formspecs are a one of two types of GUI's in minetest (the other being HUDS) where the user can interact via the mouse and keyboard.
+Formspecs are one of two types of GUIs in Minetest (the other being HUDs). Formspecs grab user focus and allow the user to interact via the mouse and keyboard.
 
 == Versions
 
