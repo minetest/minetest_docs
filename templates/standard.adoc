@@ -11,7 +11,7 @@ v1.0, 2022-01-01
 :imagesdir: ../assets
 
 // URL references:
-:url-docs: https://github.com/minetest/minetest_docs
+:url-source: https://github.com/minetest/minetest_docs
 
 This is a sample template of how a good AsciiDoc can be structured.
 This pragraph describes the purpose of the document.
@@ -31,4 +31,4 @@ image::pomegranate.png[Pomegranate]
 * `spray_tree()`
 
 == Source
-You can contribute to the documentation at {url-docs}[our GitHub repository]!
+You can contribute to the documentation at {url-source}[our GitHub repository]!
