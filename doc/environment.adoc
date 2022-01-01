@@ -124,6 +124,8 @@ Performs a Fisher-Yates shuffling on the specified range of the list part of `t`
 * `to`: Inclusive end index of the range to be shuffled. Defaults to the last item of the list part if falsy.
 * `random`: A `function(from, to)` that returns a random integer in the specified range, with both `from` and `to` inclusive. Defaults to `math.random` if falsy.
 
+Returns nothing.
+
 == LuaJIT extensions
 
 Minetest builds compiled with LuaJIT (`ENABLE_LUAJIT=1`) provide the https://luajit.org/extensions.html[LuaJIT extensions]. These include syntactical Lua 5.2 language features like `goto`, which will lead to a syntax error on PUC Lua 5.1. Hex escapes will be converted into the raw characters by PUC Lua 5.1.
