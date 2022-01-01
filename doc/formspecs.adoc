@@ -1,0 +1,88 @@
+= Formspecs
+
+Formspecs are a one of two types of GUI's in minetest (the other being HUDS) where the user can interact via the mouse and keyboard.
+
+== Versions
+
+* v1 - 5.0.x and below 
+    - initial version of formspecs
+
+* v2 - 5.1.x
+    - added real cordinates system
+
+* v3 - 5.2.x - 5.3.x
+
+* v4 - 5.4.x
+
+== Elements
+
+=== formspec_version[<version>]
+
+* `version`: version of formspec, defaults to 1
+* sets version of formspec
+* must be used before `size[]` element
+* see <<Versions>>
+
+=== size[<W>,<H>,<fixed_size>]
+
+* `W`: width
+* `H`: height
+* `fixed_size`: optional Boolean, Andriod specific for hardcoded dimensions
+* sets the overall size of the formspec
+* must be used after `formsepc_version[]` element
+
+=== position[<X>,<Y>]
+
+* `X`: value between 0.0 and 1.0. default 0.5 (center)
+* `Y`: value between 0.0 and 1.0. default 0.5 (center)
+* defines anchor point of formspec
+* must be used after `size[]`
+
+=== anchor[<X>,<Y>]
+
+* `X`: value between 0.0 and 1.0. default 0.5 (center)
+* `Y`: value between 0.0 and 1.0. default 0.5 (center)
+* defines anchor point of formspec
+* must be used after `position[]`
+
+=== padding[<X>,<Y>]
+
+* `X`: value between -# and 0.5. default 0.05
+* `Y`: value between -# and 0.5. default 0.05
+* defines the amount of padding around the whole formspec
+* must be used after `anchor[]`
+* -# is off the screen, 0.0 is no padding, and 0.5 is center, providing no formspec
+
+=== no_prepend[]
+
+* makes `player:set_formspec_prepend()` not apply to this formspec
+* must be used after `padding[]`
+
+=== real_coordinates[<status>]
+
+* `status`: Boolean, enable or disable real coordinates (default true)
+* must be used after `no_prepend[]` elment
+
+=== container[<X>,<Y>]
+
+* `X`: horizontal offset for all elements inside
+* `Y`: Vertical offset for all elements inside
+* allows offseting of all elements inside
+* must have closing `container_end[]`
+* can be nested
+
+=== container_end[]
+
+* closes out container
+
+== Styling
+
+random content
+
+== API
+
+methods of displaying formspecs
+
+=== minetest.xxx
+
+=== player:xxx()
