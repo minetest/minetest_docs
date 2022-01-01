@@ -171,7 +171,7 @@ In the secure environment, the following builtin Lua(JIT) libraries and library 
 * `type`
 * Output: `print`
 
-Some library tables have restrictive whitelists:
+Some library tables are restricted by whitelists as well:
 
 * Not available to CSM: `io`
 ** `read`
