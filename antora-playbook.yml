@@ -1,6 +1,6 @@
 site:
   title: Minetest Docs
-  start_page: index.adoc 
+  start_page: minetest::index.adoc 
 content:
   sources: 
   - url: .
