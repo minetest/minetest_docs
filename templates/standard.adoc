@@ -37,7 +37,11 @@ Plants a tree of type `name` at `pos` if `name` is a registered pomegranate tree
 plant_tree(Vector.new(35, 42, 36), "regular")
 ---
 
-* `grow_tree()`
+=== `grow_tree(pos)`
+* `pos`: `Vector`
+
+Grows the tree at `pos` if the node at `pos` is a valid pomegranate tree.
+
 * `spray_tree()`
 
 == Source
