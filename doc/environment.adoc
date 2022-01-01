@@ -122,7 +122,7 @@ Adds all the list entries of `other` to `t` (list part concatenation).
 
 Returns a new table with the keys of `t` as values and the corresponding values as keys. If a value occurs multiple times in `t`, any of the keys might be the value in the resulting table.
 
-==== `table.shuffle(t, from, to, random)`
+==== `table.shuffle(t, [from], [to], [random])`
 
 Performs a Fisher-Yates shuffling on the specified range of the list part of `t`.
 
