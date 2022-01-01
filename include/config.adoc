@@ -1,4 +1,6 @@
 Minetest-Docs and contributors
+:experimental: true
+:stem:
 :toc:
 :toclevels: 5
 
@@ -7,4 +9,3 @@ Minetest-Docs and contributors
 :url-docs-repo: https://github.com/minetest/minetest_docs
 :url-lua-api: https://github.com/minetest/minetest/blob/master/doc/lua_api.txt
 :url-reference-manual: https://www.lua.org/manual/5.1/manual.html
-
