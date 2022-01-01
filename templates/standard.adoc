@@ -3,7 +3,6 @@ Author Minetest-Docs and Contributors
 v1.0, 2022-01-01
 :description: A sample template for using AsciiDoc.
 :keywords: sample
-// TODO: figure out why there is no table of contents!
 :toc:
 
 // Using an image directory is a good idea, for relative paths!
@@ -29,7 +28,8 @@ image::pomegranate.png[Pomegranate]
 * `pos`: `vector`
 * `name`: `string`
 
-Plants a tree of type `name` at `pos` if `name` is a registered pomegranate tree.
+Plants a tree of type `name` at `pos`
+if `name` is a registered pomegranate tree.
 
 .Planting A Tree
 ====
