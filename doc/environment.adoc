@@ -134,7 +134,7 @@ https://bitop.luajit.org/[LuaJIT's `bit` library] is made available for both PUC
 
 == Secure environment whitelists
 
-The secure environment everything runs in by default whitelists the following builtin Lua(JIT) libraries and library functions:
+In the secure environment, the following builtin Lua(JIT) libraries and library functions are whitelisted:
 
 * `_VERSION`
 * Garbage collection: `collectgarbage`
