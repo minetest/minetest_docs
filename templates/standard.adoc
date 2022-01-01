@@ -32,10 +32,12 @@ image::pomegranate.png[Pomegranate]
 Plants a tree of type `name` at `pos` if `name` is a registered pomegranate tree.
 
 .Planting A Tree
-[example, lua]
+====
+[source, lua]
 ---
 plant_tree(vector.new(35, 42, 36), "regular")
 ---
+====
 
 === `grow_tree(pos)`
 * `pos`: `vector`
