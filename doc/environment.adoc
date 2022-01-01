@@ -9,7 +9,7 @@ Minetest uses Lua 5.1. The environment in which Minetest executes mods depends o
 
 == Platform Independence / Portability
 
-See the reference manual for platform- and OS-environment-dependant Lua features: https://www.lua.org/manual/5.1/manual.html. These include:
+See the https://www.lua.org/manual/5.1/manual.html[Lua 5.1 Reference Manual] for platform- and OS-environment-dependant Lua features: . These include:
 
 * Character codes used by `string.char` and `string.byte`
 * Large parts of the `os` library, particularly `os.execute` (only available in an insecure environment)
@@ -84,7 +84,7 @@ for i = 0, 255 do
 end
 ----
 
-Warning. Platform-independence is not guaranteed: "The definitions of letter, space, and other character groups depend on the current locale." - https://www.lua.org/manual/5.1/manual.html#5.4.1
+WARNING: Platform-independence is not guaranteed: "The definitions of letter, space, and other character groups depend on the current locale." - https://www.lua.org/manual/5.1/manual.html#5.4.1[Lua 5.1 Reference Manual]
 
 ==== `string.split(str, [delim], [include_empty], [max_splits], [sep_is_pattern])`
 
@@ -236,7 +236,7 @@ The following functions, which are *not available to CSM*, allow read-only acces
 
 Builtin can read and write anywhere during it's load time.
 
-See the Lua 5.1 reference manual (https://www.lua.org/manual/5.1/manual.html) for documentation of the Lua standard library.
+See the https://www.lua.org/manual/5.1/manual.html[Lua 5.1 Reference Manual] for documentation of the Lua standard library.
 
 If mod security is disabled, server-side mods run in an insecure environment, which contains all libraries and library functions, without any restrictions. The same restrictions apply to trusted server-side mods, which can however request an insecure environment in table form using `minetest.request_insecure_environment` which will contain shallow copies of library tables and no global restrictions.
 
