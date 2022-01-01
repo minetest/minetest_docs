@@ -126,11 +126,11 @@ Performs a Fisher-Yates shuffling on the specified range of the list part of `t`
 
 == LuaJIT extensions
 
-Minetest builds with LuaJIT (`ENABLE_LUAJIT` build flag) provide all LuaJIT extensions as listed on https://luajit.org/extensions.html. These include syntactical Lua 5.2 language features like `goto`, which will lead to a syntax error on PUC Lua 5.1. Hex escapes will be converted into the raw characters by PUC Lua 5.1.
+Minetest builds compiled with LuaJIT (`ENABLE_LUAJIT=1`) provide the https://luajit.org/extensions.html[LuaJIT extensions]. These include syntactical Lua 5.2 language features like `goto`, which will lead to a syntax error on PUC Lua 5.1. Hex escapes will be converted into the raw characters by PUC Lua 5.1.
 
 == Common extensions
 
-LuaJIT's `bit` library (https://bitop.luajit.org/) is made available for both PUC Lua and LuaJIT builds. It must not be required.
+https://bitop.luajit.org/[LuaJIT's `bit` library] is made available for both PUC Lua and LuaJIT builds. It must not be required.
 
 == Secure environment whitelists
 
