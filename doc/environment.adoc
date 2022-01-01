@@ -1,5 +1,12 @@
 = Lua Environment
 
+:description: Documentation of the global environment Minetest mods run in
+:keywords: lua, luajit, environment, mod, security, portability, platform, library
+
+:toc:
+
+:url-reference-manual: https://www.lua.org/manual/5.1/manual.html
+
 Minetest uses Lua 5.1. The environment in which Minetest executes mods depends on four factors:
 
 . The operating system
@@ -9,7 +16,7 @@ Minetest uses Lua 5.1. The environment in which Minetest executes mods depends o
 
 == Platform Independence / Portability
 
-See the https://www.lua.org/manual/5.1/manual.html[Lua 5.1 Reference Manual] for platform- and OS-environment-dependant Lua features: . These include:
+See the {url-reference-manual}[Lua 5.1 Reference Manual] for platform- and OS-environment-dependant Lua features. These include:
 
 * Locale, affecting pattern matching (character classes) and character codes used by `string.char` and `string.byte`
 * Large parts of the `os` library, particularly `os.execute` (only available in an insecure environment)
@@ -32,7 +39,7 @@ Finds the length of the hypotenuse `z` according to the Pythagorean Theorem: `z^
 
 `x` must be a non-negative integer; otherwise, the function will error with `"factorial expects a non-negative integer"`. If `x` is at least `171`, `+inf` is returned.
 
-As Python has built-in big integer support (and uses 64-bit `float`), it can be used to easily determine for which `x` this naive implementation becomes imprecise due to float precision limitations:
+As Python has built-in big integer support (and uses 64-bit `float`), it can be used to easily determine for which `x` this implementation becomes imprecise due to float precision limitations:
 
 [source,python3]
 ----
@@ -53,7 +60,7 @@ Rounds `x` towards the nearest integer value. Edge cases:
 * Ties: If `x` is exactly the same distance from two integer values (`x = k + 0.5`) with `k` being an integer, it is rounded "away from zero", to the value with the higher absolute value:
 ** If `x > 0`, `x` will be rounded to the larger value;
 ** If `x < 0`, `x` will be rounded to the smaller value.
-* Precision: Numbers very close to ties (plus/minus 0.49999999999999994) are incorrectly handled like ties. See https://stackoverflow.com/a/58411671/7185318.
+* Precision: Numbers very close to ties (plus/minus `0.49999999999999994`) are incorrectly handled like ties. See https://stackoverflow.com/a/58411671/7185318[this StackOverflow answer on rounding in Lua].
 * Special float values: `nan` and `inf` are preserved, as well as their sign.
 
 === `string`
@@ -84,7 +91,7 @@ for i = 0, 255 do
 end
 ----
 
-WARNING: Platform-independence is not guaranteed: "The definitions of letter, space, and other character groups depend on the current locale." - https://www.lua.org/manual/5.1/manual.html#5.4.1[Lua 5.1 Reference Manual]
+WARNING: Platform-independence is not guaranteed: "The definitions of letter, space, and other character groups depend on the current locale." - https://www.lua.org/manual/5.1/manual.html#5.4.1[Lua 5.1 Reference Manual, section 5.4.1]
 
 ==== `string.split(str, [delim], [include_empty], [max_splits], [sep_is_pattern])`
 
@@ -159,7 +166,7 @@ In the secure environment, the following builtin Lua(JIT) libraries and library 
 *** `ipairs`
 * Metatables:
 ** `setmetatable`
-** Not available to CSM: `getmetatable`
+** `getmetatable` (SSM-only)
 ** Raw methods:
 *** `rawset`
 *** `rawget`
@@ -175,7 +182,7 @@ In the secure environment, the following builtin Lua(JIT) libraries and library 
 
 Some library tables are restricted by whitelists as well:
 
-* Not available to CSM: `io`
+* `io` (SSM-only)
 ** `read`
 ** `write`
 ** `flush`
@@ -186,26 +193,26 @@ Some library tables are restricted by whitelists as well:
 ** `date`
 ** `difftime`
 ** `time`
-** Not available to CSM:
+** SSM-only:
 *** `getenv`
 *** `setlocale`
 *** `tmpname`
 * `debug`:
 ** `gethook`
 ** `traceback`
-** Not available to CSM:
+** SSM-only:
 *** `getinfo`
 *** `getmetatable`
 *** `setmetatable`
 *** `upvalueid`
 *** `sethook`
 *** `debug`
-* Not available to CSM: `package`:
+* `package` (SSM-only):
 ** `config`
 ** `cpath`
 ** `path`
 ** `searchpath`
-* `jit` (only if LuaJIT build):
+* `jit` (LuaJIT-only):
 ** `arch`
 ** `flush`
 ** `off`
@@ -225,7 +232,7 @@ Everything file-related is replaced by a secure variant:
 ** `loadstring`
 ** `require`: Disabled, errors with `"require() is disabled when mod security is on."`.
 
-The following functions, which are *not available to CSM*, allow read-only access to all mod directories and write access to the current loading mod's directory only while it's loading (a handle with write access to a file within the mod directory can however be stored and used at a later time) and read & write access to the world directory excepting the `worldmods` and `game` subfolders:
+The following functions, which are *not available to CSM / SSM-only*, allow read-only access to all mod directories and write access to the current loading mod's directory only while it's loading (a handle with write access to a file within the mod directory can however be stored and used at a later time) and read & write access to the world directory excepting the `worldmods` and `game` subfolders:
 
 * `io`:
 ** `open`
@@ -238,10 +245,8 @@ The following functions, which are *not available to CSM*, allow read-only acces
 
 Builtin can read and write anywhere during it's load time.
 
-See the https://www.lua.org/manual/5.1/manual.html[Lua 5.1 Reference Manual] for documentation of the Lua standard library.
+See the {url-reference-manual}[Lua 5.1 Reference Manual] for documentation of the Lua standard library.
 
 If mod security is disabled, server-side mods run in an insecure environment, which contains all libraries and library functions, without any restrictions. The same restrictions apply to trusted server-side mods, which can however request an insecure environment in table form using `minetest.request_insecure_environment` which will contain shallow copies of library tables and no global restrictions.
 
 // TODO link minetest.request_insecure_environment
-
-
