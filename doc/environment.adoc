@@ -130,7 +130,7 @@ Minetest builds compiled with LuaJIT (`ENABLE_LUAJIT=1`) provide the https://lua
 
 == Common extensions
 
-https://bitop.luajit.org/[LuaJIT's `bit` library] is made available for both PUC Lua and LuaJIT builds. It must not be required.
+https://bitop.luajit.org/[LuaJIT's `bit` library] is made available for both PUC Lua and LuaJIT builds. It must not be required, as this will lead to a crash in a secure environment as documented below; in an insecure environment, it is simply unneeded. 
 
 == Secure environment whitelists
 
