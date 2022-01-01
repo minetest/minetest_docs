@@ -42,7 +42,11 @@ plant_tree(Vector.new(35, 42, 36), "regular")
 
 Grows the tree at `pos` if the node at `pos` is a valid pomegranate tree.
 
-* `spray_tree()`
+=== `spray_tree(pos, pesticide)`
+* `pos`: `Vector`
+* `pesticide`: `string`
+
+Sprays tree at `pos` with `pesticide` if it is a registered chemical.
 
 == Source
 You can contribute to the documentation at {url-source}[our GitHub repository]!
