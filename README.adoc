@@ -1,0 +1,3 @@
+= Minetest Documentation
+
+This is the documentation repository for the Minetest engine (https://github.com/minetest/minetest) as per the proposal at https://gist.github.com/benrob0329/df3ced15dc5a2d5402010be709452f27.
