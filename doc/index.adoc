@@ -1,0 +1,3 @@
+= Minetest Docs
+
+Nothing to see here.
