@@ -11,7 +11,7 @@ Minetest uses Lua 5.1. The environment in which Minetest executes mods depends o
 
 See the https://www.lua.org/manual/5.1/manual.html[Lua 5.1 Reference Manual] for platform- and OS-environment-dependant Lua features: . These include:
 
-* Character codes used by `string.char` and `string.byte`
+* Locale, affecting pattern matching (character classes) and character codes used by `string.char` and `string.byte`
 * Large parts of the `os` library, particularly `os.execute` (only available in an insecure environment)
 * Some parts of the `io` library like `io.popen` (only available in an insecure environment) or handling of binary files
 * `require` and `package.loadlib` (only available in an insecure environment anyways)
