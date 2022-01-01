@@ -2,6 +2,7 @@
 :description: Documentation of the global environment Minetest mods run in
 :keywords: lua, luajit, environment, mod, security, portability, platform, library
 :toc:
+:toclevels: 5
 
 :url-reference-manual: https://www.lua.org/manual/5.1/manual.html
 
