@@ -1,10 +1,7 @@
 = Lua Environment
+include::../include/config.adoc[]
 :description: Documentation of the global environment Minetest mods run in
 :keywords: lua, luajit, environment, mod, security, portability, platform, library
-:toc:
-:toclevels: 5
-
-:url-reference-manual: https://www.lua.org/manual/5.1/manual.html
 
 Minetest uses Lua 5.1. The environment in which Minetest executes mods depends on four factors:
 
@@ -28,7 +25,7 @@ See the {url-reference-manual}[Lua 5.1 Reference Manual] for platform- and OS-en
 
 ==== `math.hypot(x, y)`
 
-Finds the length of the hypotenuse `z` according to the Pythagorean Theorem: `z^2 = x^2 + y^2`. Shorthand for `math.sqrt(x*x + y*y)`.
+Finds the length of the hypotenuse `z` according to the Pythagorean Theorem: stem:[z^2 = x^2 + y^2]. Shorthand for `math.sqrt(x*x + y*y)`.
 
 ==== `math.sign(x, [tolerance])`
 

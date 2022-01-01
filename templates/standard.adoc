@@ -1,15 +1,7 @@
 = Pomegranates
-Author Minetest-Docs and Contributors 
-v1.0, 2022-01-01
+include::../include/config.adoc[]
 :description: A sample template for using AsciiDoc.
 :keywords: sample
-:toc:
-
-// Using an image directory is a good idea, for relative paths!
-:imagesdir: ../assets
-
-// URL references:
-:url-source: https://github.com/minetest/minetest_docs
 
 This is a sample template of how a good AsciiDoc can be structured.
 This pragraph describes the purpose of the document.
@@ -53,4 +45,4 @@ Grows the tree at `pos` if the node at `pos` is a valid pomegranate tree.
 Sprays tree at `pos` with `pesticide` if it is a registered chemical.
 
 == Source
-You can contribute to the documentation at {url-source}[our GitHub repository]!
+You can contribute to the documentation at {url-docs-repo}[our GitHub repository]!
