@@ -34,14 +34,14 @@ if `name` is a registered pomegranate tree.
 .Planting A Tree
 ====
 
-[source, lua]
+[source,lua]
 ----
 plant_tree(vector.new(35, 42, 36), "regular")
 ----
 
 ====
 
-=== `grow_tree(pos)`
+== `grow_tree(pos)`
 * `pos`: `vector`
 
 Grows the tree at `pos` if the node at `pos` is a valid pomegranate tree.
