@@ -1,6 +1,8 @@
 Minetest-Docs and contributors
 :experimental: true
 :stem:
+:source-highlighter: highlightjs
+
 :toc:
 :toclevels: 5
 
