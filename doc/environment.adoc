@@ -88,7 +88,7 @@ WARNING: Platform-independence is not guaranteed: "The definitions of letter, sp
 
 ==== `string.split(str, [delim], [include_empty], [max_splits], [sep_is_pattern])`
 
-* `str`: The string to split. The only required parameter.
+* `str`: The string to split.
 * `delim`: Delimiter/separator. Defaults to `","` if falsy.
 * `include_empty`: If truthy, empty strings (`""`) are included in the returned list.
 * `max_splits`: Maximum amount of splits to be done. Splits are done in left-to-right (string start to end) order. The resulting list can have up to `max_splits + 1` entries. The last element in the list may contain the delimiter. Unlimited splits if falsy, negative, `nan` or `+inf`.
