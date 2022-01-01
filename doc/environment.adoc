@@ -30,7 +30,7 @@ Finds the length of the hypotenuse `z` according to the Pythagorean Theorem: `z^
 
 ==== `math.factorial(x)`
 
-`x` must be a non-negative integer; otherwise the function will error with `"factorial expects a non-negative integer"`. If `x` is at least `171`, `+inf` is returned.
+`x` must be a non-negative integer; otherwise, the function will error with `"factorial expects a non-negative integer"`. If `x` is at least `171`, `+inf` is returned.
 
 As Python has built-in big integer support (and uses 64-bit `float`), it can be used to easily determine for which `x` this naive implementation becomes imprecise due to float precision limitations:
 
