@@ -1,7 +1,6 @@
 = Pomegranates
 Author Minetest-Docs and Contributors 
 v1.0, 2022-01-01
-
 :description: A sample template for using AsciiDoc.
 :keywords: sample
 // TODO: figure out why there is no table of contents!
