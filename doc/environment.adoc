@@ -37,7 +37,7 @@ Finds the length of the hypotenuse `z` according to the Pythagorean Theorem: ste
 
 As Python has built-in big integer support (and uses 64-bit `float`), it can be used to easily determine for which `x` this implementation becomes imprecise due to float precision limitations:
 
-[source,python3]
+[source, python]
 ----
 def factorial(x):
 	return x if x == 1 else x * factorial(x-1)
