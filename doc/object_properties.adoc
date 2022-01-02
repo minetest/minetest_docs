@@ -16,7 +16,7 @@ Sets the max breath of a player. Wanted value is `u16`.
 
 === eye_height
 
-How high the camera is in nodes about the player's feet. Wanted value is ??.
+How high the camera is in nodes about the player's feet. Wanted value is `f32`.
 
 === zoom_fov
 
@@ -34,7 +34,7 @@ Collides with other objects, physical must be `true`. Wanted value is `bool`.
 
 === collisionbox
 
-The collision box of an object. Wanted value is `{xmin, ymin, zmin, xmax, ymax, zmax}` (in nodes from the object).
+The collision box of an object. Wanted value is `{xmin, ymin, zmin, xmax, ymax, zmax}` (in nodes from the center of the object/ object position).
 
 === selectionbox
 
@@ -54,7 +54,7 @@ Not sure. Wanted value is `string`.
 
 === visual_size
 
-Visual size multipliers. Wanted value is `{x, y, z}`, if `z` is not provided, `x` will be used for the `z` value.
+Visual size multipliers. Wanted value is `vector` (`{x = x, y = y, z = z}`), if `z` is not provided, `x` will be used for the `z` value.
 
 === textures
 
@@ -66,11 +66,11 @@ Not sure
 
 === spritediv
 
-Not sure. Wanted value is `{x, y}`.
+Not sure. Wanted value is `{x = x, y = y}`.
 
 === initial_sprite_basepos
 
-Not sure. Want value is `{x, y}`.
+Not sure. Want value is `{x = x, y = y}`.
 
 === is_visible
 
@@ -82,11 +82,11 @@ Whether the object makes a footstep sound when it steps on nodes that that have 
 
 === stepheight
 
-How high in nodes the object can step up. Wanted value is ??.
+How high in nodes the object can step up. Wanted value is f32.
 
 === automatic_rotate
 
-Not sure.
+Wanted value is `f32`.
 
 === automatic_face_movement_dir
 
@@ -106,11 +106,11 @@ Text displayed about an object, empty by default for all objects except players,
 
 === nametag_color
 
-The color that the nametag text will be. Wanted value is ??.
+The color that the nametag text will be. Wanted value is `ColorSpec`.
 
 === nametag_bgcolor
 
-Wanted value is ?? but can be set to `false` to disable.
+Wanted value is `ColorSpec` but can be set to `false` to disable.
 
 === automatic_face_movement_max_rotation_per_sec
 
@@ -118,7 +118,7 @@ Not sure.
 
 === infotext 
 
-Wanted value is `string`.
+When a player points at the object, they will be shown the text. Wanted value is `string`.
 
 === static_save
 
@@ -126,7 +126,7 @@ Whether the object is saved  statically, if not, it will be deleted when the wor
 
 === wield_item
 
-Not sure.
+Wanted value is `ItemString`.
 
 === use_texture_alpha
 
@@ -142,4 +142,4 @@ Whether or not the object is visible on the minimap. Wanted value is `bool`.
 
 === damage_texture_modifier
 
-The texture modifier to use when the object is damaged. Wanted value is `string`.
+A texture modifier that will be appended to all current textures for the duration of the damage flash when the object is damaged. Wanted value is `string`.
