@@ -2,6 +2,7 @@ Minetest-Docs and contributors
 :experimental: true
 :stem:
 :source-highlighter: highlightjs
+:icons: font
 
 :toc:
 :toclevels: 5
