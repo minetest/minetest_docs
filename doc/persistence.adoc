@@ -62,7 +62,7 @@ Minetest alternatively offers a serializer implemented in Lua, which serializes 
 * numbers
 * strings
 * tables, including circular references
-* functions: *not recommended*
+* functions: *not recommended*, require mod security to be disabled
 ** Lua-implementation specific bytecode: Functions serialized by PUC Lua won't work on LuaJIT and vice versa
 ** Uses `string.dump` internally: Functions may not have upvalues
 
