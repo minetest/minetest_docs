@@ -61,7 +61,16 @@ The selection box of an object, if not set, uses `collisionbox`. Wanted value is
 Whether the object can be pointed at.
 
 === `visual`
-* field type: `unknown`
+* field type: `string`
+
+Possible values:
+
+* `cube`: A cube that has the same size as a normal node
+* `item`: similar to `wielditem`, but ignores the `wield_item` property
+* `mesh`: Use a mesh model, see the `mesh` property 
+* `sprite`: A texture that is flat and always faces the player
+* `upright_sprite`: A texture that is flat and faces upright
+* `wielditem`: Used for dropped items, see the `wield_item` property
 
 Not sure.
 
@@ -165,6 +174,8 @@ Whether the object is saved  statically, if not, it will be deleted when the wor
 
 === `wield_item`
 * internal type: `ItemString`
+
+Only when using "wielditem" visual
 
 === `use_texture_alpha`
 * field type: `bool`
