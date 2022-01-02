@@ -65,12 +65,12 @@ Whether the object can be pointed at.
 
 Possible values:
 
-* `cube`: A cube that has the same size as a normal node
-* `item`: similar to `wielditem`, but ignores the `wield_item` property
-* `mesh`: Use a mesh model, see the `mesh` property 
-* `sprite`: A texture that is flat and always faces the player
-* `upright_sprite`: A texture that is flat and faces upright
-* `wielditem`: Used for dropped items, see the `wield_item` property
+* `"cube"`: A cube that has the same size as a normal node
+* `"item"`: similar to `wielditem`, but ignores the `wield_item` property
+* `"mesh"`: Use a mesh model, see the `mesh` property 
+* `"sprite"`: A texture that is flat and always faces the player
+* `"upright_sprite"`: A texture that is flat and faces upright
+* `"wielditem"`: Used for dropped items, see the `wield_item` property
 
 Not sure.
 
