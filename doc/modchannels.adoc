@@ -33,17 +33,3 @@ allows ssm(server side mods) comunication to csm(client side mods) and vice vers
 * `message`: string, limited to 65535 characters
 * sends to all ssm and csm on the channel
 * message will drop if channel is not writable or invalid
-
-
-
-
-
-
-
-
-
-
-
-
-
-
