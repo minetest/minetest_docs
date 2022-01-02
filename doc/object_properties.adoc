@@ -1,0 +1,145 @@
+= Object Properties
+
+WARNING: There may be missing/incorrect information here, please refer to the https://github.com/minetest/minetest/blob/master/doc/lua_api.txt#L7141-L7304[Lua API] and the https://github.com/minetest/minetest/blob/master/src/script/common/c_content.cpp#L186-L442[relevant engine code]
+
+WARNING: This is missing the default values for everything
+
+== `player` only
+
+=== hp_max
+
+Sets the max HP of a player. Wanted value is `u16`.
+
+=== breath_max
+
+Sets the max breath of a player. Wanted value is `u16`.
+
+=== eye_height
+
+How high the camera is in nodes about the player's feet. Wanted value is ??.
+
+=== zoom_fov
+
+Not sure.
+
+== All
+
+=== physical
+
+Collides with nodes that are `walkable`. Wanted value is `bool`.
+
+=== collide_with_objects
+
+Collides with other objects, physical must be `true`. Wanted value is `bool`.
+
+=== collisionbox
+
+The collision box of an object. Wanted value is `{xmin, ymin, zmin, xmax, ymax, zmax}` (in nodes from the object).
+
+=== selectionbox
+
+The selection box of an object, if not set, uses `collisionbox`. Wanted value is `{xmin, ymin, zmin, xmax, ymax, zmax}` (in nodes from the object).
+
+=== pointable
+
+Whether the object can be pointed at. Wanted value is `bool`.
+
+=== visual
+
+Not sure. Wanted value is `string`.
+
+=== mesh
+
+Not sure. Wanted value is `string`.
+
+=== visual_size
+
+Visual size multipliers. Wanted value is `{x, y, z}`, if `z` is not provided, `x` will be used for the `z` value.
+
+=== textures
+
+Wanted value is `{"texture.png", "texture.png", ...}`. The number of textures depends on `visual`.
+
+=== colors
+
+Not sure
+
+=== spritediv
+
+Not sure. Wanted value is `{x, y}`.
+
+=== initial_sprite_basepos
+
+Not sure. Want value is `{x, y}`.
+
+=== is_visible
+
+Whether the object is visible and can be pointed at. Wanted value is `bool`.
+
+=== makes_footstep_sound
+
+Whether the object makes a footstep sound when it steps on nodes that that have footstep sounds. Wanted value is `bool`.
+
+=== stepheight
+
+How high in nodes the object can step up. Wanted value is ??.
+
+=== automatic_rotate
+
+Not sure.
+
+=== automatic_face_movement_dir
+
+Not sure. Wanted value is `int` but can be set to `false` to disable.
+
+=== backface_culling
+
+Whether or not a model is backface culled Wanted value is `bool`.
+
+=== glow
+
+Wanted value is `int`.
+
+=== nametag
+
+Text displayed about an object, empty by default for all objects except players, in which case, it is their name. Wanted value is `string`.
+
+=== nametag_color
+
+The color that the nametag text will be. Wanted value is ??.
+
+=== nametag_bgcolor
+
+Wanted value is ?? but can be set to `false` to disable.
+
+=== automatic_face_movement_max_rotation_per_sec
+
+Not sure.
+
+=== infotext 
+
+Wanted value is `string`.
+
+=== static_save
+
+Whether the object is saved  statically, if not, it will be deleted when the world block is unloaded. Wanted value is `bool`.
+
+=== wield_item
+
+Not sure.
+
+=== use_texture_alpha
+
+Whether or not the texture's alpha should be used. Wanted value is `bool`.
+
+=== shaded
+
+Whether or not diffuse lighting is enabled for the object. Wanted value is `bool`.
+
+=== show_on_minimap
+
+Whether or not the object is visible on the minimap. Wanted value is `bool`.
+
+=== damage_texture_modifier
+
+The texture modifier to use when the object is damaged. Wanted value is `string`.
