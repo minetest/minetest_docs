@@ -42,7 +42,7 @@ WARNING: Hash tables containing only positive integer keys - a table of `minetes
 
 TIP: Sparse hash maps, should always be converted to objects, using only string keys, for JSON. You might do this just for serialization.
 
-WARNING: The JSON serializer is furthermore limited by it's recursion depth: Only a recursion depth up to *16* is allowed. Very nested data structures can't be (de)serialized. Circular references will cause the JSON serializer to recurse until the maximum recursion depth is exceeded.
+WARNING: The JSON serializer is furthermore limited by its recursion depth: Only a recursion depth up to *16* is allowed. Very nested data structures can't be (de)serialized. Circular references will cause the JSON serializer to recurse until the maximum recursion depth is exceeded.
 
 TIP: Use the `json = assert(minetest.write_json(data))` idiom to not silently ignore errors when serializing.
 
