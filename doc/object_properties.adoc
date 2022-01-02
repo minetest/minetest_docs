@@ -27,7 +27,7 @@ Sets the max breath of a player.
 How high the camera is in nodes about the player's feet.
 
 === `zoom_fov`
-* internal type: `degrees`
+* units: `degrees`
 
 Changes the field of view of player when they zoom. Setting to `0` disables zooming.
 
