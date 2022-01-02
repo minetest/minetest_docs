@@ -9,8 +9,8 @@ The `VoxelArea` metatable provides an OOP-like utility for dealing with LuaVoxel
 
 Sets `self.__index` to `self` and `self` as the metatable of `o`, which can have the following fields:
 
-* `MinEdge`: Minimum position of the area, inclusive
-* `MaxEdge`: Maximum position of the area, inclusive
+* `MinEdge`: Minimum position of the area, inclusive. Defaults to `vector.new(1, 1, 1)` if `nil`.
+* `MaxEdge`: Maximum position of the area, inclusive. Defaults to `vector.new(0, 0, 0)` if `nil`.
 
 Both positions should be `vector`s of integer numbers; each component of `MinEdge` should be smaller than the respective component of `MaxEdge` if the `VoxelArea` is to be non-empty. You can use `minp, maxp = vector.sort(minp, maxp)` to achieve this.
 
