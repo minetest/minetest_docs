@@ -8,7 +8,7 @@ and the {url-c-content-src}#L186-L442[relevant engine code]
 
 WARNING: This is missing the default values for everything
 
-== `player` only
+== Properties Applying Only to Players
 
 === `hp_max`
 * internal type: `u16`
@@ -30,7 +30,7 @@ How high the camera is in nodes about the player's feet.
 
 Not sure.
 
-== All
+== Properties Applying to All Objects
 
 === `physical`
 * field type: `bool`
