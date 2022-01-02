@@ -3,10 +3,8 @@ Minetest-Docs and contributors
 :stem:
 :source-highlighter: highlightjs
 :icons: font
-
 :toc:
 :toclevels: 5
-
 :imagesdir: ../assets
 
 :url-docs-repo: https://github.com/minetest/minetest_docs
