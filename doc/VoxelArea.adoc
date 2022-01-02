@@ -68,7 +68,7 @@ Shorthand for `area:contains(p.x, p.y, p.z)`
 
 Returns `true` if `i` is between `1` and the `area` volume, both inclusive.
 
-WARNING: `area:containsi(area:indexp(p))` *is not equivalent to* `area:containsp(p)`, as `area:indexp` will happily produce valid indices for plenty out-of-area positions.
+WARNING: `area:containsi(area:indexp(p))` *is not equivalent to* `area:containsp(p)`, as `area:indexp` will happily produce valid indices for some out-of-area positions.
 
 == `area:iter(minx, miny, minz, maxx, maxy, maxz)`
 
