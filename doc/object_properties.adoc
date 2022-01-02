@@ -142,4 +142,4 @@ Whether or not the object is visible on the minimap. Wanted value is `bool`.
 
 === damage_texture_modifier
 
-A texture modifier that will be appended to all current textures for the duration of the damage flash when the object is damaged. Wanted value is `string`.
+A texture modifier that will be appended to the object's current textures for the duration of the damage flash when the object is damaged. Wanted value is `string`.
