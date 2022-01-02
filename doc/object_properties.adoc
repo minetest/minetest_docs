@@ -21,14 +21,14 @@ Sets the max HP of a player.
 Sets the max breath of a player.
 
 === `eye_height`
-* internal type: `unknown`
+* internal type: `f32`
 
 How high the camera is in nodes about the player's feet.
 
 === `zoom_fov`
-* internal type: `unknown`
+* internal type: `degrees`
 
-Not sure.
+Changes the field of view of the camera when the player zooms. Setting to `0` disables zooming.
 
 == Properties Applying to All Objects
 
@@ -68,7 +68,7 @@ Not sure.
 === `mesh`
 * field type: `string`
 
-Not sure.
+Name of the file of the mesh, only when using "mesh" visual.
 
 === `visual_size`
 * field type: `3d_vector`
@@ -186,3 +186,48 @@ Whether or not the object is visible on the minimap.
 
 A texture modifier that will be appended to the object's current textures for the duration of the damage flash when the object is damaged.
 
+== Layout of Object Properties
+
+The way these properties are laid out is in a table, the order of which is not important.
+
+== Example
+
+[source,lua]
+----
+{
+    hp_max = 10,
+    breath_max = 5,
+    eye_height = 0.8,
+    zoom_fov = 0,
+    physical = true,
+    collide_with_objects = true,
+    collisionbox = {-0.3, -0.3, -0.3, 0.3, 0.3, 0.3},
+    selectionbox = {-0.3, -0.3, -0.3, 0.3, 0.3, 0.3},
+    pointable = true,
+    visual = "mesh",
+    mesh = "mesh.obj",
+    visual_size = {x = 1, y = 1, z = 1},
+    textures = {"texture.png", "texture.png"},
+    colors = {},
+    spritediv = {x = 1, y = 1},
+    initial_sprite_basepos = {x = 0, y = 0},
+    is_visible = true,
+    makes_footstep_sound = true,
+    stepheight = 0.4,
+    automatic_rotate = 0.0,
+    automatic_face_movement_dir = 0,
+    backface_culling = true,
+    glow = 0,
+    nametag = "My object",
+    nametag_color = {r = 255, g = 255, b = 255},
+    nametag_bgcolor = {r = 0, g = 0, b = 0},
+    automatic_face_movement_max_rotation_per_sec = 0,
+    infotext = "Hello there!",
+    static_save = true,
+    wield_item = "",
+    use_texture_alpha = true,
+    shaded = true,
+    show_on_minimap = true,
+    damage_texture_modifier = "^[colorize:#FF0000:150",
+}
+----
