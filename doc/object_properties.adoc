@@ -82,7 +82,7 @@ Whether the object makes a footstep sound when it steps on nodes that that have 
 
 === stepheight
 
-How high in nodes the object can step up. Wanted value is f32.
+How high in nodes the object can step up. Wanted value is `f32`.
 
 === automatic_rotate
 
