@@ -1,0 +1,223 @@
+= Texture Modifiers
+
+== Texture Pack Support
+
+Texture modifiers can be used in texture overrides.
+// TODO link texture pack doc
+
+WARNING: Usage of certain texture modifiers might require certain texture resolutions to be used by texture packs, as texture modifiers operate on pixels instead of relative units.
+
+WARNING: Generated textures can not be replaced by a texture back; only base textures can be replaced.
+
+== Performance Issues
+
+WARNING: All textures are generated on the CPU, not the GPU. Generation is therefore slow and may temporarily block the client thread.
+
+WARNING: Texture modifiers are https://github.com/minetest/minetest/issues/11531[kept in client memory forever].
+
+WARNING: Cached texture modifiers are https://github.com/minetest/minetest/issues/11587[not leveraged when generating new ones].
+
+WARNING: Non-linear time complexity of the shotgun parser is possible.
+
+TIP: Use texture modifiers mostly statically. Keep dynamically generated textures to a minimum to not fill up the client cache over time. Don't force the client to perform many expensive texture generations in a small timespan if you want a smooth client experience. Do not create large, convoluted texture modifiers if possible.
+
+== Bugs
+
+WARNING: Large texture modifiers may https://github.com/minetest/minetest/issues/11829[freeze the client].
+
+WARNING: Out-of-bounds memory reads using certain texture modifiers have been reported.
+
+WARNING: Certain texture modifiers leading to client segmentation faults have been reported.
+
+WARNING: Syntactically invalid parts of texture modifiers may silently be ignored.
+
+== Syntax
+
+The original documentation in `lua_api.txt` is rather vague. Further details have been determined by examining the shotgun parser in `tile.cpp`.
+
+WARNING: Texture modifiers are only parsed clientside, where errors lead to poor behavior (error messages in the best case, sometimes the wrong texture, crashes in the worst case). They are not validated serverside. Take additional care to ensure no syntax errors or values which cause undefined behavior.
+
+TIP: Use some form of string builder that guarantees valid texture modifiers.
+
+=== Base textures
+
+Texture modifiers work on _base textures_ which are specified in a string form as media file names.
+// TODO link to media documentation
+
+=== Overlaying
+
+Overlaying is a binary operator using the exponentiation symbol (`^`). The right-hand operand is overlaid over the left-hand operand. Overlaying is associative: `a^b^c` is the same as both `(a^b)^c` and `a^(b^c)`. Overlaying is obviously not commutative.
+
+Before overlaying, the texture with the lower pixel count is upscaled to the dimensions of the texture with the higher pixel count. Alpha blending is applied correctly.
+
+=== Modifiers
+
+All texture modifiers create new textures, which can be modified further, and do not modify the textures they operate on.
+
+TIP: Use the `string.format("%d", number)` to guarantee that integers are parsable.
+
+==== Base texture modifiers
+
+===== `<x>^[brighten`
+
+Interpolates 50-50 between the color of each pixel of `x` and white.
+
+===== `<x>^[noalpha`
+
+Sets the alpha channel of `x` to full. As the red, green and blue channels aren't premultiplied with alpha, this might reveal hidden colors of transparent portions of an image.
+
+==== `<x>^[applyfiltersformesh`
+
+Internal modifier
+
+===== `<x>^[makealpha:<r>,<g>,<b>`
+
+`r`, `g`, `b` are integers ranging from 0 to 255. Pixels of the base texture having the exactly same RGB color will have their alpha set to 0. As, the red, green and blue channels are kept, the original color can be restored using `[noalpha` (which will however also make originally semitransparent portions of the image opaque).
+
+===== `<x>^[opacity:<ratio>`
+
+Multiplies the alpha value of each pixel of the base texture `x` with `ratio/255` and rounds afterwards.
+
+===== `<x>^[invert:<mode>`
+
+`mode` is a string which may contain the characters `r`, `g`, `b` and `a`. The channels corresponding to the occurring characters (red, green, blue and alpha) will be inverted (set to `255 - value`).
+
+===== `<x>^[transform:<t>`
+
+`t` is either a number or a name identifying a transformation from the following table:
+
+[cols="1,1,1"]
+|===
+|Number |Name |Transformation
+
+|0
+|I
+|Identity
+
+|1
+|R90
+|Rotate by 90° counterclockwise
+
+|2
+|R180
+|Rotate by 180° counterclockwise
+
+|3
+|R270
+|Rotate by 270° counterclockwise
+
+|4
+|FX
+|Flip X (horizontally)
+
+|5
+|FXR90
+|Flip X, then rotate by 90° counterclockwise
+
+|6
+|FY
+|Flip Y (vertically)
+
+|7
+|FYR90
+|Flip Y, then rotate by 90° counterclockwise
+|===
+
+===== `<x>^[verticalframe:<framecount>:<frame>`
+
+* `framecount`: Animation frame count
+* `frame`: Current animation frame, 0-indexed
+
+Result: Vertically crops the texture by dividing the base texture height through the frame count to determine the frame height. As the division is an integer division, a remaining fractional frame will be discarded. If the frame extends beyond texture bounds, the out of bounds pixels will be colored white.
+// TODO verify
+
+WARNING: Specifying a `framecount` of 0 will trigger a floating point exception, crashing the client.
+
+// TODO crack & cracko
+
+===== `<x>^[sheet:<w>x<h>:<x>,<y>`
+
+* `w` and `h`: Tile dimensions
+* `x` and `y`: Tile position, 0-indexed
+
+Retrieves the tile at position `x, y`. Can be used to retrieve single pixels by setting `w` and `h` to `1`. Out of bounds pixels will be colored white.
+
+WARNING: Setting `w` or `h` to 0 will trigger a floating point exception, crashing the client.
+
+===== `<x>^[multiply:<color>`
+
+`color` is a `ColorString`. Each pixel of `x` will have it's RGB channels multiplied with those of `color`; the alpha value of `color` is ignored.
+// TODO reference
+
+===== `<x>^[colorize:<color>[:<ratio>]`
+
+Interpolates between `color`, a `ColorString`, and the pixel colors of `x` as specified by the `ratio`:
+
+* Defaults to the alpha of `color` if omitted;
+* If it is an integer from 0 (only pixel color) to 255 (only `color`), it is directly used as interpolation ratio: the resulting color of a pixel is `ratio` times `color` plus `(255 - ratio)` times pixel color;
+* If it is the string `alpha`, the texture pixel's alpha value determines the `ratio` per pixel
+
+===== `<x>^[mask:<texture>`
+
+The dimensions of the resulting texture are determined by the base texture. Applies bitwise and to all RGBA values of `texture` and `x`. If a pixel of `x` is out of bounds on `texture`, the value of `x` is preserved. Is associative and commutative if all used textures have the same dimensions.
+
+===== `<x>^[lowpart:<percent>:<texture>`
+
+Overlays the lower `percent` part of `texture` on the base texture `x`.
+
+TIP: Use `blank.png` as base texture `x` if you do not want a background
+
+==== Base-texture-less modifiers
+
+These modifiers do not accept a base texture as they generate a texture from their arguments.
+
+===== `[png:<base64>`
+
+Creates a texture from an embedded base64-encoded PNG image. The base64 string can be produced by combining `minetest.encode_base64` and `minetest.encode_png`.
+
+WARNING: Do not use this for large textures. If used as an object texture, this will get sent arbitrarily often, putting a strain on the network.
+
+TIP: Consider using other texture modifiers cleverly.
+
+TIP: Use dynamic media instead.
+
+===== `[combine:<w>x<h>:<textures>`
+
+* `w`: Width of the resulting texture
+* `h`: Height of the resulting texture
+* `textures`: Colon (`:`)-separated list of locations and textures to blit in the form `<x>,<y>=<texture>`. Textures must be escaped if they contain texture modifiers. Nesting combine is possible through escaping. The list of textures to blit can be empty.
+
+Result: A texture of dimensions `w` times `h` on which all `textures` have been blit at the specified locations. The background is black and transparent.
+
+===== `[inventorycube{<top>{<left>{<right>`
+
+Renders a cube with the three given textures using simple software rendering. The resulting image will be 9 times the nearest power of 2 that is large enough to represent the contain the dimensions of the largest image, clamped to a range of at least 4 and at most 64.
+
+=== Argument Escaping
+
+Argument Escaping is done using backslash (`\`). All characters can be escaped; only a few (`^` and `:`) must be escaped to allow the use of texture modifiers as arguments (not base images) within combining texture modifiers though. Nested escaping is possible; escape each backslash with a backslash for this, doubling the amount of backslashes: Nesting to a depth of `n` requires stem:[2^n] backslashes per character to be escaped.
+
+The `inventorycube` texture modifier uses a different form of escaping for it's arguments: `^` is replaced with `&`. `minetest.inventorycube(top, left, right)` can be used to apply this replacement. It is not possible to nest the `inventorycube` texture modifier within itself as it uses curly braces for separating it's arguments but does not provide a way of escaping them.
+
+Example escaping implementation:
+
+[source,lua]
+----
+local function escape_argument(texture_modifier)
+	return texture_modifier:gsub(".", {["\\"] = "\\\\", ["^"] = "\\^", [":"] = "\\:"})
+end
+----
+
+=== Grouping
+
+The operands of the overlaying operator may be enclosed within brackets to force them being evaluated first. This is only reasonable to force evaluation of texture modifiers before an overlay operation.
+
+Grouping can not be used to use texture modifiers within combining texture modifiers. You must use escaping for that.
+
+TIP: Use grouping like this: `a^[multiply:green^(b^[multiply:red)`
+
+[WARNING]
+Grouping can not be used to group combining texture modifiers like `mask`, as brackets may not include only the right-hand side of an operator. You must use escaping instead. The following texture modifiers are all invalid:
+* `a(^b)`, `(a^)b`
+* `a(^[mask:b)`, `(a^)[mask:b`
+* `a^mask:(b^c)`
