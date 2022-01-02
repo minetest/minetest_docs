@@ -6,140 +6,140 @@ WARNING: This is missing the default values for everything
 
 == `player` only
 
-=== hp_max
+=== `hp_max`
 
 Sets the max HP of a player. Wanted value is `u16`.
 
-=== breath_max
+=== `breath_max`
 
 Sets the max breath of a player. Wanted value is `u16`.
 
-=== eye_height
+=== `eye_height`
 
 How high the camera is in nodes about the player's feet. Wanted value is `f32`.
 
-=== zoom_fov
+=== `zoom_fov`
 
 Not sure.
 
 == All
 
-=== physical
+=== `physical`
 
 Collides with nodes that are `walkable`. Wanted value is `bool`.
 
-=== collide_with_objects
+=== `collide_with_objects`
 
 Collides with other objects, physical must be `true`. Wanted value is `bool`.
 
-=== collisionbox
+=== `collisionbox`
 
 The collision box of an object. Wanted value is `{xmin, ymin, zmin, xmax, ymax, zmax}` (in nodes from the center of the object/ object position).
 
-=== selectionbox
+=== `selectionbox`
 
 The selection box of an object, if not set, uses `collisionbox`. Wanted value is `{xmin, ymin, zmin, xmax, ymax, zmax}` (in nodes from the object).
 
-=== pointable
+=== `pointable`
 
 Whether the object can be pointed at. Wanted value is `bool`.
 
-=== visual
+=== `visual`
 
 Not sure. Wanted value is `string`.
 
-=== mesh
+=== `mesh`
 
 Not sure. Wanted value is `string`.
 
-=== visual_size
+=== `visual_size`
 
 Visual size multipliers. Wanted value is `vector` (`{x = x, y = y, z = z}`), if `z` is not provided, `x` will be used for the `z` value.
 
-=== textures
+=== `textures`
 
 Wanted value is `{"texture.png", "texture.png", ...}`. The number of textures depends on `visual`.
 
-=== colors
+=== `colors`
 
 Not sure
 
-=== spritediv
+=== `spritediv`
 
 Not sure. Wanted value is `{x = x, y = y}`.
 
-=== initial_sprite_basepos
+=== `initial_sprite_basepos`
 
 Not sure. Want value is `{x = x, y = y}`.
 
-=== is_visible
+=== `is_visible`
 
 Whether the object is visible and can be pointed at. Wanted value is `bool`.
 
-=== makes_footstep_sound
+=== `makes_footstep_sound`
 
 Whether the object makes a footstep sound when it steps on nodes that that have footstep sounds. Wanted value is `bool`.
 
-=== stepheight
+=== `stepheight`
 
 How high in nodes the object can step up. Wanted value is `f32`.
 
-=== automatic_rotate
+=== `automatic_rotate`
 
 Wanted value is `f32`.
 
-=== automatic_face_movement_dir
+=== `automatic_face_movement_dir`
 
 Not sure. Wanted value is `int` but can be set to `false` to disable.
 
-=== backface_culling
+=== `backface_culling`
 
 Whether or not a model is backface culled Wanted value is `bool`.
 
-=== glow
+=== `glow`
 
 Wanted value is `int`.
 
-=== nametag
+=== `nametag`
 
 Text displayed about an object, empty by default for all objects except players, in which case, it is their name. Wanted value is `string`.
 
-=== nametag_color
+=== `nametag_color`
 
 The color that the nametag text will be. Wanted value is `ColorSpec`.
 
-=== nametag_bgcolor
+=== `nametag_bgcolor`
 
 Wanted value is `ColorSpec` but can be set to `false` to disable.
 
-=== automatic_face_movement_max_rotation_per_sec
+=== `automatic_face_movement_max_rotation_per_sec`
 
 Not sure.
 
-=== infotext 
+=== `infotext`
 
 When a player points at the object, they will be shown the text. Wanted value is `string`.
 
-=== static_save
+=== `static_save`
 
 Whether the object is saved  statically, if not, it will be deleted when the world block is unloaded. Wanted value is `bool`.
 
-=== wield_item
+=== `wield_item`
 
 Wanted value is `ItemString`.
 
-=== use_texture_alpha
+=== `use_texture_alpha`
 
 Whether or not the texture's alpha should be used. Wanted value is `bool`.
 
-=== shaded
+=== `shaded`
 
 Whether or not diffuse lighting is enabled for the object. Wanted value is `bool`.
 
-=== show_on_minimap
+=== `show_on_minimap`
 
 Whether or not the object is visible on the minimap. Wanted value is `bool`.
 
-=== damage_texture_modifier
+=== `damage_texture_modifier`
 
 A texture modifier that will be appended to the object's current textures for the duration of the damage flash when the object is damaged. Wanted value is `string`.
