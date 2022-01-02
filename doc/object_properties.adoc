@@ -14,6 +14,7 @@ WARNING: This is missing the default values for everything
 * internal type: `u16`
 
 Sets the max HP of a player.
+Clamped if it goes above the `u16` max value.
 
 === `breath_max`
 * internal type: `u16`
