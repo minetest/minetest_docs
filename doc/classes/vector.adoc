@@ -1,0 +1,65 @@
+= Vector API
+include::../../include/config.adoc[]
+:description: Documentation for the Vector class and API
+:keywords: mod, library, vector, x, y, z, pos, position
+
+== `vector` Namespace
+
+NOTE: The `vector` type used to be a simple `table` with `x`, `y`, and `z` values.
+However it has more recently been given metatable methods for convenience.
+Unless otherwise noted, the `vector` type always refers to the metatable-enhanced variety.
+Due note that functions here will accept an old-style (non-metatable) `vector`, but you cannot perform metatable operations with said `vector`.
+
+=== `vector.new(a, b, c) -> vector`
+* `a`: `number`, `vector`, or `nil`
+* `b`, `c`: `number` or `nil`
+
+Returns a new vector table based on the input arguments:
+
+`a`, `b`, and `c` are `number`:: Returns a new `vector` where `{x = a, y = b, z = c}`
+`a` is a `vector`:: Returns `vector.copy(a)`
+All parameters are `nil`:: Returns `vector.zero()`
+
+=== `vector.zero() -> vector`
+Returns a new `vector` where `{x = 0, y = 0, z = 0}`
+
+=== `vector.copy(v) -> vector`
+* `v`: `vector`
+
+Returns a new `vector` where `{x = v.x, y = v.y, z = v.z}`
+
+=== `vector.from_string(s, init) -> vector, string`
+* `s`: `string`
+* `init`: `number`
+
+NOTE: This function returns an old-style (non-metatable) `vector`
+
+Returns a new `vector` parsed from `s` using `string.match()`, and any appended text after the vector data.
+Expects `s` to be in the following format: `(x, y, z)[..]` where `x`, `y`, and `z` are all valid numbers passed to `tonumber()` and `[..]` is the appended text which is also returned.
+There are some allowances in the parsing rules for extra whitespace as padding around elements, but anything after the closing parenthesis is returned verbatum.
+
+=== `vector.to_string(v) -> string`
+* `v`: `vector`
+
+Returns a `string` representation of `v` in the format `(v.x, v.y, v.z)`.
+Each component is formatted with the printf-style `%g` flag (either floating-point or scientific notation, whichever is shorter).
+
+=== `vector.equals(a, b) -> bool`
+* `a`, `b`: `vector`
+
+Returns `true` if `a` is equivalent to `b` (all components are the same).
+Returns `false` otherwise.
+
+=== `vector.length(v) -> number`
+* `v`: `vector`
+
+Returns the vectorial length (total traveled traveled distance from the origin to the end) of `v`.
+
+=== `vector.normalize(v) -> vector`
+* `v`: `vector`
+
+Returns a new `vector` which is a normalized (the vectorial length is equal to 1).
+Uses `vector.length(v)` to get the vectorial length.
+Specifically, if the length is 0, returns a new `vector` with all components being `0`.
+Otherwise, returns `vector.divide(v, length)`.
+
