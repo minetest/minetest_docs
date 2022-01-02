@@ -1,0 +1,49 @@
+= Modchannels
+
+allows ssm(server side mods) comunication to csm(client side mods) and vice versa.
+
+== minetest.x api
+
+=== minetest.mod_channel_join(channel_name)
+
+* `channel_name`: string, modchannel name
+* returns ref for use with <<methods>>
+* creates channel if not existing and joins the server on that channel
+* listen for messages on this channel with `minetest.register_on_modchannel_message`
+
+=== minetest.register_on_modchannel_message(function(channel_name, sender, message))
+
+* `channel_name`: string, modchannel name (already joined)
+* `sender`: string, empty if from a ssm, player name if from a client
+* `message`: string, message
+
+== methods
+
+=== leave()
+
+* server leaves the channel, no more messages from this channel on `minetest.register_on_modchannel_message`
+* set the ref to nil afterwords to free resources
+
+=== is_writeable()
+
+* returns boolean, true if the channel is writeable
+
+=== send_all(message)
+
+* `message`: string, limited to 65535 characters
+* sends to all ssm and csm on the channel
+* message will drop if channel is not writable or invalid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
