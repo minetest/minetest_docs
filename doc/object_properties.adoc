@@ -14,7 +14,7 @@ WARNING: This is missing the default values for everything
 * internal type: `u16`
 
 Sets the max HP of a player.
-Clamped if it goes above the `u16` max value.
+Clamped if it goes above the `u16` max value or under the `u16` min value.
 
 === `breath_max`
 * internal type: `u16`
@@ -27,6 +27,7 @@ Sets the max breath of a player.
 How high the camera is in nodes about the player's feet.
 
 === `zoom_fov`
+* internal type: `f32`
 * units: `degrees`
 
 Changes the field of view of player when they zoom. Setting to `0` disables zooming.
@@ -83,12 +84,12 @@ TIP: The `"wielditem"` value supports hardware colorization
 Name of the file of the mesh, only when using "mesh" visual.
 
 === `visual_size`
-* field type: `3d_vector`
+* field type: `vector`
 
 Visual size multipliers. Wanted value is `{x = x, y = y, z = z}`, if `z` is not provided, `x` will be used for the `z` value.
 
 === `textures`
-* field type: `{string, string, ...}`
+* field type: `string list`
 
 Wanted value is `{"texture.png", "texture.png", ...}`. The number of textures depends on `visual`:
 
@@ -207,7 +208,9 @@ A texture modifier that will be appended to the object's current textures for th
 
 == Layout of Object Properties
 
-The way these properties are laid out is in a table, the order of which is not important.
+The way these properties are laid out is in a table.
+
+NOTE: Extraneous properties will be ignored, but might be interpreted incorrectly by furutre versions of the engine, which is why it is recommended to prefix them with an underscore.
 
 == Example
 
