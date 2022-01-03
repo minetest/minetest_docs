@@ -32,8 +32,6 @@ Returns a new `vector` where `{x = v.x, y = v.y, z = v.z}`
 * `s`: `string`
 * `init`: `number`
 
-NOTE: This function returns an old-style (non-metatable) `vector`
-
 Returns a new `vector` parsed from `s` using `string.match()`, and any appended text after the vector data.
 
 Expects `s` to be in the following format: `(x, y, z)[..]` where `x`, `y`, and `z` are all valid numbers passed to `tonumber()` and `[..]` is the appended text which is also returned.
