@@ -91,9 +91,9 @@ Visual size multipliers. Wanted value is `{x = x, y = y, z = z}`, if `z` is not 
 Wanted value is `{"texture.png", "texture.png", ...}`. The number of textures depends on `visual`.
 
 === `colors`
-* field type: `unknown`
+* field type: `ColorSpec`
 
-Not sure
+WARNING: This feature is not functional.
 
 === `spritediv`
 * field type: `2d_vector`
@@ -146,7 +146,6 @@ Whether or not a model is backface culled.
 Text displayed about an object, empty by default for all objects except players, in which case, it is their name.
 
 === `nametag_color`
-* field type: `color_def` or `false`
 * internal type: `ColorSpec`
 
 The color that the nametag text will be.
