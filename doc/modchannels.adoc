@@ -32,7 +32,7 @@ allows server side mods(SSMs) comunication to client side mods(CSMs) and vice ve
 
 ==== send_all(message)
 
-* `message`: string, limited to 65535 characters
+* `message`: string, limited to 65535 bytes
 * sends to all ssm and csm on the channel
 * message will drop if channel is not writable or invalid
 
@@ -77,6 +77,6 @@ allows server side mods(SSMs) comunication to client side mods(CSMs) and vice ve
 
 ==== send_all(message)
 
-* `message`: string, limited to 65535 characters
+* `message`: string, limited to 65535 bytes
 * sends to all ssm and csm on the channel
 * message will drop if channel is not writable or invalid
