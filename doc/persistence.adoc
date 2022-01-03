@@ -66,7 +66,7 @@ Minetest alternatively offers a serializer implemented in Lua, which serializes 
 ** Lua-implementation specific bytecode: Functions serialized by PUC Lua won't work on LuaJIT and vice versa
 ** Uses `string.dump` internally: Functions may not have upvalues
 
-Userdata objects (like `ItemStack` for example) aren't supported. Threads aren't supported either.
+Userdata objects (like `ItemStack` for example) aren't supported. Threads (coroutines) aren't supported either.
 
 ==== `minetest.serialize(data)`
 
