@@ -37,12 +37,13 @@ Changes the field of view of player when they zoom. Setting to `0` disables zoom
 === `physical`
 * field type: `bool`
 
-Collides with nodes that are `walkable`.
+Whether the object collides with nodes that are `walkable`.
 
 === `collide_with_objects`
 * field type: `bool`
 
-Collides with other objects.
+Whether the object collides with other objects.
+
 CAUTION: `physical` must be set to `true` for this to take effect!
 
 === `collisionbox`
@@ -99,7 +100,7 @@ Wanted value is `{"texture.png", "texture.png", ...}`. The number of textures de
 * "upright_sprite": 2 textures
 
 === `colors`
-* field type: `ColorSpec`
+* field type: `ColorSpec table`
 
 WARNING: This feature is not functional.
 
@@ -131,7 +132,7 @@ How high in nodes the object can step up.
 === `automatic_rotate`
 * internal type: `f32`
 
-How high in nodes the object can step up.
+How fast the object automatically rotates along the `y` axis in radians/second.
 
 === `automatic_face_movement_dir`
 * field type: `int` or `false`
@@ -144,10 +145,12 @@ Make the object automatically face the direction it is moving in, the value is t
 === `backface_culling`
 * field type: `bool`
 
-Whether or not a model is backface culled.
+Whether a model is backface culled (the faces of the model who's back is towards you aren't shown)
 
 === `glow`
 * field type: `int`
+
+
 
 === `nametag`
 * field type: `string`
@@ -158,6 +161,7 @@ Text displayed about an object, empty by default for all objects except players,
 * internal type: `ColorSpec`
 
 The color that the nametag text will be.
+
 TIP: This property can be set to `false` to disable it.
 
 === `nametag_bgcolor`
