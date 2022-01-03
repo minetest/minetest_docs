@@ -88,7 +88,12 @@ Visual size multipliers. Wanted value is `{x = x, y = y, z = z}`, if `z` is not 
 === `textures`
 * field type: `{string, string, ...}`
 
-Wanted value is `{"texture.png", "texture.png", ...}`. The number of textures depends on `visual`.
+Wanted value is `{"texture.png", "texture.png", ...}`. The number of textures depends on `visual`:
+
+* "cube": 6 textures
+* "mesh": 1 texture for each mesh material
+* "sprite": 1 texture
+* "upright_sprite": 2 textures
 
 === `colors`
 * field type: `ColorSpec`
