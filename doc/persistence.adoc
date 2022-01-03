@@ -55,7 +55,7 @@ TIP: If you must use JSON (to interact with a web interface, for instance), cons
 
 === Lua
 
-Minetest alternatively offers a serializer implemented in Lua, which serializes to Lua source code, available as  and `minetest.deserialize`. The following values are supported:
+Minetest alternatively offers a serializer implemented in Lua, which serializes to Lua source code, available as `minetest.serialize` and `minetest.deserialize`. The following values are supported:
 
 * `nil`
 * booleans
