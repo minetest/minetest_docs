@@ -54,7 +54,7 @@ The collision box of an object. Wanted value is `{xmin, ymin, zmin, xmax, ymax, 
 === `selectionbox`
 * field type: `cuboid_def`
 
-The selection box of an object, if not set, uses `collisionbox`. Wanted value is `{xmin, ymin, zmin, xmax, ymax, zmax}` (in nodes from the object).
+The selection box of an object, if not set, uses `collisionbox`. Wanted value is `{xmin, ymin, zmin, xmax, ymax, zmax}` (in nodes from the center of the object/ object position).
 
 === `pointable`
 * field type: `bool`
@@ -83,7 +83,7 @@ Name of the file of the mesh, only when using "mesh" visual.
 === `visual_size`
 * field type: `3d_vector`
 
-Visual size multipliers. Wanted value is `vector` (`{x = x, y = y, z = z}`), if `z` is not provided, `x` will be used for the `z` value.
+Visual size multipliers. Wanted value is `{x = x, y = y, z = z}`, if `z` is not provided, `x` will be used for the `z` value.
 
 === `textures`
 * field type: `{string, string, ...}`
