@@ -45,7 +45,7 @@ Collides with other objects.
 CAUTION: `physical` must be set to `true` for this to take effect!
 
 === `collisionbox`
-TIP: This could maybe be linked somewhere else.
+//TIP: This could maybe be linked somewhere else.
 
 * field type: `cuboid_def`
 
@@ -73,7 +73,9 @@ Possible values:
 * `"upright_sprite"`: A texture that is flat and faces upright
 * `"wielditem"`: Used for dropped items, see the `wield_item` property
 
-Not sure.
+What the object will look like.
+
+TIP: The `"wielditem"` value supports hardware colorization
 
 === `mesh`
 * field type: `string`
@@ -103,12 +105,12 @@ WARNING: This feature is not functional.
 === `spritediv`
 * field type: `2d_vector`
 
-Not sure. Wanted value is `{x = x, y = y}`.
+Determines the number of columns, rows in a spritesheet texture, which is used for animations.. Wanted value is `{x = columns, y = rows}`.
 
 === `initial_sprite_basepos`
 * field type: `2d_vector`
 
-Not sure. Wanted value is `{x = x, y = y}`.
+Determines the position of the first frame to use in the spritesheet texture. Wanted value is `{x = column, y = row}`.
 
 === `is_visible`
 * field type: `bool`
@@ -132,10 +134,11 @@ How high in nodes the object can step up.
 
 === `automatic_face_movement_dir`
 * field type: `int` or `false`
+* unit: `degrees`
 
 TIP: This property can be set to `false` to disable it.
 
-Not sure.
+Make the object automatically face the direction it is moving in, the value is the offset in degrees.
 
 === `backface_culling`
 * field type: `bool`
@@ -163,9 +166,9 @@ TIP: This property can be set to `false` to disable it.
 TIP: This property can be set to `false` to disable it.
 
 === `automatic_face_movement_max_rotation_per_sec`
-* field type: `unknown`
+* field type: `int`
 
-Not sure.
+Set the maximum automatic rotation to this value, no limit is the value is less than or equal to 0.
 
 === `infotext`
 * field type: `string`
