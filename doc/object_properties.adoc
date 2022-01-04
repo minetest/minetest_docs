@@ -1,5 +1,7 @@
 = Object Properties
 include::../include/config.adoc[]
+:description: Documentaton of Object Properties
+:keywords: obj, props, object, properties
 :url-c-content-src: {url-engine-src}/script/common/c_content.cpp
 
 WARNING: There may be missing/incorrect information here,
