@@ -100,7 +100,7 @@ Wanted value is `{"texture.png", "texture.png", ...}`. The number of textures de
 * "upright_sprite": 2 textures
 
 === `colors`
-* field type: `ColorSpec table`
+* internal type: `ColorSpec table`
 
 WARNING: This feature is not functional.
 
@@ -145,12 +145,12 @@ Make the object automatically face the direction it is moving in, the value is t
 === `backface_culling`
 * field type: `bool`
 
-Whether a model is backface culled (the faces of the model who's back is towards you aren't shown)
+Whether a model is backface culled (the faces of the model who's backs are towards a player aren't rendered).
 
 === `glow`
 * field type: `int`
 
-Not sure.
+When calculating the texture color, add this much lighting. Maximum value is `minetest.LIGHT_MAX`.
 
 === `nametag`
 * field type: `string`
@@ -168,14 +168,14 @@ TIP: This property can be set to `false` to disable it.
 * field type: `color_def` or `false`
 * internal type: `ColorSpec`
 
-Not sure.
+The color that the nametag's background will be.
 
 TIP: This property can be set to `false` to disable it.
 
 === `automatic_face_movement_max_rotation_per_sec`
 * field type: `int`
 
-Set the maximum automatic rotation to this value, no limit is the value is less than or equal to 0.
+Cap the automatic rotation to this value. If the value is less than or equal to 0, there will be no maximum.
 
 === `infotext`
 * field type: `string`
@@ -217,6 +217,8 @@ A texture modifier that will be appended to the object's current textures for th
 The way these properties are laid out is in a table.
 
 NOTE: Extraneous properties will be ignored, but might be interpreted incorrectly by furutre versions of the engine, which is why it is recommended to prefix them with an underscore.
+
+NOTE: This uses regular indexing so metatables work as expected.
 
 == Example
 
