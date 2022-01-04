@@ -28,14 +28,15 @@ Returns a new `vector` where `{x = 0, y = 0, z = 0}`
 
 Returns a new `vector` where `{x = v.x, y = v.y, z = v.z}`
 
-=== `vector.from_string(s, init) -> vector, string`
+=== `vector.from_string(s, init) -> vector, number`
 * `s`: `string`
 * `init`: `number`
 
-Returns a new `vector` parsed from `s` using `string.match()`, and any appended text after the vector data.
+Returns a new `vector` parsed from `s` using `string.match`, followed by the number of matched values (should be 3, one for each `vector` component).
 
-Expects `s` to be in the following format: `(x, y, z)[..]` where `x`, `y`, and `z` are all valid numbers passed to `tonumber()` and `[..]` is the appended text which is also returned.
-There are some allowances in the parsing rules for extra whitespace as padding around elements, but anything after the closing parenthesis is returned verbatim.
+Expects `s` to be in the following format: `(x, y, z)` where `x`, `y`, and `z` are all valid numbers passed to `tonumber`.
+There are some allowances in the parsing rules for extra whitespace as padding around elements.
+You may set the position in `s` where `string.match` will begin parsing via `init`.
 
 === `vector.to_string(v) -> string`
 * `v`: `vector`
