@@ -9,9 +9,8 @@ Allows server side mods (SSMs) communication to client side mods (CSMs) and vice
 ==== minetest.mod_channel_join(channel_name)
 
 * `channel_name`: string, modchannel name
-* returns ref for use with <<Methods>>
-* creates channel if not existing and joins the server on that channel
-* listen for messages on this channel with `minetest.register_on_modchannel_message`
+
+Returns a object for use with <<Methods>>. Creates the channel if it does not exist and joins the channel.
 
 ==== minetest.register_on_modchannel_message(function(channel_name, sender, message))
 
@@ -25,8 +24,9 @@ NOTE: `channel` here means the object returned by `minetest.mod_channel_join`.
 
 ==== channel:leave()
 
-* server leaves the channel, no more messages from this channel on `minetest.register_on_modchannel_message`
-* set the ref to nil afterwords to free resources
+The server will leave the channel, meaning no more messages from this channel on `minetest.register_on_modchannel_message`
+
+TIP: set the ref to nil afterwords to free resources
 
 ==== channel:is_writeable()
 
@@ -45,9 +45,8 @@ NOTE: `channel` here means the object returned by `minetest.mod_channel_join`.
 ==== minetest.mod_channel_join(channel_name)
 
 * `channel_name`: string, modchannel name
-* returns ref for use with <<Methods>>
-* creates channel if not existing and joins the server on that channel
-* listen for messages on this channel with `minetest.register_on_modchannel_message`
+
+Returns a object for use with <<Methods>>. Creates the channel if it does not exist and joins the channel.
 
 ==== minetest.register_on_modchannel_message(function(channel_name, sender, message))
 
@@ -72,8 +71,9 @@ NOTE: `channel` here means the object returned by `minetest.mod_channel_join`.
 
 ==== channel:leave()
 
-* server leaves the channel, no more messages from this channel on `minetest.register_on_modchannel_message`
-* set the ref to nil afterwords to free resources
+The server will leave the channel, meaning no more messages from this channel on `minetest.register_on_modchannel_message`
+
+TIP: set the ref to nil afterwords to free resources
 
 ==== channel:is_writeable()
 
