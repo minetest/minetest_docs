@@ -10,13 +10,16 @@ TIP: The respective source code is located https://github.com/minetest/minetest/
 NOTE: The `vector` type used to be a simple `table` with `x`, `y`, and `z` values.
 However it has more recently been given metatable methods for convenience.
 Unless otherwise noted, the `vector` type always refers to the metatable-enhanced variety.
-Due note that functions here will accept an old-style (non-metatable) `vector`, but you cannot perform metatable operations with said `vector`.
+Do note that functions here will accept an old-style (non-metatable) `vector`, but you cannot perform metatable operations with said `vector`.
 
 === `vector.new(a, b, c) -> vector`
 * `a`: `number`, `vector`, or `nil`
 * `b`, `c`: `number` or `nil`
 
 If `a`, `b`, and `c` are `number`:: Returns a new `vector` where `{x = a, y = b, z = c}`
+
+NOTE: {deprecated}
+
 If `a` is a `vector`:: Returns `vector.copy(a)`
 If all parameters are `nil`:: Returns `vector.zero()`
 
