@@ -35,7 +35,7 @@ Returns a new `vector` where `{x = v.x, y = v.y, z = v.z}`
 Returns a new `vector` parsed from `s` using `string.match()`, and any appended text after the vector data.
 
 Expects `s` to be in the following format: `(x, y, z)[..]` where `x`, `y`, and `z` are all valid numbers passed to `tonumber()` and `[..]` is the appended text which is also returned.
-There are some allowances in the parsing rules for extra whitespace as padding around elements, but anything after the closing parenthesis is returned verbatum.
+There are some allowances in the parsing rules for extra whitespace as padding around elements, but anything after the closing parenthesis is returned verbatim.
 
 === `vector.to_string(v) -> string`
 * `v`: `vector`
@@ -56,7 +56,7 @@ Returns `false` otherwise.
 
 Returns the vectorial length (total traveled traveled distance from the origin to the end) of `v`.
 
-The equation for the length is: stem:[sqrt(x^2 + y^2 + z^2)].
+The formula for the length is: stem:[sqrt(x^2 + y^2 + z^2)].
 
 === `vector.normalize(v) -> vector`
 * `v`: `vector`
@@ -92,8 +92,10 @@ Returns a new `vector` where each component of `v` has had `func()` applied to i
 
 Returns a `number` which is equal to the distance between `a` and `b`.
 
+Distance is equal to the scalar (single number) result of stem:[|bar a - bar b|].
+
 === `vector.direction(pos1, pos2) -> vector`
-* `post1`, `pos2`: `vector`
+* `pos1`, `pos2`: `vector`
 
 Returns a new, normalized `vector` equal to the direction from `pos1` to `pos2`.
 
@@ -171,12 +173,12 @@ Returns `false` otherwise.
 * `v`, `axis`: `vector`
 * `angle`: `number`
 
-Returns a new `vector` which is equal to `v` rotated around `axis` by `angle` radians.
+Returns a new `vector` which is equal to `v` rotated around `axis` by `angle` radians counter-clockwise.
 
 === `vector.rotate(v, rot) -> vector`
 * `v`, `rot`: `vector`
 
-Returns a new `vector` which is equal to `v` rotated by `rot`.
+Returns a new `vector` which is equal to `v` rotated by `rot` counter-clockwise.
 
 The way that the components of `rot` map is as follows:
 
@@ -188,7 +190,7 @@ The way that the components of `rot` map is as follows:
 * `forward`: `vector`
 * `up`: `vector` or `nil`
 
-Returns a new rotational `vector` (the same kind as `rot` in `vector.rotate()`) equal to the rotation from `up` to `forward`.
+Returns a new rotational `vector` (the same kind as `rot` in `vector.rotate`) equal to the rotation from `up` to `forward`.
 
 If `up` is `nil` then the returned rotational `vector` assumed that `y = 1` is up.
 
@@ -198,7 +200,7 @@ Both `up` and `forward` are normalized by the function before calculations are m
 
 Metatable-enhanced `vector` values have some convenience features to help make vector math more readable.
 They can have be used with normal math operations rather than needing to call the equivalent namespaced function.
-They also can be indexed either with named keys (`v.x` and `v["x"]`) or they can be indexed with numeric keys (`v[1]` being `v.x``, `v[2]` being `v.y`, and `v[3]` being `v.z`).
+They also can be indexed either with named keys (`v.x` and `v["x"]`) or they can be indexed with numeric keys (`v[1]` being `v.x`, `v[2]` being `v.y`, and `v[3]` being `v.z`).
 
 .Using Metatable `vectors`
 ====
@@ -247,10 +249,12 @@ NOTE: Unlike `vector.subtract()` this does not support subtracting `number` valu
 
 Returns a new `vector` where each component of `a` is multiplied by each respective component of `b`. Because of the way metatables work, either argument can be a `number` or a `vector` without any practical difference.
 
+CAUTION: This function assumes that one just one argument is a number, and will probably return confusing errors about "accessing a `nil` value" if two `vector` arguments are passed to it.
+
 === `metatable.__div(a, b) -> vector`
 * `a`: `vector`
 * `b`: `number`
 
 Returns a new `vector` where each component of `a` is divided by `b`.
 
-WARNING: This function assumes `b` is a number, and will probably return confusing errors about "accessing a `nil` value" if it is not.
+CAUTION: This function assumes `b` is a number, and will probably return confusing errors about "accessing a `nil` value" if it is not.
