@@ -35,8 +35,10 @@ TIP: set the channel to nil afterwords to free resources
 ==== channel:send_all(message)
 
 * `message`: string, limited to 65535 bytes
-* sends to all ssm and csm on the channel
-* message will drop if channel is not writable or invalid
+
+Sends to all SSMs and CSMs on the channel.
+
+TIP: The message will drop if channel is not writable or invalid
 
 == Client Side API
 
@@ -82,5 +84,7 @@ TIP: set the channel to nil afterwords to free resources
 ==== channel:send_all(message)
 
 * `message`: string, limited to 65535 bytes
-* sends to all ssm and csm on the channel
-* message will drop if channel is not writable or invalid
+
+Sends to all SSMs and CSMs on the channel.
+
+TIP: The message will drop if channel is not writable or invalid
