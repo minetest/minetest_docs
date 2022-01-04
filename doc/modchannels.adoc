@@ -26,7 +26,7 @@ NOTE: `channel` here means the object returned by `minetest.mod_channel_join`.
 
 The server will leave the channel, meaning no more messages from this channel on `minetest.register_on_modchannel_message`
 
-TIP: set the ref to nil afterwords to free resources
+TIP: set the channel to nil afterwords to free resources
 
 ==== channel:is_writeable()
 
@@ -73,7 +73,7 @@ NOTE: `channel` here means the object returned by `minetest.mod_channel_join`.
 
 The server will leave the channel, meaning no more messages from this channel on `minetest.register_on_modchannel_message`
 
-TIP: set the ref to nil afterwords to free resources
+TIP: set the channel to nil afterwords to free resources
 
 ==== channel:is_writeable()
 
