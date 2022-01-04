@@ -1,6 +1,6 @@
 = Modchannels
 
-allows server side mods(SSMs) comunication to client side mods(CSMs) and vice versa.
+Allows server side mods (SSMs) communication to client side mods (CSMs) and vice versa.
 
 == Server Side API
 
@@ -21,16 +21,18 @@ allows server side mods(SSMs) comunication to client side mods(CSMs) and vice ve
 
 === Methods
 
-==== leave()
+NOTE: `channel` here means the object returned by `minetest.mod_channel_join`.
+
+==== channel:leave()
 
 * server leaves the channel, no more messages from this channel on `minetest.register_on_modchannel_message`
 * set the ref to nil afterwords to free resources
 
-==== is_writeable()
+==== channel:is_writeable()
 
 * returns boolean, true if the channel is writeable
 
-==== send_all(message)
+==== channel:send_all(message)
 
 * `message`: string, limited to 65535 bytes
 * sends to all ssm and csm on the channel
@@ -66,16 +68,18 @@ allows server side mods(SSMs) comunication to client side mods(CSMs) and vice ve
 
 === Methods
 
-==== leave()
+NOTE: `channel` here means the object returned by `minetest.mod_channel_join`.
+
+==== channel:leave()
 
 * server leaves the channel, no more messages from this channel on `minetest.register_on_modchannel_message`
 * set the ref to nil afterwords to free resources
 
-==== is_writeable()
+==== channel:is_writeable()
 
 * returns boolean, true if the channel is writeable
 
-==== send_all(message)
+==== channel:send_all(message)
 
 * `message`: string, limited to 65535 bytes
 * sends to all ssm and csm on the channel
