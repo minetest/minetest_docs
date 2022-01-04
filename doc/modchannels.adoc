@@ -10,13 +10,15 @@ Allows server side mods (SSMs) communication to client side mods (CSMs) and vice
 
 * `channel_name`: string, modchannel name
 
-Returns a object for use with <<Methods>>. Creates the channel if it does not exist and joins the channel.
+Returns an object for use with <<Methods>>. Creates the channel if it does not exist and joins the channel.
 
 ==== minetest.register_on_modchannel_message(function(channel_name, sender, message))
 
 * `channel_name`: string, modchannel name (already joined)
-* `sender`: string, empty if from a ssm, player name if from a client
+* `sender`: string, empty if from a SSM, player name if from a client
 * `message`: string, message
+
+Used for handling messages received from the client.
 
 === Methods
 
@@ -26,11 +28,11 @@ NOTE: `channel` here means the object returned by `minetest.mod_channel_join`.
 
 The server will leave the channel, meaning no more messages from this channel on `minetest.register_on_modchannel_message`
 
-TIP: set the channel to nil afterwords to free resources
+TIP: Set the channel to `nil`` afterwords to free resources
 
 ==== channel:is_writeable()
 
-* returns boolean, true if the channel is writeable
+* Returns `bool`: `true` true if the channel is writeable, `false` if it's not.
 
 ==== channel:send_all(message)
 
@@ -38,7 +40,7 @@ TIP: set the channel to nil afterwords to free resources
 
 Sends to all SSMs and CSMs on the channel.
 
-TIP: The message will drop if channel is not writable or invalid
+Caution: The message will not if channel is not writable or invalid.
 
 == Client Side API
 
@@ -48,13 +50,15 @@ TIP: The message will drop if channel is not writable or invalid
 
 * `channel_name`: string, modchannel name
 
-Returns a object for use with <<Methods>>. Creates the channel if it does not exist and joins the channel.
+Returns an object for use with <<Methods>>. Creates the channel if it does not exist and joins the channel. Is equivalent to the the server side function.
 
 ==== minetest.register_on_modchannel_message(function(channel_name, sender, message))
 
 * `channel_name`: string, modchannel name (already joined and recieved acknowledgement)
-* `sender`: string, empty if from a ssm, player name if from a client
+* `sender`: string, empty if from a SSM, player name if from a client
 * `message`: string, message
+
+Used for handling messages received from the client. Is equivalent to the the server side function.
 
 ==== minetest.register_on_modchannel_signal(function(channel_name, signal))
 * `channel_name`: string, channel name that the signal has come in on
@@ -73,13 +77,13 @@ NOTE: `channel` here means the object returned by `minetest.mod_channel_join`.
 
 ==== channel:leave()
 
-The server will leave the channel, meaning no more messages from this channel on `minetest.register_on_modchannel_message`
+The client will leave the channel, meaning no more messages from this channel on `minetest.register_on_modchannel_message`
 
-TIP: set the channel to nil afterwords to free resources
+TIP: Set the channel to `nil`` afterwords to free resources
 
 ==== channel:is_writeable()
 
-* returns boolean, true if the channel is writeable
+* Returns `bool`: `true` true if the channel is writeable, `false` if it's not.
 
 ==== channel:send_all(message)
 
@@ -87,4 +91,4 @@ TIP: set the channel to nil afterwords to free resources
 
 Sends to all SSMs and CSMs on the channel.
 
-TIP: The message will drop if channel is not writable or invalid
+Caution: The message will not if channel is not writable or invalid.
