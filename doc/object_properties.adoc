@@ -26,13 +26,13 @@ Sets the max breath of a player.
 === `eye_height`
 * internal type: `f32`
 
-How high the camera is in nodes about the player's feet.
+Sets the camera height. Measured in nodes above the player's feet.
 
 === `zoom_fov`
 * internal type: `f32`
 * units: `degrees`
 
-Sets the field of view of the player when they zoom. Setting to `0` disables zooming.
+Sets the field of view of the player when they zoom, in degrees. Setting to `0` disables zooming.
 
 == Properties Applying to All Objects
 
@@ -59,6 +59,8 @@ The collision box of an object. Wanted value is `{xmin, ymin, zmin, xmax, ymax, 
 * field type: `cuboid_def`
 
 The selection box of an object, if not set, uses `collisionbox`. Wanted value is `{xmin, ymin, zmin, xmax, ymax, zmax}` (in nodes from the center of the object/ object position).
+
+NOTE: This uses the same format as a nodebox cuboid.
 
 === `pointable`
 * field type: `bool`
@@ -147,7 +149,7 @@ Make the object automatically face the direction it is moving in, the value is t
 === `backface_culling`
 * field type: `bool`
 
-Whether a model is backface culled (the faces of the model who's backs are towards a player aren't rendered).
+Whether a model is backface culled (the faces of the model who's backs are towards the camera aren't rendered).
 
 === `glow`
 * field type: `int`
@@ -160,11 +162,12 @@ When calculating the texture color, add this much lighting. Maximum value is `mi
 Text displayed about an object, empty by default for all objects except players, in which case, it is their name.
 
 === `nametag_color`
+* field type: `color_def` or `false`
 * internal type: `ColorSpec`
 
 The color that the nametag text will be.
 
-TIP: This property can be set to `false` to disable it.
+TIP: This property can be set to `false`(bool) to disable it.
 
 === `nametag_bgcolor`
 * field type: `color_def` or `false`
@@ -172,7 +175,7 @@ TIP: This property can be set to `false` to disable it.
 
 The color that the nametag's background will be.
 
-TIP: This property can be set to `false` to disable it.
+TIP: This property can be set to `false`(bool) to disable it.
 
 === `automatic_face_movement_max_rotation_per_sec`
 * field type: `int`
@@ -187,7 +190,7 @@ When a player points at the object, they will be shown the text.
 === `static_save`
 * field type: `bool`
 
-Whether the object is saved  statically, if not, it will be deleted when the world block is unloaded.
+Whether the object is saved statically, if not, it will be deleted when the world block is unloaded.
 
 === `wield_item`
 * internal type: `ItemString`
@@ -202,12 +205,12 @@ Whether or not the texture's alpha should be used.
 === `shaded`
 * field type: `bool`
 
-Whether or not diffuse lighting is enabled for the object.
+Controls whether or not diffuse lighting is applied to the object.
 
 === `show_on_minimap`
 * field type: `bool`
 
-Whether or not the object is visible on the minimap.
+Controls whether or not the object is visible on the minimap.
 
 === `damage_texture_modifier`
 * field type: `string`
