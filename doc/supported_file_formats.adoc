@@ -8,13 +8,35 @@ Minetest is able to read several types of file formats for use as assets in-game
 == Images
 [grid="all"]
 [options="header",stripes=even,cols="^.^,<.^,^.^,^.^,^.^"]
-|=======================
-| Format ^| General Usecase | Can be written by Lua | Can be read by Lua | Lossless optimization
-| PNG (`.png`) | All-round good losslessly compressed image format. | Yes (`minetest.encode_png()` ^(5.5+)^) (Third-party library ^(-5.4)^) | Yes (Third-party library) | http://optipng.sourceforge.net/[optipng] (use MTG's https://github.com/minetest/minetest_game/blob/master/utils/optimize_textures.sh[optimize_textures.sh] script for best result)
-| JPEG (`.jpg .jpeg`) | Lossily compressed images (e.g. photorealistic skyboxes and large textures) | No | No .3+| N/A
-| TGA (`.tga`) | Easy to programmatically encode and decode due to being a simple image format | Yes (Third-party library) | No
-| BMP (`.bmp`) | Keeping IrrlichtMt running | No | No
-|=======================
+|===
+| Format
+^| General Usecase
+| Can be written by Lua
+| Can be read by Lua
+| Lossless optimization
+
+| PNG (`.png`)
+| All-round good losslessly compressed image format.
+| Yes (`minetest.encode_png()` ^(5.5+)^) (Third-party library ^(-5.4)^)
+| Yes (Third-party library)
+| http://optipng.sourceforge.net/[optipng] (use MTG's https://github.com/minetest/minetest_game/blob/master/utils/optimize_textures.sh[optimize_textures.sh] script for best result)
+
+| JPEG (`.jpg .jpeg`)
+| Lossily compressed images (e.g. photorealistic skyboxes and large textures)
+| No
+| No
+.3+| N/A
+
+| TGA (`.tga`)
+| Easy to programmatically encode and decode due to being a simple image format
+| Yes (Third-party library)
+| No
+
+| BMP (`.bmp`)
+| Keeping IrrlichtMt running
+| No
+| No
+|===
 
 Prior to 5.5.0, Minetest used to be able to load PCX, PPM, PSD, PVR, DDS, WAL, LMP and RGB as part of Irrlicht's image loading capabilities. These are no longer supported and should be converted to a format that is still supported.
 
@@ -35,12 +57,41 @@ Minetest's support of various model formats can be seen as lacking. This is a si
 
 [grid="all"]
 [options="header",stripes=even,cols="^.^,<.^,^.^,^.^,^.^,^.^,^.^,^.^"]
-|=======================
-|Format ^|General Usecase | File Format | Are static meshes supported? | Are animated meshes supported? | Implementation limitations | Blender importer | Blender exporter
-| OBJ (`.obj`) | Static meshes | Text | Yes | No | `.mtl` material files are not supported. 2+| Built-in
-| Blitz3D model (`.b3d`) | Animated meshes | Binary | Yes ^[1]^ | Yes | N/A .2+| None | https://github.com/GreenXenith/io_scene_b3d[io_scene_b3d]
-| DirectX 2.0 model (`.x`) | Animated meshes in text format | Binary/Text | Yes ^[1]^ | Yes | N/A | https://github.com/minetest/io_scene_x[io_scene_x] (with caveats; see README.md)
-|=======================
+|===
+| Format
+^| General Usecase
+| File Format
+| Are static meshes supported?
+| Are animated meshes supported?
+| Implementation limitations
+| Blender importer
+| Blender exporter
+
+| OBJ (`.obj`)
+| Static meshes
+| Text
+| Yes
+| No
+| `.mtl` material files are not supported.
+2+| Built-in
+
+| Blitz3D model (`.b3d`)
+| Animated meshes
+| Binary
+| Yes ^[1]^
+| Yes
+| N/A
+.2+| None
+| https://github.com/GreenXenith/io_scene_b3d[io_scene_b3d]
+
+| DirectX 2.0 model (`.x`)
+| Animated meshes in text format
+| Binary/Text
+| Yes ^[1]^
+| Yes
+| N/A
+| https://github.com/minetest/io_scene_x[io_scene_x] (with caveats; see README.md)
+|===
 
 ^[1]^ Not recommended since it will have the increased performance cost of an animated mesh.
 
