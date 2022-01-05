@@ -32,7 +32,7 @@ How high the camera is in nodes about the player's feet.
 * internal type: `f32`
 * units: `degrees`
 
-Changes the field of view of player when they zoom. Setting to `0` disables zooming.
+Sets the field of view of the player when they zoom. Setting to `0` disables zooming.
 
 == Properties Applying to All Objects
 
