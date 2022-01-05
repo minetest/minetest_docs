@@ -104,7 +104,7 @@ Wanted value is `{"texture.png", "texture.png", ...}`. The number of textures de
 === `colors`
 * internal type: `ColorSpec table`
 
-WARNING: This feature is not functional.
+CAUTION: This feature is not functional.
 
 === `spritediv`
 * field type: `2d_vector`
