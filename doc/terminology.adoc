@@ -1,0 +1,9 @@
+= Terminology
+
+== Lua
+
+Class:: A metatable that sets `__index`
+Instance:: An object that has a Class set as it's metatable
+Method:: A function entry in the metatable, callable using `instance:method(args)`
+List:: A table using only the list part (that is, only keys from `1` to `#table`)
+Integer:: A Lua number without fractional part (will be stored as a double though)
