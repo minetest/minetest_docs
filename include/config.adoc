@@ -11,3 +11,4 @@ Minetest-Docs and contributors
 :url-lua-api: https://github.com/minetest/minetest/blob/master/doc/lua_api.txt
 :url-reference-manual: https://www.lua.org/manual/5.1/manual.html
 :url-engine-src: https://github.com/minetest/minetest/blob/master/src
+:deprecated: The following call(s) are deprecated, please don't use them as they will be removed in a future version of the engine.
