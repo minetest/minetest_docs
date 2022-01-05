@@ -63,7 +63,7 @@ The selection box of an object, if not set, uses `collisionbox`. Wanted value is
 === `pointable`
 * field type: `bool`
 
-Whether the object can be pointed at.
+Controls whether the object can be pointed at.
 
 === `visual`
 * field type: `string`
