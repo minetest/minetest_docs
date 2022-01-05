@@ -65,7 +65,7 @@ All we need to know is that it helps us handle `ThatObject`. What it actually do
 === Internal Implementations
 In general, describing internal implementations is unnecessary and confusing. Avoid it unless absolutely essential for understanding something.
 
-This applies to meta implementations as well. For example, given the constructor `YourObject()`, do not document it as `YourObject.new(self, o)`. When describing the constructor, say "Creates and returns a new `YourObject`". Do not go into unnecessary detail about what it does under the hood, such as `__index` management.
+This applies to meta implementations as well. For example, given the constructor `YourObject()`, do not document it as `YourObject.new(self, o)`. When describing the constructor, say "Creates and returns a new `YourObject` ". Do not go into unnecessary detail about what it does under the hood, such as `__index` management.
 
 == Format
 See link:templates/standard.adoc[standard template] for an example.
