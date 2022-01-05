@@ -89,7 +89,7 @@ Name of the file of the mesh, only when using "mesh" visual.
 === `visual_size`
 * field type: `vector`
 
-Visual size multipliers. Wanted value is `{x = x, y = y, z = z}`, if `z` is not provided, `x` will be used for the `z` value.
+Visual size multipliers. Wanted value is `{x = x, y = y, z = z}`. If `z` is not provided, `x` will be used for the `z` value.
 
 === `textures`
 * field type: `string list`
