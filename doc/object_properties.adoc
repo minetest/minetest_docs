@@ -77,7 +77,7 @@ Possible values:
 * `"upright_sprite"`: A texture that is flat and faces upright
 * `"wielditem"`: Used for dropped items, see the `wield_item` property
 
-What the object will look like.
+Sets what the object will look like.
 
 TIP: The `"wielditem"` value supports hardware colorization
 
