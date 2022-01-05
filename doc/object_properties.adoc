@@ -44,7 +44,7 @@ Whether the object collides with nodes that are `walkable`.
 === `collide_with_objects`
 * field type: `bool`
 
-Whether the object collides with other objects.
+Controls whether the object collides with other objects.
 
 CAUTION: `physical` must be set to `true` for this to take effect!
 
