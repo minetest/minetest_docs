@@ -35,7 +35,7 @@ local emin, emax = vm:read_from_map(p1, p2) -- Emerged minimum and maximum posit
 === Grammar and Punctuation
 * Always capitalize proper names and first letters in plain text.
     ** Capitalization in quotation marks is not required and usually discouraged. The goal of quotation in documentation is to mirror _exactly_.
-* End all plain text with a period. This does not apply to code exmaples.
+* End all plain text with a period. This does not apply to code examples.
 * Use the Oxford (or serial) comma. It helps reduce confusion.
 
 
