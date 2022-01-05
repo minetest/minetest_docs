@@ -25,9 +25,9 @@ TIP: Use texture modifiers mostly statically. Keep dynamically generated texture
 
 WARNING: Large texture modifiers may https://github.com/minetest/minetest/issues/11829[freeze the client].
 
-WARNING: Out-of-bounds memory reads using certain texture modifiers have been reported.
+WARNING: Out-of-bounds memory reads are possible using certain texture modifiers. Example: `[lowpart:0:blank.png`.
 
-WARNING: Certain texture modifiers leading to client segmentation faults have been reported.
+WARNING: Certain texture modifiers lead to client segmentation faults.
 
 WARNING: Syntactically invalid parts of texture modifiers may silently be ignored.
 
