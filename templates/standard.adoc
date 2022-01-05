@@ -1,48 +1,109 @@
-= Pomegranates
+= `Vehicle`
 include::../include/config.adoc[]
-:description: A sample template for using AsciiDoc.
-:keywords: sample
+:description: The standard style template for documentation.
+:keywords: standard, template
 
-This is a sample template of how a good AsciiDoc can be structured.
+This is the standard template of how a good AsciiDoc should be structured.
 This pragraph describes the purpose of the document.
-In this sample, an imaginary API
-for producing pomegranates will be documented.
+In this example, an imaginary API for a vehicle will be documented.
 
-So without further ado, here is what we should see when we are done.
+== `Vehicle` Properties
 
-[#img-pomegranate]
-.The Expected Result
-image::pomegranate.png[Pomegranate]
+=== `make: string`
+The make of the vehicle.
 
-== Pomegranate API Methods
+=== `model: string`
+The model of the vehicle.
 
-=== `plant_tree(pos, name)`
-* `pos`: `vector`
-* `name`: `string`
+=== `year: number`
+The year of the vehicle.
 
-Plants a tree of type `name` at `pos`
-if `name` is a registered pomegranate tree.
+=== `trim: string`
+The trim of the vehicle.
 
-.Planting A Tree
+=== `color: ColorSpec`
+The color of the vehicle.
+
+== `Vehicle` Methods
+
+=== `vehicle.new(pos: vector, properties: table) -> Vehicle`
+* `pos`: The position at which the vehicle will be spanwed.
+* `properties`: A `table` of Vehicle properties (link).
+
+Creates a new instance of a `Vehicle` at the given position and returns the new object.
+
+.Creating a Vehicle
 ====
 
 [source,lua]
 ----
-plant_tree(vector.new(35, 42, 36), "regular")
+local minivan = vehicle.new(vector.new(35, 2, 36), {
+    make = "Toyota",
+    model = "Previa",
+    year = 1992,
+    trim = "LE",
+    color = "white",
+})
 ----
 
 ====
 
-=== `grow_tree(pos)`
-* `pos`: `vector`
+=== `set_properties(properties: table)`
+* `properties`: A `table` of Vehicle properties (link).
 
-Grows the tree at `pos` if the node at `pos` is a valid pomegranate tree.
+Sets the properties of the vehicle.
 
-=== `spray_tree(pos, pesticide)`
-* `pos`: `vector`
-* `pesticide`: `string`
+=== `get_properties() -> table`
 
-Sprays tree at `pos` with `pesticide` if it is a registered chemical.
+Returns a `table` of Vehicle properties (link).
 
-== Source
-You can contribute to the documentation at {url-docs-repo}[our GitHub repository]!
+=== `set_pos(pos: vector)`
+* `pos`: Where to place the vehicle.
+
+=== `get_pos() -> vector`
+
+Returns the position of the vehicle.
+
+=== `set_gear(gear: number) -> boolean`
+* `gear`: The gear to shift to. Should be one of
+    ** `-1`: Reverse
+    ** `0`: Park
+    ** `1` - `3`: First - third gear
+
+Returns `true` upon success, `false` otherwise.
+
+=== `get_gear() -> number`
+
+Returns the current gear of the vehicle as a number. See `set_gear` for expected values (link).
+
+== Global `Vehicle` Functions
+
+=== `gear_to_name(gear: number) -> string`
+* `gear`: The gear number to convert.
+
+Returns the name of the given gear. Expected return values:
+
+* `-1`: `reverse`
+* `0`: `park`
+* `1`: `first`
+* `2`: `second`
+* `3`: `third`
+
+=== `is_electric(make: string, model: string, year: number) -> boolean`
+* `make`: The make of the vehicle.
+* `model`: The model of the vehicle.
+* `year`: The year of the vehicle.
+
+Returns `true` if the given vehicle is electric, `false` otherwise.
+
+.Checking an Electric Vehicle
+====
+
+[source,lua]
+----
+local ev = is_electric("Toyota", "Previa", 1992) -- false
+----
+
+====
+
+Made with https://asciidoctor.org/[AsciiDoctor] | Contribute on {url-docs-repo}[GitHub]
