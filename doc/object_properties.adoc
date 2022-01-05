@@ -39,7 +39,7 @@ Sets the field of view of the player when they zoom. Setting to `0` disables zoo
 === `physical`
 * field type: `bool`
 
-Whether the object collides with nodes that are `walkable`.
+Controls whether the object collides with nodes that are `walkable`.
 
 === `collide_with_objects`
 * field type: `bool`
