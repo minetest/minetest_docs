@@ -167,7 +167,7 @@ Text displayed about an object, empty by default for all objects except players,
 
 The color that the nametag text will be.
 
-TIP: This property can be set to `false`(bool) to disable it.
+TIP: This property can be set to `false` to disable it.
 
 === `nametag_bgcolor`
 * field type: `color_def` or `false`
@@ -175,7 +175,7 @@ TIP: This property can be set to `false`(bool) to disable it.
 
 The color that the nametag's background will be.
 
-TIP: This property can be set to `false`(bool) to disable it.
+TIP: This property can be set to `false` to disable it.
 
 === `automatic_face_movement_max_rotation_per_sec`
 * field type: `int`
