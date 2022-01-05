@@ -29,13 +29,13 @@ Returns a new `vector` where `{x = 0, y = 0, z = 0}`
 === `vector.copy(v) -> vector`
 * `v`: `vector`
 
-Returns a new `vector` where `{x = v.x, y = v.y, z = v.z}`
+Returns a new `vector` where `{x = v.x, y = v.y, z = v.z}`. This is *not* equivalent to `table.copy`, as that does not set the `vector` metatable.
 
 === `vector.from_string(s, init) -> vector, number`
 * `s`: `string`
 * `init`: `number`
 
-Returns a new `vector` parsed from `s` using `string.match`, followed by the number of matched values (should be 3, one for each `vector` component).
+Returns a new `vector` parsed from `s` using `string.match`, followed by the position of the first character following the parsed data.
 
 Expects `s` to be in the following format: `(x, y, z)` where `x`, `y`, and `z` are all valid numbers passed to `tonumber`.
 There are some allowances in the parsing rules for extra whitespace as padding around elements.
@@ -74,14 +74,14 @@ Otherwise, returns `vector.divide(v, length)`.
 === `vector.floor(v) -> vector`
 * `v`: `vector`
 
-Returns a new `vector` where each component of `v` has had `math.floor()` applied to it.
+Returns a new `vector` where each component of `v` has had `math.floor` applied to it.
 
 Literally `vector.apply(v, math.floor)`.
 
 === `vector.round(v) -> vector`
 * `v`: `vector`
 
-Returns a new `vector` where each component of `v` has had `math.round()` applied to it.
+Returns a new `vector` where each component of `v` has had `math.round` applied to it.
 
 Equivalent to `vector.apply(v, math.round)`
 
@@ -89,7 +89,7 @@ Equivalent to `vector.apply(v, math.round)`
 * `v`: `vector`
 * `func`: `function`
 
-Returns a new `vector` where each component of `v` has had `func()` applied to it.
+Returns a new `vector` where each component of `v` has had `func` applied to it.
 
 === `vector.distance(a, b) -> number`
 * `a`, `b`: `vector`
@@ -124,15 +124,15 @@ Returns a new `vector` which is equal to the cross product of `a` and `b`.
 * `a`: `vector`
 * `b`: `vector` or `number`
 
-If `b` is a `vector`:: Returns a new `vector` where each component of `a` is added to each component of `b`
-If `b` is a `number`:: Returns a new `vector` where each component of `a` is added to `b`
+If `b` is a `vector`:: Returns a new `vector` where each component of `b` is added to each component of `a`
+If `b` is a `number`:: Returns a new `vector` where `b` is added to each component of `a`
 
 === `vector.subtract(a, b) -> vector`
 * `a`: `vector`
 * `b`: `vector` or `number`
 
-If `b` is a `vector`:: Returns a new `vector` where each component of `a` is subtracted from each component of `b`
-If `b` is a `number`:: Returns a new `vector` where each component of `a` is subtracted from `b`
+If `b` is a `vector`:: Returns a new `vector` where each component of `b` is subtracted from each component of `a`
+If `b` is a `number`:: Returns a new `vector` where `b` is subtracted from each component of `a`
 
 === `vector.multiply(a, b) -> vector`
 * `a`: `vector`
@@ -232,6 +232,11 @@ v3 = vector.multiply(vector.divide(vector.add(v1, v2), 2), 3)
 * `a`, `b`: `vector`
 
 Literally `vector.equals(a, b)`.
+
+=== `metatable.__unm(v) -> vector`
+* `v`: `vector`
+
+Returns a new `vector` which is the inverse of `v`.
 
 === `metatable.__add(a, b) -> vector`
 * `a`, `b`: `vector`
