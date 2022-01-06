@@ -8,8 +8,6 @@ WARNING: There may be missing/incorrect information here,
 please refer to the {url-lua-api}#L7141-L7304[Lua API]
 and the {url-c-content-src}#L186-L442[relevant engine code]
 
-WARNING: This is missing the default values for everything
-
 == Properties Applying Only to Players
 
 === `hp_max`
