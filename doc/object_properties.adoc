@@ -14,23 +14,27 @@ WARNING: This is missing the default values for everything
 
 === `hp_max`
 * internal type: `u16`
+* default value: `1`
 
 Sets the max HP of a player.
 Clamped if it goes above the `u16` max value or under the `u16` min value.
 
 === `breath_max`
 * internal type: `u16`
+* default value: `0`
 
 Sets the max breath of a player.
 
 === `eye_height`
 * internal type: `f32`
+* default value: `1.625`
 
 Sets the camera height. Measured in nodes above the player's feet.
 
 === `zoom_fov`
 * internal type: `f32`
 * units: `degrees`
+* default value: `0.0`
 
 Sets the field of view of the player when they zoom, in degrees. Setting to `0` disables zooming.
 
@@ -38,25 +42,30 @@ Sets the field of view of the player when they zoom, in degrees. Setting to `0` 
 
 === `physical`
 * field type: `bool`
+* default value: `false`
 
 Controls whether the object collides with nodes that are `walkable`.
 
 === `collide_with_objects`
 * field type: `bool`
+* default value: `true`
 
 Controls whether the object collides with other objects.
 
 CAUTION: `physical` must be set to `true` for this to take effect!
 
+NOTE: This works with players as well but you may expericence https://github.com/minetest/minetest/issues/11783[strange bugs].
+
 === `collisionbox`
 //TIP: This could maybe be linked somewhere else.
-
 * field type: `cuboid_def`
+* default value: `{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5}`
 
 The collision box of an object. Wanted value is `{xmin, ymin, zmin, xmax, ymax, zmax}` (in nodes from the center of the object/ object position).
 
 === `selectionbox`
 * field type: `cuboid_def`
+* default value: `{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5}`
 
 The selection box of an object, if not set, uses `collisionbox`. Wanted value is `{xmin, ymin, zmin, xmax, ymax, zmax}` (in nodes from the center of the object/ object position).
 
@@ -64,11 +73,13 @@ NOTE: This uses the same format as a nodebox cuboid.
 
 === `pointable`
 * field type: `bool`
+* default value: `true`
 
 Controls whether the object can be pointed at.
 
 === `visual`
 * field type: `string`
+* default value: `"sprite"`
 
 Possible values:
 
@@ -85,16 +96,18 @@ TIP: The `"wielditem"` value supports hardware colorization
 
 === `mesh`
 * field type: `string`
+* default value: `""`
 
 Name of the file of the mesh, only when using "mesh" visual.
 
 === `visual_size`
 * field type: `vector`
+* default value: `{x = 1, y = 1, z = 1}`
 
 Visual size multipliers. Wanted value is `{x = x, y = y, z = z}`. If `z` is not provided, `x` will be used for the `z` value.
 
 === `textures`
-* field type: `string list`
+* field type: `string table`
 
 Wanted value is `{"texture.png", "texture.png", ...}`. The number of textures depends on `visual`:
 
@@ -110,6 +123,7 @@ CAUTION: This feature is not functional.
 
 === `spritediv`
 * field type: `2d_vector`
+* default value: `{x = 1, y = 1}`
 
 Determines the number of columns, rows in a spritesheet texture, which is used for animations.. Wanted value is `{x = columns, y = rows}`.
 
@@ -120,27 +134,32 @@ Determines the position of the first frame to use in the spritesheet texture. Wa
 
 === `is_visible`
 * field type: `bool`
+* default value: `true`
 
 Whether the object is visible and can be pointed at.
 
 === `makes_footstep_sound`
 * field type: `bool`
+* default value: `false`
 
 Whether the object makes a footstep sound when it steps on nodes that that have footstep sounds.
 
 === `stepheight`
 * internal type: `f32`
+* default value: `0.0`
 
 How high in nodes the object can step up.
 
 === `automatic_rotate`
 * internal type: `f32`
+* default value: `0.0`
 
 How fast the object automatically rotates along the `y` axis in radians/second.
 
 === `automatic_face_movement_dir`
 * field type: `int` or `false`
 * unit: `degrees`
+* default value: `false`
 
 TIP: This property can be set to `false` to disable it.
 
@@ -148,22 +167,26 @@ Make the object automatically face the direction it is moving in, the value is t
 
 === `backface_culling`
 * field type: `bool`
+* default value: `true`
 
 Whether a model is backface culled (the faces of the model who's backs are towards the camera aren't rendered).
 
 === `glow`
-* field type: `int`
+* field type: `int8`
+* default value: `0`
 
 When calculating the texture color, add this much lighting. Maximum value is `minetest.LIGHT_MAX`.
 
 === `nametag`
 * field type: `string`
+* default value: `""`
 
-Text displayed about an object, empty by default for all objects except players, in which case, it is their name.
+Text displayed about an object, empty by default for all objects except players, in which case, it is their name. The maximum number of characters is the `u16` max value.
 
 === `nametag_color`
 * field type: `color_def` or `false`
 * internal type: `ColorSpec`
+* default value: `{a = 255, r = 255, g = 255, b = 255}`
 
 The color that the nametag text will be.
 
@@ -178,42 +201,48 @@ The color that the nametag's background will be.
 TIP: This property can be set to `false` to disable it.
 
 === `automatic_face_movement_max_rotation_per_sec`
-* field type: `int`
+* field type: `f32`
+* default value: `-1.0`
 
 Cap the automatic rotation to this value. If the value is less than or equal to 0, there will be no maximum.
 
 === `infotext`
 * field type: `string`
 
-When a player points at the object, they will be shown the text.
+When a player points at the object, they will be shown the text. The maximum number of characters is the `u16` max value.
 
 === `static_save`
 * field type: `bool`
+* default value: `true`
 
 Whether the object is saved statically, if not, it will be deleted when the world block is unloaded.
 
 === `wield_item`
 * internal type: `ItemString`
 
-Only when using "wielditem" visual
+Only when using "wielditem" visual. The maximum number of characters is the `u16` max value.
 
 === `use_texture_alpha`
 * field type: `bool`
+* default value: `false`
 
 Whether or not the texture's alpha should be used.
 
 === `shaded`
 * field type: `bool`
+* default value: `true`
 
 Controls whether or not diffuse lighting is applied to the object.
 
 === `show_on_minimap`
 * field type: `bool`
+* default value: `false`
 
 Controls whether or not the object is visible on the minimap.
 
 === `damage_texture_modifier`
 * field type: `string`
+* default value: `"^[brighten"`
 
 A texture modifier that will be appended to the object's current textures for the duration of the damage flash when the object is damaged.
 
