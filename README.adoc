@@ -1,3 +1,23 @@
 = Minetest Documentation
+include::include/config.adoc[]
 
 This is the documentation repository for the https://github.com/minetest/minetest[Minetest engine] as per the https://gist.github.com/benrob0329/df3ced15dc5a2d5402010be709452f27[proposal]
+
+== Development
+
+=== Viewing Pages with AsciiDoctor
+
+If you are not using an IDE plugin,
+you can convert your AsciiDoc files with AsciiDoctor.
+On Linux, you can install AsciiDoctor
+from your distro's package manager.
+
+You use AsciiDoctor from the command line like this:
+[code,bash]
+----
+asciidoctor <file>
+----
+
+AsciiDoctor will output an HTML file
+in the same directory as your input file,
+which you can open in your browser.
