@@ -52,7 +52,7 @@ Controls whether the object collides with other objects.
 
 CAUTION: `physical` must be set to `true` for this to take effect!
 
-NOTE: This works with players as well but you may expericence https://github.com/minetest/minetest/issues/11783[strange bugs].
+NOTE: This works with players as well but you may experience https://github.com/minetest/minetest/issues/11783[strange bugs].
 
 === `collisionbox`
 //TIP: This could maybe be linked somewhere else.
