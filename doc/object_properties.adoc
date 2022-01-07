@@ -254,6 +254,8 @@ NOTE: This uses regular indexing so metatables work as expected.
 
 == Example
 
+.Object Properties table example
+====
 [source,lua]
 ----
 {
@@ -293,3 +295,4 @@ NOTE: This uses regular indexing so metatables work as expected.
     damage_texture_modifier = "^[colorize:#FF0000:150",
 }
 ----
+====
