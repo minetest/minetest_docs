@@ -117,7 +117,7 @@ Wanted value is `{"texture.png", "texture.png", ...}`. The number of textures de
 
 === `colors`
 * internal type: `ColorSpec table`
-* default value: `{{255, 255, 255, 255}}
+* default value: `{{r = 255, g = 255, b = 255, a = 255}}`
 
 CAUTION: This feature is not functional.
 
