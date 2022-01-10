@@ -34,7 +34,7 @@ local emin, emax = vm:read_from_map(p1, p2) -- Emerged minimum and maximum posit
 
 === Grammar and Punctuation
 * Always capitalize proper names and first letters in plain text.
-    ** Capitalization in quotation marks is not required and usually discouraged. The goal of quotation in documentation is to mirror _exactly_.
+ ** Capitalization in quotation marks is not required and usually discouraged. The goal of quotation in documentation is to mirror _exactly_.
 * End all plain text with a period. This does not apply to code examples.
 * Use the Oxford (or serial) comma. It helps reduce confusion.
 
@@ -70,17 +70,54 @@ This applies to meta implementations as well. For example, given the constructor
 == Format
 See link:templates/standard.adoc[standard template] for an example.
 
+=== Includes
+* `config.adoc`: Global doc configuration.
+* `types.adoc`: Lua types formatted as `type-name` linked to the Lua PIL. Example: `{type-string}`. +
+All types should link somewhere at some point (cross-reference or outside).
+
 === Functions
 ----
-=== `function_name(parameter_name: type) -> return_types`
-* `parameter_name`: Description.
+ === function_name
+ Description of the function.
+ 
+ ==== Usage
+ ----
+ return_values = function_name(argument1, argument2)
+ ----
+ 
+ ==== Arguments
+ [%autowidth, frame=none]
+ |===
+ | `argument1`  | `type` | Argument description.
+ | `argument1` | `type` | Argument description.
+ |===
 
-Function description (with return description if applicable).
+ OR
+
+ _None_
+ 
+ ==== Returns
+ [%autowidth, frame=none]
+ |===
+ | `return_name`  | `type` | Return value description.
+ |===
+
+ OR
+
+ _None_
+ 
+ .Example title
+ ====
+ [source,lua]
+ ----
+ -- Example code
+ ----
+ ====
 ----
 
 === Tables
 ----
-=== `property_name: type`
-
-Property description.
+* `property_name:` `type`
+* `another_property:` `type`
+ ** A description.
 ----

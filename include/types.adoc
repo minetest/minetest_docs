@@ -1,0 +1,12 @@
+:url-pil: https://www.lua.org/pil
+
+:type-nil: {url-pil}/2.1.html[nil]
+:type-bool: {url-pil}/2.2.html[bool]
+:type-number: {url-pil}/2.3.html[number]
+:type-string: {url-pil}/2.4.html[string]
+:type-table: {url-pil}/2.5.html[table]
+:type-function: {url-pil}/2.6.html[function]
+:type-userdata: {url-pil}/2.7.html[userdata]
+
+// This should probably be macro'd or something
+:class-vector: link:../doc/classes/vector.adoc[vector]

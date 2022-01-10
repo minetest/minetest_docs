@@ -1,5 +1,6 @@
-= `Vehicle`
+= Vehicle
 include::../include/config.adoc[]
+include::../include/types.adoc[]
 :description: The standard style template for documentation.
 :keywords: standard, template
 
@@ -7,34 +8,38 @@ This is the standard template of how a good AsciiDoc should be structured.
 This pragraph describes the purpose of the document.
 In this example, an imaginary API for a vehicle will be documented.
 
-== `Vehicle` Properties
+== Vehicle Properties
 
-=== `make: string`
-The make of the vehicle.
+* `Vehicle.make`: `{type-string}`
+* `Vehicle.model`: `{type-string}`
+* `Vehicle.year`: `{type-number}`
+* `Vehicle.trim`: `{type-string}`
+* `Vehicle.color`: `ColorSpec`
 
-=== `model: string`
-The model of the vehicle.
+== Vehicle Methods
+=== Vehicle.new
+Spawns a new instance of a `Vehicle` at a given position and returns the new object.
 
-=== `year: number`
-The year of the vehicle.
+==== Usage
+----
+vehicle = Vehicle.new(pos, properties)
+----
 
-=== `trim: string`
-The trim of the vehicle.
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `pos`  | `{class-vector}` | The position at which the vehicle will be spawned.
+| `properties` | `{type-table}` | A list of <<Vehicle Properties, Vehicle properties>>.
+|===
 
-=== `color: ColorSpec`
-The color of the vehicle.
-
-== `Vehicle` Methods
-
-=== `vehicle.new(pos: vector, properties: table) -> Vehicle`
-* `pos`: The position at which the vehicle will be spanwed.
-* `properties`: A `table` of Vehicle properties (link).
-
-Creates a new instance of a `Vehicle` at the given position and returns the new object.
+==== Returns
+[%autowidth, frame=none]
+|===
+| `vehicle`  | `Vehicle` | The created vehicle.
+|===
 
 .Creating a Vehicle
 ====
-
 [source,lua]
 ----
 local minivan = vehicle.new(vector.new(35, 2, 36), {
@@ -45,65 +50,225 @@ local minivan = vehicle.new(vector.new(35, 2, 36), {
     color = "white",
 })
 ----
-
 ====
 
-=== `set_properties(properties: table)`
-* `properties`: A `table` of Vehicle properties (link).
-
+=== Vehicle:set_properties
 Sets the properties of the vehicle.
 
-=== `get_properties() -> table`
+==== Usage
+----
+vehicle:set_properties(properties)
+----
 
-Returns a `table` of Vehicle properties (link).
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `properties` | `{type-table}` | A list of <<Vehicle Properties, Vehicle properties>>.
+|===
 
-=== `set_pos(pos: vector)`
-* `pos`: Where to place the vehicle.
+==== Returns
+_None_
 
-=== `get_pos() -> vector`
+=== Vehicle:set_properties
+Gets the properties of the vehicle.
 
-Returns the position of the vehicle.
+==== Usage
+----
+vehicle:get_properties()
+----
 
-=== `set_gear(gear: number) -> boolean`
-* `gear`: The gear to shift to. Should be one of
-    ** `-1`: Reverse
-    ** `0`: Park
-    ** `1` - `3`: First - third gear
+==== Arguments
+_None_
 
-Returns `true` upon success, `false` otherwise.
+==== Returns
+[%autowidth, frame=none]
+|===
+| `properties` | `{type-table}` | A list of <<Vehicle Properties, Vehicle properties>>.
+|===
 
-=== `get_gear() -> number`
+=== Vehicle:set_pos
+Instantly moves the vehicle to the given position.
 
-Returns the current gear of the vehicle as a number. See `set_gear` for expected values (link).
+==== Usage
+----
+vehicle:set_pos(pos)
+----
 
-== Global `Vehicle` Functions
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `pos` | `{class-vector}` | The position to move the vehicle to.
+|===
 
-=== `gear_to_name(gear: number) -> string`
-* `gear`: The gear number to convert.
+==== Returns
+_None_
 
-Returns the name of the given gear. Expected return values:
+=== Vehicle:get_pos
+Gets the current position of the vehicle.
 
-* `-1`: `reverse`
-* `0`: `park`
-* `1`: `first`
-* `2`: `second`
-* `3`: `third`
+==== Usage
+----
+vehicle:get_pos()
+----
 
-=== `is_electric(make: string, model: string, year: number) -> boolean`
-* `make`: The make of the vehicle.
-* `model`: The model of the vehicle.
-* `year`: The year of the vehicle.
+==== Arguments
+_None_
 
-Returns `true` if the given vehicle is electric, `false` otherwise.
+==== Returns
+[%autowidth, frame=none]
+|===
+| `pos` | `{class-vector}` | The current position of the vehicle.
+|===
 
-.Checking an Electric Vehicle
+=== Vehicle:set_gear
+==== Usage
+----
+success = vehicle:set_gear(gear)
+----
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `gear` | `{type-number}` a| The gear to shift to. Should be one of
+ 
+ * `-1`: Reverse
+ * `0`: Park
+ * `1` - `3`: First - third gear.
+|===
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `success` | `{type-bool}` | Whether placement was successful.
+|===
+
+=== Vehicle:get_gear
+Returns the current gear of the vehicle as a number. See <<Vehicle:set_gear>> for expected values.
+
+==== Usage
+----
+gear = vehicle:get_gear()
+----
+
+==== Arguments
+_None_
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `gear` | `{type-number}` | Gear the vehicle is currently in.
+|===
+
+=== Vehicle:some_function
+Does a thing.
+
+NOTE: This is a note.
+
+==== Usage
+[horizontal]
+1::
++
+----
+stuff = Vehicle:some_function(foo)
+----
+2::
++
+----
+different, things = Vehicle:some_function(foo, bar)
+----
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `foo` | `{class-vector}` | Something.
+| `bar`? | `{class-vector}` | Something else.
+|===
+
+==== Returns
+[horizontal]
+1::
++
+[%autowidth, frame=none]
+|===
+| `stuff` | `{type-table}` | Some things.
+|===
+
+2::
++
+[%autowidth, frame=none]
+|===
+| `different` | `{type-table}` | Different things.
+| `things` | `{type-table}` | More stuff.
+|===
+
+== Vehicle Helpers
+
+=== gear_to_name
+Returns the name of the given gear.
+
+==== Usage
+----
+name = gear_to_name(gear)
+----
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `gear` | `{type-number}` | Gear to convert to name.
+|===
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `name` | `{type-string}` a| The name of the given gear. Expected values:
+[%autowidth, frame=none]
+!===
+a! `-1` a! `reverse`
+a! `0` a! `park`
+a! `1` a! `first`
+a! `2` a! `second`
+a! `3` a! `third`
+!===
+|===
+
+=== vehicle_type
+Determines the vehicle type based on the make and model.
+
+==== Usage
+----
+vtype = vehicle_type(make, model)
+----
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `make` | `{type-string}` | The vehicle make.
+| `model` | `{type-string}` | The vehicle model.
+|===
+
+==== Returns
+|===
+| `vtype` | `{type-string}` a| The type of vehicle. Will be one of
+!===
+! `sedan`
+! `hatchback`
+! `minivan`
+! `suv`
+! `van`
+! `truck`
+!===
+|===
+
+.Checking the Vehicle Type
 ====
 
 [source,lua]
 ----
-local ev = is_electric("Toyota", "Previa", 1992) -- false
+if vehicle_type("Toyota", "Previa") == "minivan" then
+    print("It's a minivan!") --> true
+end
 ----
 
 ====
 
-Made with https://asciidoctor.org/[AsciiDoctor] | Contribute on {url-docs-repo}[GitHub]
+include::../include/footer.adoc[]
