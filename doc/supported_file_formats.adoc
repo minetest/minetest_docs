@@ -28,12 +28,12 @@ Minetest is able to read several types of file formats for use as assets in-game
 .3+| N/A
 
 | TGA (`.tga`)
-| Easy to programmatically encode and decode due to being a simple image format
+| Easy to programmatically encode and decode due to being a simple image format, and is to be preferred over BMP. Might be smaller than PNG at times due to a smaller file header.
 | Yes (Third-party library)
 | No
 
 | BMP (`.bmp`)
-| Keeping IrrlichtMt running
+| Another simple image format (but more complex than TGA). Kept due to IrrlichtMt depending on it internally.
 | No
 | No
 |===
