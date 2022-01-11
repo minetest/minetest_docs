@@ -148,7 +148,7 @@ Whether the object makes a footstep sound when it steps on nodes that that have 
 * internal type: `f32`
 * default value: `0.0`
 
-How high in nodes the object can step up.
+This sets the maximum height (in nodes) that an object can travel up if it collides with something. This allows it to "step" over obstacles and continue traveling.
 
 === `automatic_rotate`
 * internal type: `f32`
