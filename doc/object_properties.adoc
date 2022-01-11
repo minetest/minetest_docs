@@ -40,7 +40,7 @@ Sets the field of view of the player when they zoom, in degrees. Setting to `0` 
 
 === `physical`
 * field type: `bool`
-* default value: `false`
+* default value: `true`
 
 Controls whether the object collides with nodes that are `walkable`.
 
@@ -57,13 +57,13 @@ NOTE: This works with players as well but you may experience https://github.com/
 === `collisionbox`
 //TIP: This could maybe be linked somewhere else.
 * field type: `cuboid_def`
-* default value: `{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5}`
+* default value: `{-0.5, 0.0, -0.5, 0.5, 1.0, 0.5}`
 
 The collision box of an object. Wanted value is `{xmin, ymin, zmin, xmax, ymax, zmax}` (in nodes from the center of the object/ object position).
 
 === `selectionbox`
 * field type: `cuboid_def`
-* default value: `{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5}`
+* default value: `{-0.5, 0.0, -0.5, 0.5, 1.0, 0.5}`
 
 The selection box of an object, if not set, uses `collisionbox`. Wanted value is `{xmin, ymin, zmin, xmax, ymax, zmax}` (in nodes from the center of the object/ object position).
 
@@ -105,7 +105,7 @@ Name of the file of the mesh, only when using "mesh" visual.
 Visual size multipliers. Wanted value is `{x = x, y = y, z = z}`. If `z` is not provided, `x` will be used for the `z` value.
 
 === `textures`
-* field type: `string table`
+* field type: `string list`
 * default value: `{"no_texture.png"}`
 
 Wanted value is `{"texture.png", "texture.png", ...}`. The number of textures depends on `visual`:
@@ -159,7 +159,7 @@ How fast the object automatically rotates along the `y` axis in radians/second.
 === `automatic_face_movement_dir`
 * field type: `int` or `false`
 * unit: `degrees`
-* default value: `false`
+* default value: `0`
 
 TIP: This property can be set to `false` to disable it.
 
