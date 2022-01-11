@@ -78,7 +78,7 @@ Minetest's support of various model formats can be seen as lacking. This is a si
 | Blitz3D model (`.b3d`)
 | Animated meshes
 | Binary
-| Yes ^[1]^
+| Yes
 | Yes
 | N/A
 .2+| None
@@ -87,13 +87,11 @@ Minetest's support of various model formats can be seen as lacking. This is a si
 | DirectX 2.0 model (`.x`)
 | Animated meshes in text format
 | Binary/Text
-| Yes ^[1]^
+| Yes
 | Yes
 | N/A
 | https://github.com/minetest/io_scene_x[io_scene_x] (with caveats; see README.md)
 |===
-
-^[1]^ Not recommended since it will have the increased performance cost of an animated mesh.
 
 === Third-party libraries for writing and/or reading
 ==== Blitz3D model
