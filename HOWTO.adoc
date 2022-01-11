@@ -1,4 +1,5 @@
 = How to Write Good Documentation
+include::include/config.adoc[]
 
 This guide will attempt to help you avoid common documentation issues and help you get your point across as clearly as possible.
 
@@ -74,6 +75,7 @@ See link:templates/standard.adoc[standard template] for an example.
 * `config.adoc`: Global doc configuration.
 * `types.adoc`: Lua types formatted as `type-name` linked to the Lua PIL. Example: `{type-string}`. +
 All types should link somewhere at some point (cross-reference or outside).
+* `footer.adoc`: Footer for every documentation page.
 
 === Functions
 ----
@@ -121,3 +123,5 @@ All types should link somewhere at some point (cross-reference or outside).
 * `another_property:` `type`
  ** A description.
 ----
+
+include::include/footer.adoc[]

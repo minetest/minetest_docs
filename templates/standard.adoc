@@ -5,7 +5,7 @@ include::../include/types.adoc[]
 :keywords: standard, template
 
 This is the standard template of how a good AsciiDoc should be structured.
-This pragraph describes the purpose of the document.
+This paragraph describes the purpose of the document.
 In this example, an imaginary API for a vehicle will be documented.
 
 == Vehicle Properties
@@ -28,14 +28,14 @@ vehicle = Vehicle.new(pos, properties)
 ==== Arguments
 [%autowidth, frame=none]
 |===
-| `pos`  | `{class-vector}` | The position at which the vehicle will be spawned.
+| `pos` | `{class-vector}` | The position at which the vehicle will be spawned.
 | `properties` | `{type-table}` | A list of <<Vehicle Properties, Vehicle properties>>.
 |===
 
 ==== Returns
 [%autowidth, frame=none]
 |===
-| `vehicle`  | `Vehicle` | The created vehicle.
+| `vehicle` | `Vehicle` | The created vehicle.
 |===
 
 .Creating a Vehicle
