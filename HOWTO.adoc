@@ -1,0 +1,127 @@
+= How to Write Good Documentation
+include::include/config.adoc[]
+
+This guide will attempt to help you avoid common documentation issues and help you get your point across as clearly as possible.
+
+== Writing Style
+
+=== Passive vs. Active Voice
+When describing a documentation item, use a passive voice.
+
+> `thing`: Does a lot of stuff.
+
+When writing a warning, note, or similar, use an active voice. Speak _to_ the reader.
+
+> Warning: Doing `this` will give you weird results. You should try to do `that` instead.
+
+=== Abbreviations
+When writing in _plain English_, **avoid abbreviations**. This also includes things like "&" instead of "and" and "@" instead of "at".
+
+When writing _code examples_, **label abbreviations sufficiently**, either by self-labeling (match the abbreviation to the value) or with a comment.
+
+Bad abbreviations:
+[source,lua]
+----
+local a = VoxelManip(p1, p2) -- BAD: "a" is not a good choice for this variable
+local emin, emax = a:read_from_map(p1, p2) -- BAD: What does the "e" mean?
+----
+
+Good abbreviations:
+[source,lua]
+----
+local vm = VoxelManip(p1, p2) -- GOOD: Self-labeled
+local emin, emax = vm:read_from_map(p1, p2) -- Emerged minimum and maximum positions (GOOD)
+----
+
+=== Grammar and Punctuation
+* Always capitalize proper names and first letters in plain text.
+ ** Capitalization in quotation marks is not required and usually discouraged. The goal of quotation in documentation is to mirror _exactly_.
+* End all plain text with a period. This does not apply to code examples.
+* Use the Oxford (or serial) comma. It helps reduce confusion.
+
+
+== Technical Detail
+This is software documentation, so technical explanations are expected. But it is important to know when and how much to explain technical things.
+
+=== Object Names
+When referring to an object, use it's full name, the accepted shorthand, or it's highest generic term.
+
+For example: An `ItemStack` should be referred to as "ItemStack", "stack", or "object", depending on the need. It should _not_ be referred to as "userdata" or "reference". Objects that have metatables should usually _not_ be referred to as "metatable".
+
+=== Technical Jargon Saturation
+Avoid too much technical detail for things that are unimportant, implied, or explained soon after.
+
+BAD:
+
+> The `ThisObject` metatable provides an OOP-like utility for processing the index mathematics of a `ThatObject`.
+
+This has way too much implementation detail and unnecessary technical terms.
+
+GOOD:
+
+> The `ThisObject` object is a helper for handling `ThatObject` objects.
+
+All we need to know is that it helps us handle `ThatObject`. What it actually does should be documented afterwards.
+
+=== Internal Implementations
+In general, describing internal implementations is unnecessary and confusing. Avoid it unless absolutely essential for understanding something.
+
+This applies to meta implementations as well. For example, given the constructor `YourObject()`, do not document it as `YourObject.new(self, o)`. When describing the constructor, say "Creates and returns a new `YourObject` ". Do not go into unnecessary detail about what it does under the hood, such as `__index` management.
+
+== Format
+See link:templates/standard.adoc[standard template] for an example.
+
+=== Includes
+* `config.adoc`: Global doc configuration.
+* `types.adoc`: Lua types formatted as `type-name` linked to the Lua PIL. Example: `{type-string}`. +
+All types should link somewhere at some point (cross-reference or outside).
+* `footer.adoc`: Footer for every documentation page.
+
+=== Functions
+----
+ === function_name
+ Description of the function.
+ 
+ ==== Usage
+ ----
+ return_values = function_name(argument1, argument2)
+ ----
+ 
+ ==== Arguments
+ [%autowidth, frame=none]
+ |===
+ | `argument1`  | `type` | Argument description.
+ | `argument1` | `type` | Argument description.
+ |===
+
+ OR
+
+ _None_
+ 
+ ==== Returns
+ [%autowidth, frame=none]
+ |===
+ | `return_name`  | `type` | Return value description.
+ |===
+
+ OR
+
+ _None_
+ 
+ .Example title
+ ====
+ [source,lua]
+ ----
+ -- Example code
+ ----
+ ====
+----
+
+=== Tables
+----
+* `property_name:` `type`
+* `another_property:` `type`
+ ** A description.
+----
+
+include::include/footer.adoc[]
