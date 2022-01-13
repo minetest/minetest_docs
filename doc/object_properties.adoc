@@ -125,7 +125,7 @@ CAUTION: This feature is not functional.
 * field type: `2d_vector`
 * default value: `{x = 1, y = 1}`
 
-Determines the number of columns, rows in a spritesheet texture, which is used for animations.. Wanted value is `{x = columns, y = rows}`.
+Determines the number of columns, rows in a spritesheet texture, which is used for animations. Wanted value is `{x = columns, y = rows}`.
 
 === `initial_sprite_basepos`
 * field type: `2d_vector`
@@ -169,7 +169,7 @@ Make the object automatically face the direction it is moving in, the value is t
 * field type: `bool`
 * default value: `true`
 
-Whether a model is backface culled (the faces of the model who's backs are towards the camera aren't rendered).
+Whether a model is backface culled (the faces of the model whose backs are towards the camera aren't rendered).
 
 === `glow`
 * field type: `int8`
