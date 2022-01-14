@@ -197,6 +197,7 @@ Some library tables are restricted by whitelists as well:
 ** `gethook`
 ** `traceback`
 ** SSM-only:
+*** `getinfo`
 *** `getmetatable`
 *** `setmetatable`
 *** `upvalueid`
