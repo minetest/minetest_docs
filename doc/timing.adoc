@@ -1,0 +1,222 @@
+= Timing
+include::../include/config.adoc[]
+include::../include/types.adoc[]
+:description: Timing "event loop" in Minetest
+:keywords: timing, event, loop, globalstep, step, after
+
+Minetest's Lua API can be used to get time and date or to schedule "events" to run once or every server step.
+
+== Settings
+
+On servers, the `dedicated_server_step` setting controls the time between server steps, which is the maximum granularity of simulation achievable without a busywait. In singleplayer, framerate determines server steps.
+
+== Lua builtins
+
+Not restricted by mod security, these functions are available to both SSMs and CSMs and allow getting times / dates.
+
+* https://www.lua.org/manual/5.1/manual.html#pdf-os.clock[`os.clock`] - Approximate seconds CPU time used.
+* https://www.lua.org/manual/5.1/manual.html#pdf-os.time[`os.time`] - The current time. Will usually be a UNIX timestamp in seconds.
+* https://www.lua.org/manual/5.1/manual.html#pdf-os.difftime[`os.difftime`] - Difference between two `os.time` timestamps (usually simply `b - a`).
+* https://www.lua.org/manual/5.1/manual.html#pdf-os.date[`os.date`] - Getting & formatting dates.
+
+== Functions
+
+=== `minetest.get_us_time`
+
+==== Usage
+
+[source,lua]
+----
+time = minetest.get_us_time()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `time` | integer | System-dependent timestamp in microseconds since an arbitrary starting point (µs)
+|===
+
+TIP: Divide by `1e6` to convert `time` into seconds.
+
+WARNING: Do not persistently store the returned `time` as it's not portable - keep it only in memory to use it while the game is running.
+
+TIP: You can use a difference of `minetest.get_us_time`-returned times to check whether a real-world timespan has passed, which is useful for rate limiting. For in-game timers, you might prefer adding up `dtime` or - if second precision is enough - using gametime.
+
+=== `minetest.get_gametime`
+
+[source,lua]
+----
+time = minetest.get_gametime()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `time` | integer | Time passed (`dtime`) "in-game" since game creation ("gametime") in seconds. Does not increase while the game is paused or not running at all. Gametime is stored with the world and continuously increases.
+|===
+
+=== `minetest.register_globalstep`
+
+Calls the given callback every server step.
+
+==== Usage
+[source,lua]
+----
+minetest.register_globalstep(function(dtime)
+	-- do something, probably involving dtime
+end)
+----
+
+==== Params
+[%autowidth, frame=none]
+|===
+| `dtime` | number | Delta (passed) time since last step in seconds
+|===
+
+TIP: Use globalsteps to poll for an event for which there are no callbacks, such as player controls (`player:get_player_control()`).
+
+WARNING: As globalsteps run every server step, they are highly performance-critical and must be well-optimized. If globalsteps take longer than the server step to complete, the server thread is blocked and the server becomes "laggy".
+
+=== `minetest.after(time, func, ...)`
+
+Scheduling. Calls `func(...)` after at least `time` seconds have passed.
+
+TIP: Use `minetest.after(0, func)` to immediately do load-time stuff that is only possible at run-time, or to schedule something for the next server step.
+
+==== Usage
+[source,lua]
+----
+job = minetest.after(time, func, ...)
+if ... then
+	job:cancel()
+end
+----
+
+==== Params
+[%autowidth, frame=none]
+|===
+| `time` | number | Time in seconds that must have passed for the callback to be executed.
+| `func` | callable | Function to be called. Objects with the `__call` metamethod are supported as well.
+| `...` | vararg | Arguments to be passed to `func` when it is called.
+|===
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `job` | job object | Simple object providing a `job:cancel()` method to cancel a scheduled "job".
+|===
+
+WARNING: `...` may be arbitrarily cut off at `nil` values, as Minetest uses a simple list to store the args. Don't include `nil`s in the arguments if possible.
+
+TIP: If you have to call a function with `nil`s in it's argument list, use a closure for reliable behavior:
+[source,lua]
+----
+minetest.after(time, function()
+	func(nil, arg, arg2, nil, nil)
+end)
+----
+
+WARNING: All scheduled callbacks are stored in a list until they are called. This list is traversed in linear time if *any* of the callbacks is executed. For this reason, don't use `minetest.after` excessively.
+
+WARNING: `job:cancel()` might cause a memory leak if used naively: The job - including the arguments `...` - is still kept in the job list until the job expires; only the function call isn't made. Example: `minetest.after(math.huge, error, "a super long string"):cancel()` - the string will stay in memory forever despite the job being cancelled, as `math.huge` is never reached.
+
+== Entities
+
+=== `entity:on_step(dtime, ...)`
+
+Callback. Called per-entity every globalstep with the current `dtime`, allowing for comfortable per-entity timing.
+
+==== Usage
+[source,lua]
+----
+function entity:on_step(dtime, ...)
+	-- use dtime
+end
+----
+
+==== Params
+[%autowidth, frame=none]
+|===
+| `self` | entity | The entity itself (implicit parameter)
+| `dtime` | number | Delta (passed) time since last step in seconds (same as globalstep)
+| `...` | vararg | Other parameters irrelevant to timing (such as `moveresult`)
+|===
+
+== Examples
+
+=== Increasing `get_gametime` precision
+
+You can achieve higher precision by implementing gametime yourself, adding up `dtime`. The only tricky part about this is reading the initial gametime, which is only available at runtime and not at load time; the entire code may only run after the first server step:
+[source,lua]
+----
+myapi = {}
+minetest.after(0, function()
+	local gametime = minetest.get_gametime()
+	minetest.register_globalstep(function(dtime)
+		gametime = gametime + dtime
+	end)
+	function myapi.get_precise_gametime()
+		return gametime
+	end
+end)
+----
+
+WARNING: This naive implementation might be one server step ahead or behind `minetest.get_gametime`. Note that the initial gametime is rounded. Do not persist the values for this reason.
+
+TIP: Use this implementation only for measuring in-game timespans.
+
+=== Running something periodically
+
+[source,lua]
+----
+-- period is in seconds
+local function run_periodically(period, func)
+	minetest.register_globalstep(function(dtime)
+		timer = timer + dtime
+		if timer > period then
+			func()
+			timer = 0
+		end
+	end)
+end
+----
+
+This will call `func` after at least `timer` seconds have passed. Note that there is no "catchup": The timer is always reset to zero, no matter how "late" the call to func is - how large `timer - period` is. For catchup, you can simply set the timer to the leftover time instead: `timer = timer - period`. This will trigger calls in subsequent steps until the missed time is "catched up".
+
+
+=== Benchmarking
+
+Use `os.clock` for accurate benchmarks of CPU time spent:
+
+[source,lua]
+----
+local function slow_sum(n)
+	local sum = 0
+	for i = 1, n do
+		sum = sum + i
+	end
+	return sum
+end
+
+local function benchmark(calls, func, ...)
+	local time = os.clock()
+	for _ = 1, calls do
+		func(...)
+	end
+	return (os.clock() - time) / calls -- seconds of CPU time spent per call
+end
+
+print("slow_sum(1e6) takes", benchmark(1e3, slow_sum, 1e6), "seconds per call")
+----
+
+=== Busywait
+
+It is possible to use a simple while-loop to wait for a timespan smaller than the server step.
+
+[source,lua]
+----
+local start = minetest.get_us_time()
+repeat until minetest.get_us_time() - start > 1e3 -- Wait for 1000 µs to pass
+----
+
+WARNING: This blocks the server thread though, possibly delaying the sending of packets that are sent each step and creating "lag".
