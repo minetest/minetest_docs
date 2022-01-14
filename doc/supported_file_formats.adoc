@@ -46,7 +46,7 @@ For losslessly optimizing PNG images, http://optipng.sourceforge.net/[optipng] i
 When run with no arguments optipng optimizes completely losslessly (no color, metadata or transparency is lost). However there are arguments in addition that can be added in order to further reduce the size or to preserve specific data you might want to keep. A more exhaustive list of arguments and what they do can be found in optipng's manual or in the help text available with `optipng -h`.
 
 [grid="all"]
-[options="header",stripes="even",cols="^.^,^.^,^.^"]
+[options="header",stripes="even",cols="^.^m,^.^,^.^"]
 |===
 | Argument
 | Description
