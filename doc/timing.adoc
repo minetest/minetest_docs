@@ -1,14 +1,18 @@
-= Timing
+= Timing and the Event Loop
 include::../include/config.adoc[]
 include::../include/types.adoc[]
-:description: Timing "event loop" in Minetest
+:description: Minetest's timing functionality and API
 :keywords: timing, event, loop, globalstep, step, after
 
 Minetest's Lua API can be used to get time and date or to schedule "events" to run once or every server step.
 
 == Settings
 
-On servers, the `dedicated_server_step` setting controls the time between server steps, which is the maximum granularity of simulation achievable without a busywait. In singleplayer, framerate determines server steps.
+On servers::
+    The `dedicated_server_step` setting controls the time between server steps.
+    This is the maximum granularity (the most time spent between steps and the finest timing possible) of each game loop without a busywait.
+In singleplayer::
+    Framerate determines server steps.
 
 == Lua builtins
 
@@ -52,7 +56,7 @@ time = minetest.get_gametime()
 ==== Returns
 [%autowidth, frame=none]
 |===
-| `time` | integer | Time passed (`dtime`) "in-game" since game creation ("gametime") in seconds. Does not increase while the game is paused or not running at all. Gametime is stored with the world and continuously increases.
+| `time` | integer | Time passed "in-game" since world creation in seconds ("gametime"). Does not increase while the game is paused or not running. Gametime is stored with the world and continuously increases.
 |===
 
 === `minetest.register_globalstep`
@@ -70,12 +74,12 @@ end)
 ==== Params
 [%autowidth, frame=none]
 |===
-| `dtime` | number | Delta (passed) time since last step in seconds
+| `dtime` | number | Delta (elapsed) time since last step in seconds
 |===
 
 TIP: Use globalsteps to poll for an event for which there are no callbacks, such as player controls (`player:get_player_control()`).
 
-WARNING: As globalsteps run every server step, they are highly performance-critical and must be well-optimized. If globalsteps take longer than the server step to complete, the server thread is blocked and the server becomes "laggy".
+CAUTION: As globalsteps run every server step, they are highly performance-critical and must be well optimized. If globalsteps take longer than the server step to complete, the server thread is blocked and the server becomes "laggy".
 
 === `minetest.after(time, func, ...)`
 
@@ -96,7 +100,7 @@ end
 [%autowidth, frame=none]
 |===
 | `time` | number | Time in seconds that must have passed for the callback to be executed.
-| `func` | callable | Function to be called. Objects with the `__call` metamethod are supported as well.
+| `func` | function | Function to be called. Objects with the `__call` metamethod are supported as well.
 | `...` | vararg | Arguments to be passed to `func` when it is called.
 |===
 
@@ -106,9 +110,12 @@ end
 | `job` | job object | Simple object providing a `job:cancel()` method to cancel a scheduled "job".
 |===
 
-WARNING: `...` may be arbitrarily cut off at `nil` values, as Minetest uses a simple list to store the args. Don't include `nil`s in the arguments if possible.
+CAUTION: `...` may be arbitrarily cut off at `nil` values, as Minetest uses a simple list to store the arguments. Don't include `nil`s in the arguments if possible or you may lose arguments.
 
 TIP: If you have to call a function with `nil`s in it's argument list, use a closure for reliable behavior:
+.Using a closure for advanced function calls
+====
+
 [source,lua]
 ----
 minetest.after(time, function()
@@ -116,7 +123,9 @@ minetest.after(time, function()
 end)
 ----
 
-WARNING: All scheduled callbacks are stored in a list until they are called. This list is traversed in linear time if *any* of the callbacks is executed. For this reason, don't use `minetest.after` excessively.
+====
+
+NOTE: All scheduled callbacks are stored in a list until they are called. This list is traversed in linear time if *any* of the callbacks are executed. Excessive use of `minetest.after` may result in slow execution time.
 
 WARNING: `job:cancel()` might cause a memory leak if used naively: The job - including the arguments `...` - is still kept in the job list until the job expires; only the function call isn't made. Example: `minetest.after(math.huge, error, "a super long string"):cancel()` - the string will stay in memory forever despite the job being cancelled, as `math.huge` is never reached.
 
