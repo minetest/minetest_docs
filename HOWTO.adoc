@@ -35,10 +35,27 @@ local emin, emax = vm:read_from_map(p1, p2) -- Emerged minimum and maximum posit
 
 === Grammar and Punctuation
 * Always capitalize proper names and first letters in plain text.
- ** Capitalization in quotation marks is not required and usually discouraged. The goal of quotation in documentation is to mirror _exactly_.
+** Capitalization in quotation marks is not required and usually discouraged. The goal of quotation in documentation is to mirror _exactly_.
 * End all plain text with a period. This does not apply to code examples.
 * Use the Oxford (or serial) comma. It helps reduce confusion.
 
+=== Admonitions
+The use of Admonitions (`NOTE:`, `TIP:`, `IMPORTANT:`, `CAUTION:`, and `WARNING:`) are useful for bringing the reader's attention to a specific idea or statement.
+The use of these should generally follow these situation guidelines:
+
+
+NOTE: This information is noteworthy. You will find it insightful to understand something.
+
+TIP: This information is helpful. You will have an easier time doing something if you follow this.
+
+IMPORTANT: This information is important. You really should know this or you may fail to understand something.
+
+CAUTION: You should be careful with this, something bad might happen if you aren't.
+
+WARNING: Something bad will happen if you do this, or don't do this. The game will crash, kittens will die, data will be lost, etc.
+
+Use of Admonitions should be done when it is truly warranted.
+Their over-use will add too much visual noise to the document, and may distract the reader away from the overall document text.
 
 == Technical Detail
 This is software documentation, so technical explanations are expected. But it is important to know when and how much to explain technical things.
