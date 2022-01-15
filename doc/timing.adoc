@@ -69,7 +69,7 @@ TIP: Divide by `1e6` to convert `time` into seconds.
 
 CAUTION: The returned `time` is not portable and not relative to any specific point in time across restarts - keep it only in memory for use while the game is running.
 
-TIP: You can use a difference of `minetest.get_us_time`-returned times to check whether a real-world timespan has passed, which is useful for rate limiting. For in-game timers, you might prefer adding up `dtime` or - if second precision is enough - using gametime.
+TIP: You can use a difference of ``minetest.get_us_time``-returned times to check whether a real-world timespan has passed, which is useful for rate limiting. For in-game timers, you might prefer adding up `dtime` or - if second precision is enough - using gametime.
 
 === Example
 
@@ -167,7 +167,7 @@ This will call `func` after at least `timer` seconds have passed. Note that ther
 
 === `minetest.after(time, func, ...)`
 
-Scheduling. Calls `func(...)` after at least `time` seconds have passed.
+Will call `func(...)` after at least `time` seconds have passed.
 
 TIP: Use `minetest.after(0, func)` to immediately do load-time stuff that is only possible at run-time, or to schedule something for the next server step.
 
@@ -196,17 +196,16 @@ end
 
 CAUTION: `...` may be arbitrarily cut off at `nil` values, as Minetest uses a simple list to store the arguments. Don't include `nil`s in the arguments if possible or you may lose arguments.
 
-TIP: If you have to call a function with `nil`s in it's argument list, use a closure for reliable behavior:
+[TIP]
 .Using a closure for advanced function calls
 ====
-
+If you have to call a function with ``nil``s in it's argument list, use a closure for reliable behavior:
 [source,lua]
 ----
 minetest.after(time, function()
 	func(nil, arg, arg2, nil, nil)
 end)
 ----
-
 ====
 
 NOTE: All scheduled callbacks are stored in a list until they are called. This list is traversed in linear time if *any* of the callbacks are executed. Excessive use of `minetest.after` may result in slow execution time.
