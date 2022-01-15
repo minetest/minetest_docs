@@ -12,13 +12,15 @@ and the {url-c-content-src}#L186-L442[relevant engine code]
 
 === `hp_max`
 * internal type: `u16`
-* default value: `1`
+* default value: `20`
 
 Sets the max HP of a player.
 
+NOTE: Decreasing the `hp_max` value to below the current hp will trigger a damage flash.
+
 === `breath_max`
 * internal type: `u16`
-* default value: `0`
+* default value: `10`
 
 Sets the max breath of a player.
 
