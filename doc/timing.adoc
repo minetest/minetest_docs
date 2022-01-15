@@ -42,7 +42,7 @@ time = minetest.get_us_time()
 
 TIP: Divide by `1e6` to convert `time` into seconds.
 
-WARNING: Do not persistently store the returned `time` as it's not portable - keep it only in memory to use it while the game is running.
+CAUTION: The returned `time` is not portable and not relative to any specific point in time across restarts - keep it only in memory for use while the game is running.
 
 TIP: You can use a difference of `minetest.get_us_time`-returned times to check whether a real-world timespan has passed, which is useful for rate limiting. For in-game timers, you might prefer adding up `dtime` or - if second precision is enough - using gametime.
 
