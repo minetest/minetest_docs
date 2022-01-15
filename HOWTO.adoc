@@ -41,7 +41,7 @@ local emin, emax = vm:read_from_map(p1, p2) -- Emerged minimum and maximum posit
 * Use the Oxford (or serial) comma. It helps reduce confusion.
 
 === Admonitions
-The use of Admonitions (`NOTE:`, `TIP:`, `IMPORTANT:`, `CAUTION:`, and `WARNING:`) are useful for bringing the reader's attention to a specific idea or statement.
+The use of Admonitions (`NOTE`, `TIP`, `IMPORTANT`, `CAUTION`, and `WARNING`) are useful for bringing the reader's attention to a specific idea or statement.
 The use of these should generally follow these situation guidelines:
 
 
