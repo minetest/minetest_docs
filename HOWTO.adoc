@@ -15,7 +15,8 @@ When writing a warning, note, or similar, use an active voice. Speak _to_ the re
 > Warning: Doing `this` will give you weird results. You should try to do `that` instead.
 
 === Abbreviations
-When writing in _plain English_, **avoid abbreviations**. This also includes things like "&" instead of "and" and "@" instead of "at".
+When writing in _plain English_, **avoid abbreviations**.
+This also includes things like "&" instead of "and" and "@" instead of "at".
 
 When writing _code examples_, **label abbreviations sufficiently**, either by self-labeling (match the abbreviation to the value) or with a comment.
 
@@ -58,12 +59,15 @@ Use of Admonitions should be done when it is truly warranted.
 Their over-use will add too much visual noise to the document, and may distract the reader away from the overall document text.
 
 == Technical Detail
-This is software documentation, so technical explanations are expected. But it is important to know when and how much to explain technical things.
+This is software documentation, so technical explanations are expected.
+But it is important to know when and how much to explain technical things.
 
 === Object Names
 When referring to an object, use it's full name, the accepted shorthand, or it's highest generic term.
 
-For example: An `ItemStack` should be referred to as "ItemStack", "stack", or "object", depending on the need. It should _not_ be referred to as "userdata" or "reference". Objects that have metatables should usually _not_ be referred to as "metatable".
+For example: An `ItemStack` should be referred to as "ItemStack", "stack", or "object", depending on the need.
+It should _not_ be referred to as "userdata" or "reference".
+Objects that have metatables should usually _not_ be referred to as "metatable".
 
 === Technical Jargon Saturation
 Avoid too much technical detail for things that are unimportant, implied, or explained soon after.
@@ -78,14 +82,26 @@ GOOD:
 
 > The `ThisObject` object is a helper for handling `ThatObject` objects.
 
-All we need to know is that it helps us handle `ThatObject`. What it actually does should be documented afterwards.
+All we need to know is that it helps us handle `ThatObject`.
+What it actually does should be documented afterwards.
 
 === Internal Implementations
-In general, describing internal implementations is unnecessary and confusing. Avoid it unless absolutely essential for understanding something.
+In general, describing internal implementations is unnecessary and confusing.
+Avoid it unless absolutely essential for understanding something.
 
-This applies to meta implementations as well. For example, given the constructor `YourObject()`, do not document it as `YourObject.new(self, o)`. When describing the constructor, say "Creates and returns a new `YourObject` ". Do not go into unnecessary detail about what it does under the hood, such as `__index` management.
+This applies to meta implementations as well.
+For example, given the constructor `YourObject()`, do not document it as `YourObject.new(self, o)`.
+When describing the constructor, say "Creates and returns a new `YourObject` ".
+Do not go into unnecessary detail about what it does under the hood, such as `__index` management.
 
 == Format
+Noteworthy rules include:
+
+* Use one sentence per line
+* Define macros for long URLs, or those used multiple times
+* Use delimitated example blocks for examples, but not for general function usage
+* Long-winded tables should generally use one cell per line
+
 See link:templates/standard.adoc[standard template] for an example.
 
 === Includes
@@ -127,10 +143,12 @@ All types should link somewhere at some point (cross-reference or outside).
  
  .Example title
  ====
+
  [source,lua]
  ----
  -- Example code
  ----
+
  ====
 ----
 
@@ -138,7 +156,7 @@ All types should link somewhere at some point (cross-reference or outside).
 ----
 * `property_name:` `type`
 * `another_property:` `type`
- ** A description.
+** A description.
 ----
 
 include::include/footer.adoc[]
