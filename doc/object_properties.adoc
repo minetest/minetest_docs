@@ -140,7 +140,7 @@ Determines the position of the first frame to use in the spritesheet texture. Wa
 * field type: `bool`
 * default value: `true`
 
-Whether the object is visible and can be pointed at, this overrides `pointable` if false.
+Whether the object is visible and can be pointed at, this overrides `pointable` if set to false.
 
 === `makes_footstep_sound`
 * field type: `bool`
