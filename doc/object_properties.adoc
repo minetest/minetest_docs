@@ -100,7 +100,7 @@ TIP: The `"wielditem"` value supports item hardware colorization
 Name of the file of the mesh, only when using "mesh" visual.
 
 === `visual_size`
-* field type: `vector`
+* field type: `https://github.com/minetest/minetest_docs/blob/master/doc/classes/vector.adoc[vector]`
 * default value: `{x = 1, y = 1, z = 1}`
 
 Visual size multipliers. Wanted value is `{x = x, y = y, z = z}`. If `z` is not provided, `x` will be used for the `z` value.
@@ -140,7 +140,7 @@ Determines the position of the first frame to use in the spritesheet texture. Wa
 * field type: `bool`
 * default value: `true`
 
-Whether the object is visible and can be pointed at.
+Whether the object is visible and can be pointed at, this overrides pointable.
 
 === `makes_footstep_sound`
 * field type: `bool`
@@ -176,7 +176,7 @@ Make the object automatically face the direction it is moving in, the value is t
 Whether a model is backface culled (the faces of the model whose backs are towards the camera aren't rendered).
 
 === `glow`
-* field type: `int8`
+* field type: `int`
 * default value: `0`
 
 When calculating the texture color, add this much lighting. Maximum value is `minetest.LIGHT_MAX`. A value lower than `0` disables lighting.
@@ -185,7 +185,7 @@ When calculating the texture color, add this much lighting. Maximum value is `mi
 * field type: `string`
 * default value: `""`
 
-Text displayed about an object, empty by default for all objects except players, in which case, it is their name.
+Text displayed above an object, typically used for names. If the object is a player and this value is `nil` or empty, it will be replaced by the player's name. To remove the nametag for a player, set the `nametag_color` alpha value to `0`. If the object is not a player and this value is `nil` or empty, the nametag will be removed.
 
 === `nametag_color`
 * field type: `ColorSpec` or `false`
@@ -228,7 +228,7 @@ Only when using "wielditem" visual.
 * field type: `bool`
 * default value: `false`
 
-Whether or not the texture's alpha should be used.
+Whether buggy semitransparency is enabled for the texture.
 
 WARNING: Faces, entities and other semitransparent world elements might not be rendered in the right order for semitransparency to work.
 
