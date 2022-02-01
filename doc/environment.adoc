@@ -191,8 +191,7 @@ Some library tables are restricted by whitelists as well:
 ** `time`
 ** SSM-only:
 *** `getenv`
-*** `setlocale`
-*** `tmpname`
+*** `setlocale`: Severely restricted, can only be used to get locale
 * `debug`:
 ** `gethook`
 ** `traceback`
