@@ -137,7 +137,7 @@ Sets the alpha channel of `x` to full. As the red, green and blue channels aren'
 
 ===== `<x>^[makealpha:<r>,<g>,<b>`
 
-`r`, `g`, `b` are integers ranging from 0 to 255. Pixels of the base texture having the exactly same RGB color will have their alpha set to 0. As, the red, green and blue channels are kept, the original color can be restored using `[noalpha` (which will however also make originally semitransparent portions of the image opaque).
+`r`, `g`, `b` are integers ranging from 0 to 255. Pixels of the base texture having the exact same RGB color will have their alpha set to 0. As, the red, green and blue channels are kept, the original color can be restored using `[noalpha` (which will however also make originally semitransparent portions of the image opaque).
 
 ===== `<x>^[opacity:<ratio>`
 
@@ -153,39 +153,16 @@ Multiplies the alpha value of each pixel of the base texture `x` with `ratio/255
 
 [cols="1,1,1"]
 |===
-|Number |Name |Transformation
+| Number | Name  | Transformation
 
-|0
-|I
-|Identity
-
-|1
-|R90
-|Rotate by 90° counterclockwise
-
-|2
-|R180
-|Rotate by 180° counterclockwise
-
-|3
-|R270
-|Rotate by 270° counterclockwise
-
-|4
-|FX
-|Flip X (horizontally)
-
-|5
-|FXR90
-|Flip X, then rotate by 90° counterclockwise
-
-|6
-|FY
-|Flip Y (vertically)
-
-|7
-|FYR90
-|Flip Y, then rotate by 90° counterclockwise
+| 0      | I     | Identity
+| 1      | R90   | Rotate by 90° counterclockwise
+| 2      | R180  | Rotate by 180° counterclockwise
+| 3      | R270  | Rotate by 270° counterclockwise
+| 4      | FX    | Flip X (horizontally)
+| 5      | FXR90 | Flip X, then rotate by 90° counterclockwise
+| 6      | FY    | Flip Y (vertically)
+| 7      | FYR90 | Flip Y, then rotate by 90° counterclockwise
 |===
 
 ===== `<x>^[verticalframe:<framecount>:<frame>`
