@@ -94,7 +94,7 @@ The operands of the overlaying operator may be enclosed within parentheses to fo
 
 Grouping can not be used to use texture modifiers within combining texture modifiers; grouping will be ignored for delimiting purposes. You must use escaping for that.
 
-Wrong: `a^[lowpart:(b^c):1`, right: `a^[lowpart:b\^c:1`.
+Wrong: `a^[lowpart:1:(b^c)`, right: `a^[lowpart:1:b\^c`.
 
 Also wrong: `[combine:1x2:0,0=(a^b):0,1=(c^[multiply:red)` - the combine parsing will ignore the parentheses and misinterpret the colon `:` before `red` as a delimiter for combine. `[combine:1x2:0,0=(a^b):0,1=(c^d)` will actually work, but you shouldn't rely on it.
 
