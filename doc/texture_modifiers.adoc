@@ -1,5 +1,27 @@
 = Texture Modifiers
 
+Texture modifiers are, besides dynamic media, the only way to dynamically generate textures at runtime. They can also be used to simplify mods by generating redundant textures using texture modifiers.
+
+[IMPORTANT] 
+.Performance Issues
+====
+* All textures are generated on the CPU, not the GPU. Generation is therefore slow and may temporarily block the client thread.
+* Texture modifiers are https://github.com/minetest/minetest/issues/11531[kept in client memory forever].
+* Cached texture modifiers are https://github.com/minetest/minetest/issues/11587[not leveraged when generating new ones].
+* Non-linear (at least quadratic) time complexity of the shotgun parser is possible.
+====
+
+TIP: Use texture modifiers mostly statically. Keep dynamically generated textures to a minimum to not fill up the client cache over time. Don't force the client to perform many expensive texture generations in a small timespan if you want a smooth client experience. Do not create large, convoluted texture modifiers if possible.
+
+[IMPORTANT] 
+.Bugs
+====
+* Large texture modifiers may https://github.com/minetest/minetest/issues/11829[freeze the client].
+* Out-of-bound memory reads are possible using certain texture modifiers. Example: `[lowpart:0:blank.png`.
+* Certain texture modifiers lead to client segmentation faults.
+* Syntactically invalid parts of texture modifiers may silently be ignored.
+====
+
 == Texture Pack Support
 
 Texture modifiers can be used in texture overrides.
@@ -7,29 +29,25 @@ Texture modifiers can be used in texture overrides.
 
 WARNING: Usage of certain texture modifiers might require certain texture resolutions to be used by texture packs, as texture modifiers operate on pixels instead of relative units.
 
-WARNING: Generated textures can not be replaced by a texture back; only base textures can be replaced.
+WARNING: Generated textures can not be replaced by a texture pack (except through texture overrides); only base textures can be properly replaced.
 
-== Performance Issues
+== In Lua
 
-WARNING: All textures are generated on the CPU, not the GPU. Generation is therefore slow and may temporarily block the client thread.
+=== API
 
-WARNING: Texture modifiers are https://github.com/minetest/minetest/issues/11531[kept in client memory forever].
+==== `minetest.inventorycube(img1, img2, img3)`
 
-WARNING: Cached texture modifiers are https://github.com/minetest/minetest/issues/11587[not leveraged when generating new ones].
+The only function provided. Escapes it's three arguments and returns an `[inventorycube{img1{img2{img3` texture modifier in string form.
 
-WARNING: Non-linear time complexity of the shotgun parser is possible.
+=== String Notations
 
-TIP: Use texture modifiers mostly statically. Keep dynamically generated textures to a minimum to not fill up the client cache over time. Don't force the client to perform many expensive texture generations in a small timespan if you want a smooth client experience. Do not create large, convoluted texture modifiers if possible.
+Lua provides three string notations: Quoted (single or double) and long. The type of quotes doesn't really matter, as texture names shouldn't include either type of quotes anyways. Keep in mind that to encode a backslash in quoted strings, you have to escape it with another backslash: `a.png^[mask:b.png\^c.png` would be encoded as `"a.png^[mask:b.png\\^c.png"` using double quotes.
 
-== Bugs
+Long strings enclose their content a pair of at least two square brackets `[[...]]`. Within them, no escaping applies, which means that texture modifiers can be written down literally; a leading square bracket such as that of a generating texture modifier is not a problem. Example: `[[[combine:1x1:0,0=a.png]]`.
 
-WARNING: Large texture modifiers may https://github.com/minetest/minetest/issues/11829[freeze the client].
+=== String Builders / DSLs
 
-WARNING: Out-of-bounds memory reads are possible using certain texture modifiers. Example: `[lowpart:0:blank.png`.
-
-WARNING: Certain texture modifiers lead to client segmentation faults.
-
-WARNING: Syntactically invalid parts of texture modifiers may silently be ignored.
+It is possible to set metamethods in order to obtain a neat, possibly OOP-ish Lua DSL that does the escaping and formatting for you. An example escaping implementation is provided below.
 
 == Syntax
 
@@ -41,22 +59,73 @@ TIP: Use some form of string builder that guarantees valid texture modifiers.
 
 === Base textures
 
-Texture modifiers work on _base textures_ which are specified in a string form as media file names.
+Texture modifiers work on _base textures_ which are specified in a string form as media file names. See the supported file formats.
+
+Naming convention dictates the texture name be the modname, plus a series of lowercase terms separated by underscores. Example: `mymod_mything_mytexture.png`.
+
+For the sake of simplicity, `<x>`, single letters x, y, z, a, b, c, d are used to denote textures below.
+
 // TODO link to media documentation
 
 === Overlaying
 
-Overlaying is a binary operator using the exponentiation symbol (`^`). The right-hand operand is overlaid over the left-hand operand. Overlaying is associative: `a^b^c` is the same as both `(a^b)^c` and `a^(b^c)`. Overlaying is obviously not commutative.
+Overlaying is a binary operator using the exponentiation symbol (`^`). The right-hand operand is overlaid over the left-hand operand. Overlaying is associative: `x^y^z` is the same as both `(x^y)^z` and `x^(y^z)`. Overlaying is obviously not commutative.
 
 Before overlaying, the texture with the lower pixel count is upscaled to the dimensions of the texture with the higher pixel count. Alpha blending is applied correctly.
+
+=== Argument Escaping
+
+Argument Escaping is done using backslash (`\`) and only allowed within combining texture modifiers. **All characters** can be escaped; only a few (`^` and `:`) must be escaped to allow the use of texture modifiers as arguments (not base images) within combining texture modifiers though. Nested escaping is possible; escape each backslash with a backslash for this, doubling the amount of backslashes: Nesting to a depth of `n` requires stem:[2^n] backslashes per character to be escaped.
+
+The `inventorycube` texture modifier uses a different form of escaping for it's arguments: `^` is replaced with `&`. `minetest.inventorycube(top, left, right)` can be used to apply this replacement to all it's arguments conveniently, returning a ready-to-use `inventorycube` texture modifier. It is not possible to nest the `inventorycube` texture modifier within itself as it uses curly braces for separating it's arguments but does not provide a way of escaping them.
+
+Example escaping implementation:
+
+[source,lua]
+----
+local function escape_argument(texture_modifier)
+	return texture_modifier:gsub(".", {["\\"] = "\\\\", ["^"] = "\\^", [":"] = "\\:"})
+end
+----
+
+=== Grouping
+
+The operands of the overlaying operator may be enclosed within parentheses to force them being evaluated first. This is only reasonable to force evaluation of texture modifiers before an overlay operation.
+
+Grouping can not be used to use texture modifiers within combining texture modifiers; grouping will be ignored for delimiting purposes. You must use escaping for that.
+
+Wrong: `a^[lowpart:(b^c):1`, right: `a^[lowpart:b\^c:1`.
+
+Also wrong: `[combine:1x2:0,0=(a^b):0,1=(c^[multiply:red)` - the combine parsing will ignore the parentheses and misinterpret the colon `:` before `red` as a delimiter for combine. `[combine:1x2:0,0=(a^b):0,1=(c^d)` will actually work, but you shouldn't rely on it.
+
+Grouping can however be used to enclose combining texture modifiers, separating them from the containing texture modifier.
+
+TIP: Use grouping for evaluating parts of the right-hand side first like this: `a^[multiply:green^(b^[multiply:red)`
+
+[WARNING]
+Grouping can not be used to group combining texture modifiers like `mask`, as parentheses may not include only the right-hand side of an operator. You must use escaping instead. The following texture modifiers are all invalid:
+* `a(^b)`, `(a^)b`
+* `a(^[mask:b)`, `(a^)[mask:b`
+* `a^mask:(b^c)`
 
 === Modifiers
 
 All texture modifiers create new textures, which can be modified further, and do not modify the textures they operate on.
 
-TIP: Use the `string.format("%d", number)` to guarantee that integers are parsable.
+TIP: Use `string.format("%d", number)` to guarantee that integers are parsable.
+
+==== Combining texture modifiers
+
+The following texture modifiers are considered "combining", as they operate by combining multiple textures into one. Some of the textures must therefore provided as arguments (and not just as "base texture"):
+
+* `mask`: Bitwise masking
+* `lowpart`: Blitting a lower part of one texture onto another
+* `combine`: Combining multiple textures through blitting at pixel locations
+* `inventorycube`: Render an inventorycube from three provided textures
 
 ==== Base texture modifiers
+
+These texture modifiers all modify a base texture `<x>`, which can in turn consist of texture modifiers.
 
 ===== `<x>^[brighten`
 
@@ -82,7 +151,7 @@ Multiplies the alpha value of each pixel of the base texture `x` with `ratio/255
 
 `mode` is a string which may contain the characters `r`, `g`, `b` and `a`. The channels corresponding to the occurring characters (red, green, blue and alpha) will be inverted (set to `255 - value`).
 
-===== `<x>^[transform:<t>`
+===== `<x>^[transform<t>`
 
 `t` is either a number or a name identifying a transformation from the following table:
 
@@ -128,19 +197,27 @@ Multiplies the alpha value of each pixel of the base texture `x` with `ratio/255
 * `framecount`: Animation frame count
 * `frame`: Current animation frame, 0-indexed
 
-Result: Vertically crops the texture by dividing the base texture height through the frame count to determine the frame height. As the division is an integer division, a remaining fractional frame will be discarded. If the frame extends beyond texture bounds, the out of bounds pixels will be colored white.
-// TODO verify
+Result: Vertically crops the texture by dividing the base texture height through the frame count to determine the frame height. As the division is an integer division, a remaining fractional frame will be discarded. Frames should not extend texture bounds; nothing will go up in flames if they do though - the out of bounds areas will simply be colored white (you should not rely on this though).
 
 WARNING: Specifying a `framecount` of 0 will trigger a floating point exception, crashing the client.
 
-// TODO crack & cracko
+===== `<x>^[crack<opacity>:[<tilecount>:]<framecount>:<frame>`
+
+Shorthand for overlaying a scaled frame of the crack texture, `crack_anylength.png`, over a texture, with options for alpha and blitting on all frames.
+
+* `o`: Empty string or just the letter `o`. If the latter, the crack will only be overlaid over fully opaque base texture regions.
+* `tilecount`: Optional. Vertical animation frame count of the base texture. If this is set, the crack will be blit on each tile of the base texture.
+* `framecount`: Vertical animation frame count of the crack texture.
+* `frame`: Current animation frame.
+
+NOTE: This always scales the crack to the size of the base texture (or the tiles of the base texture, if `tilesize` is provided).
 
 ===== `<x>^[sheet:<w>x<h>:<x>,<y>`
 
 * `w` and `h`: Tile dimensions
 * `x` and `y`: Tile position, 0-indexed
 
-Retrieves the tile at position `x, y`. Can be used to retrieve single pixels by setting `w` and `h` to `1`. Out of bounds pixels will be colored white.
+Retrieves the tile at position `x, y`. Can be used to retrieve single pixels by setting `w` and `h` to `1`. Out of bounds pixels will be colored white, but you should not rely on this.
 
 WARNING: Setting `w` or `h` to 0 will trigger a floating point exception, crashing the client.
 
@@ -167,21 +244,21 @@ Overlays the lower `percent` part of `texture` on the base texture `x`.
 
 TIP: Use `blank.png` as base texture `x` if you do not want a background
 
-==== Base-texture-less modifiers
+==== Base Texture Generators
 
-These modifiers do not accept a base texture as they generate a texture from their arguments.
+These modifiers do not accept a base texture as they generate one from their arguments.
 
-===== `[png:<base64>`
+===== `[png:<data>`
 
-Creates a texture from an embedded base64-encoded PNG image. The base64 string can be produced by combining `minetest.encode_base64` and `minetest.encode_png`.
+Creates a texture from an embedded base64-encoded PNG image. The base64 string `data` can be produced by combining `minetest.encode_base64` and `minetest.encode_png`.
 
 WARNING: Do not use this for large textures. If used as an object texture, this will get sent arbitrarily often, putting a strain on the network.
 
-TIP: Consider using other texture modifiers cleverly.
-
-TIP: Use dynamic media instead.
+TIP: Consider using other texture modifiers cleverly or using dynamic media instead.
 
 ===== `[combine:<w>x<h>:<textures>`
+
+A **combining** texture modifier accepting other texture modifiers as arguments.
 
 * `w`: Width of the resulting texture
 * `h`: Height of the resulting texture
@@ -192,32 +269,3 @@ Result: A texture of dimensions `w` times `h` on which all `textures` have been 
 ===== `[inventorycube{<top>{<left>{<right>`
 
 Renders a cube with the three given textures using simple software rendering. The resulting image will be 9 times the nearest power of 2 that is large enough to represent the contain the dimensions of the largest image, clamped to a range of at least 4 and at most 64.
-
-=== Argument Escaping
-
-Argument Escaping is done using backslash (`\`). All characters can be escaped; only a few (`^` and `:`) must be escaped to allow the use of texture modifiers as arguments (not base images) within combining texture modifiers though. Nested escaping is possible; escape each backslash with a backslash for this, doubling the amount of backslashes: Nesting to a depth of `n` requires stem:[2^n] backslashes per character to be escaped.
-
-The `inventorycube` texture modifier uses a different form of escaping for it's arguments: `^` is replaced with `&`. `minetest.inventorycube(top, left, right)` can be used to apply this replacement. It is not possible to nest the `inventorycube` texture modifier within itself as it uses curly braces for separating it's arguments but does not provide a way of escaping them.
-
-Example escaping implementation:
-
-[source,lua]
-----
-local function escape_argument(texture_modifier)
-	return texture_modifier:gsub(".", {["\\"] = "\\\\", ["^"] = "\\^", [":"] = "\\:"})
-end
-----
-
-=== Grouping
-
-The operands of the overlaying operator may be enclosed within brackets to force them being evaluated first. This is only reasonable to force evaluation of texture modifiers before an overlay operation.
-
-Grouping can not be used to use texture modifiers within combining texture modifiers. You must use escaping for that.
-
-TIP: Use grouping like this: `a^[multiply:green^(b^[multiply:red)`
-
-[WARNING]
-Grouping can not be used to group combining texture modifiers like `mask`, as brackets may not include only the right-hand side of an operator. You must use escaping instead. The following texture modifiers are all invalid:
-* `a(^b)`, `(a^)b`
-* `a(^[mask:b)`, `(a^)[mask:b`
-* `a^mask:(b^c)`
