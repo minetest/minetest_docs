@@ -114,7 +114,7 @@ All texture modifiers create new textures, which can be modified further, and do
 
 TIP: Use `string.format("%d", number)` to guarantee that integers are parsable.
 
-==== Combining texture modifiers
+==== Combining Texture Modifiers
 
 The following texture modifiers are considered "combining", as they operate by combining multiple textures into one. Some of the textures must therefore provided as arguments (and not just as "base texture"):
 
@@ -123,7 +123,7 @@ The following texture modifiers are considered "combining", as they operate by c
 * `combine`: Combining multiple textures through blitting at pixel locations
 * `inventorycube`: Render an inventorycube from three provided textures
 
-==== Base texture modifiers
+==== Base Texture Modifiers
 
 These texture modifiers all modify a base texture `<x>`, which can in turn consist of texture modifiers.
 
@@ -133,11 +133,14 @@ Interpolates 50-50 between the color of each pixel of `x` and white.
 
 ===== `<x>^[noalpha`
 
-Sets the alpha channel of `x` to full. As the red, green and blue channels aren't premultiplied with alpha, this might reveal hidden colors of transparent portions of an image.
+Sets the alpha channel of `x` to full.
+As the red, green and blue channels aren't premultiplied with alpha, this might reveal hidden colors of transparent portions of an image.
 
 ===== `<x>^[makealpha:<r>,<g>,<b>`
 
-`r`, `g`, `b` are integers ranging from 0 to 255. Pixels of the base texture having the exact same RGB color will have their alpha set to 0. As, the red, green and blue channels are kept, the original color can be restored using `[noalpha` (which will however also make originally semitransparent portions of the image opaque).
+`r`, `g`, `b` are integers ranging from `0` to `255``.
+Pixels of the base texture having the exact same RGB color will have their alpha set to `0`.
+As, the red, green and blue channels are kept, the original color can be restored using `[noalpha` (which will however also make originally semitransparent portions of the image opaque).
 
 ===== `<x>^[opacity:<ratio>`
 
