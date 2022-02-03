@@ -135,10 +135,6 @@ Interpolates 50-50 between the color of each pixel of `x` and white.
 
 Sets the alpha channel of `x` to full. As the red, green and blue channels aren't premultiplied with alpha, this might reveal hidden colors of transparent portions of an image.
 
-==== `<x>^[applyfiltersformesh`
-
-Internal modifier
-
 ===== `<x>^[makealpha:<r>,<g>,<b>`
 
 `r`, `g`, `b` are integers ranging from 0 to 255. Pixels of the base texture having the exactly same RGB color will have their alpha set to 0. As, the red, green and blue channels are kept, the original color can be restored using `[noalpha` (which will however also make originally semitransparent portions of the image opaque).
