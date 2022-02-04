@@ -131,7 +131,7 @@ Returns nothing.
 
 == LuaJIT extensions
 
-Minetest builds compiled with LuaJIT (`ENABLE_LUAJIT=1`) provide the https://luajit.org/extensions.html[LuaJIT extensions]. These include syntactical Lua 5.2 language features like `goto`, which will lead to a syntax error on PUC Lua 5.1. Hex escapes will be converted into the raw characters by PUC Lua 5.1 (Example: `"\xFF"` which is the same as `"\255" on LuaJIT will be `"xFF"` on PUC Lua 5.1).
+Minetest builds compiled with LuaJIT (`ENABLE_LUAJIT=1`) provide the https://luajit.org/extensions.html[LuaJIT extensions]. These include syntactical Lua 5.2 language features like `goto`, which will lead to a syntax error on PUC Lua 5.1. Hex escapes will be converted into the raw characters by PUC Lua 5.1 (Example: `"\xFF"` which is the same as `"\255"` on LuaJIT will be `"xFF"` on PUC Lua 5.1).
 
 == Common extensions
 
