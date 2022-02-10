@@ -163,7 +163,7 @@ run_periodically(5, function()
 end)
 ----
 
-This will call `func` after at least `timer` seconds have passed. Note that there is no "catchup": The timer is always reset to zero, no matter how "late" the call to func is - how large `timer - period` is. For catchup, you can simply set the timer to the leftover time instead: `timer = timer - period`. This will trigger calls in subsequent steps until the missed time is "catched up".
+This will call `func` after at least `timer` seconds have passed. Note that there is no "catchup": The timer is always reset to zero, no matter how "late" the call to func is - how large `timer - period` is. For catchup, you can simply set the timer to the leftover time instead: `timer = timer - period`. This will trigger calls in subsequent steps until the missed time is "caught up".
 
 === `minetest.after(time, func, ...)`
 
