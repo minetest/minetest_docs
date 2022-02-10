@@ -27,6 +27,9 @@ Not restricted by mod security, these functions are available to both SSMs and C
 
 You can use `os.clock` for accurate benchmarks of CPU time spent:
 
+.Benchmarking with os.clock
+====
+
 [source,lua]
 ----
 local function slow_sum(n)
@@ -48,6 +51,8 @@ end
 print("slow_sum(1e6) takes", benchmark(1e3, slow_sum, 1e6), "seconds per call")
 ----
 
+====
+
 == Functions
 
 === `minetest.get_us_time`
@@ -62,7 +67,7 @@ time = minetest.get_us_time()
 ==== Returns
 [%autowidth, frame=none]
 |===
-| `time` | integer | System-dependent timestamp in microseconds since an arbitrary starting point (µs)
+| `time` | `{type-number}` | System-dependent timestamp in microseconds since an arbitrary starting point (µs)
 |===
 
 TIP: Divide by `1e6` to convert `time` into seconds.
@@ -75,11 +80,16 @@ TIP: You can use a difference of ``minetest.get_us_time``-returned times to chec
 
 It is possible to use a simple while-loop to wait for a timespan smaller than the server step. This is called a "busywait".
 
+.Busywait with minetest.get_us_time()
+====
+
 [source,lua]
 ----
 local start = minetest.get_us_time()
 repeat until minetest.get_us_time() - start > 1e3 -- Wait for 1000 µs to pass
 ----
+
+====
 
 WARNING: This blocks the server thread, possibly delaying the sending of packets that are sent each step and creating "lag". Use this only if absolutely necessary and only for very small timespans.
 
@@ -95,12 +105,16 @@ time = minetest.get_gametime()
 ==== Returns
 [%autowidth, frame=none]
 |===
-| `time` | integer | Time passed "in-game" since world creation in seconds ("gametime"). Does not increase while the game is paused or not running. Gametime is stored with the world and continuously increases.
+| `time` | `{type-number}` | Time passed "in-game" since world creation in seconds ("gametime"). Does not increase while the game is paused or not running. Gametime is stored with the world and continuously increases.
 |===
 
 ==== Example
 
 You can achieve higher precision by implementing gametime yourself, adding up `dtime`. The only tricky part about this is reading the initial gametime, which is only available at runtime and not at load time; the entire code may only run the the first server step:
+
+.Writing a custom gametime function
+====
+
 [source,lua]
 ----
 myapi = {}
@@ -115,7 +129,9 @@ minetest.after(0, function()
 end)
 ----
 
-WARNING: This naive implementation might be one server step ahead or behind `minetest.get_gametime`. Note that the initial gametime is rounded. Do not persist the values for this reason.
+====
+
+IMPORTANT: This naive implementation might be one server step ahead or behind `minetest.get_gametime`. Note that the initial gametime is rounded. Do not persist the values for this reason.
 
 TIP: Use this implementation only for measuring in-game timespans.
 
@@ -134,7 +150,7 @@ end)
 ==== Params
 [%autowidth, frame=none]
 |===
-| `dtime` | number | Delta (elapsed) time since last step in seconds
+| `dtime` | `{type-number}` | Delta (elapsed) time since last step in seconds
 |===
 
 TIP: Use globalsteps to poll for an event for which there are no callbacks, such as player controls (`player:get_player_control()`).
@@ -144,6 +160,9 @@ CAUTION: As globalsteps run every server step, they are highly performance-criti
 ==== Examples
 
 Globalsteps are ideal to run something periodically, which is often used to call expensive operations less frequently in order to keep server thread blockage - and thus lag - to a minimum.
+
+.Running a globalstep on a timer
+====
 
 [source,lua]
 ----
@@ -207,8 +226,8 @@ end
 ==== Params
 [%autowidth, frame=none]
 |===
-| `time` | number | Time in seconds that must have passed for the callback to be executed.
-| `func` | function | Function to be called. Objects with the `__call` metamethod are supported as well.
+| `time` | `{type-number}` | Time in seconds that must have passed for the callback to be executed.
+| `func` | `{type-function}` | Function to be called. Objects with the `__call` metamethod are supported as well.
 | `...` | vararg | Arguments to be passed to `func` when it is called.
 |===
 
@@ -254,6 +273,6 @@ end
 [%autowidth, frame=none]
 |===
 | `self` | entity | The entity itself (implicit parameter)
-| `dtime` | number | Delta (passed) time since last step in seconds (same as globalstep)
+| `dtime` | `{type-number}` | Delta (passed) time since last step in seconds (same as globalstep)
 | `...` | vararg | Other parameters irrelevant to timing (such as `moveresult`)
 |===
