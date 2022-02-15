@@ -74,7 +74,7 @@ TIP: Divide by `1e6` to convert `time` into seconds.
 
 CAUTION: The returned `time` is not portable and not relative to any specific point in time across restarts - keep it only in memory for use while the game is running.
 
-TIP: You can use a difference of ``minetest.get_us_time``-returned times to check whether a real-world timespan has passed, which is useful for rate limiting. For in-game timers, you might prefer adding up `dtime` or - if second precision is enough - using gametime.
+TIP: You can use the difference between ``minetest.get_us_time`` and the returned times to check whether a real-world timespan has passed, which is useful for rate limiting. For in-game timers, you might prefer adding up `dtime` or (if second precision is enough) using gametime.
 
 === Example
 
