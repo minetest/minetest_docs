@@ -111,6 +111,15 @@ Deepcopies the table `t` and all it's subtables - both keys and values. Non-tabl
 
 The `seen` table is a lookup for already copied tables, which are used as keys. The value is the copy. By providing `[table] = table` entries for certain tables, you can prevent them from being copied.
 
+Example: Preservation of referential structure means the ``assert``ion in the following code will work:
+
+[source,lua]
+----
+a = {}; b = {a, a}; c = table.copy(b); assert(c[1] == c[2])
+----
+
+A different deep cloning implementation might clone `a` twice, leading to `c[1] ~= c[2]`.
+
 ==== `table.insert_all(t, other)`
 
 Adds all the list entries of `other` to `t` (list part concatenation).
