@@ -190,18 +190,7 @@ Will call `func(...)` after at least `time` seconds have passed.
 
 TIP: Use `minetest.after(0, func)` to immediately do load-time stuff that is only possible at run-time, or to schedule something for the next server step.
 
-[NOTE]
-.Order of execution
-====
-Scheduled calls happen in reverse insertion order. This "defers" calls to `minetest.after` from within a callback until the next server step. Examples:
-
-[source,lua]
-----
-minetest.after(0, error, "first")
-minetest.after(0, error, "second")
-----
-This script will error with `second` after the first server step,
-as the callbacks that are scheduled to run in the same server step are processed in reverse order.
+CAUTION: Scheduled calls that run in the same server step are executed in no particular order.
 
 The following snippet emulates a globalstep, sending `Hello World!` to chat every server step:
 [source,lua]
