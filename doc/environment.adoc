@@ -19,6 +19,36 @@ See the {url-reference-manual}[Lua 5.1 Reference Manual] for platform- and OS-en
 * Some parts of the `io` library like `io.popen` (only available in an insecure environment) or handling of binary files
 * `require` and `package.loadlib` (only available in an insecure environment anyways)
 
+== Global Strictness
+
+Variables in Lua are global by default (both assignment and access). This often leads to mistaken use of global variables, with the two perhaps most common issues being:
+
+. Missspelling a local variable and accessing a global variable instead (which will usually be `nil`)
+. Forgetting `local` when assigning to a variable, (over)writing a global variable, leading to "global pollution"
+
+Minetest's built-in strictness works using a metatable on the global table and will log warnings for both cases. Minetest defines a global declaration as a *global assignment at load time*.
+
+. Reading an undeclared global variable will trigger an "undeclared global variable access" warning
+. Setting an undeclared global variable after load time will trigger an "assignment to undeclared global" warning
+
+Warnings are identified by their location as returned by `debug.getinfo` (`short_src` and `currentline`) and won't be logged twice.
+
+WARNING: Accessing undeclared global variables will be an order of magnitude slower than accessing declared globals due to the executed strictness checking code.
+
+TIP: These warnings are only triggered at run time as the global variable access or assignment occurs. It is recommended to use a linter like [`luacheck`](https://github.com/mpeterv/luacheck) to detect mistaken global variable usage statically at the time of development.
+
+=== Checking for global existence
+
+For mod compatibility, the existence of global variables must be checked. A simple `if name then ... end` check might trigger an "undeclared global variable access" warning if the variable doesn't exist (is `nil`) and has not been declared either (usually when an optional dependency isn't present).
+
+As Minetest implements global strictness over a metatable, `rawget(_G, name)` can be used in place of just `name` to access possibly `nil` globals without triggering a warning. Similarly, `rawset(_G, name, value)` may be used to set globals at run time.
+
+==== `minetest.global_exists(name)`
+
+Returns `true` if a global variable with the given `name` exists (is not `nil`), `false` otherwise. An error is thrown if `name` is not a string.
+
+NOTE: This wraps `rawget(_G, name)` in the end but might be considered more readable as it makes the intention clear.
+
 == Standard Library Extensions
 
 === `math`
