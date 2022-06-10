@@ -41,7 +41,7 @@ Sets the field of view of the player when they zoom, in degrees. Setting to `0` 
 
 === `physical`
 * field type: `bool`
-* default value: `true`
+* default value: `false`
 
 Controls whether the object collides with nodes that are `walkable`.
 
