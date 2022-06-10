@@ -160,6 +160,8 @@ This sets the maximum height (in nodes) that an object can travel up if it colli
 
 How fast the object automatically rotates along the `y` axis in radians/second.
 
+NOTE: Does not (yet) work for attached entities
+
 === `automatic_face_movement_dir`
 * field type: `int` or `false`
 * unit: `degrees`
@@ -254,7 +256,7 @@ A texture modifier that will be appended to the object's current textures for th
 
 The way these properties are laid out is in a table.
 
-NOTE: Extraneous properties will be ignored, but might be interpreted incorrectly by furutre versions of the engine, which is why it is recommended to prefix them with an underscore.
+NOTE: Extraneous properties will be ignored, but might be interpreted incorrectly by future versions of the engine, which is why it is recommended to prefix them with an underscore.
 
 NOTE: This uses regular indexing so metatables work as expected.
 
