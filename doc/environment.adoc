@@ -26,7 +26,20 @@ Variables in Lua are global by default (both assignment and access). This often 
 . Missspelling a local variable and accessing a global variable instead (which will usually be `nil`)
 . Forgetting `local` when assigning to a variable, (over)writing a global variable, leading to "global pollution"
 
-Minetest's built-in strictness works using a metatable on the global table and will log warnings for both cases. Minetest defines a global declaration as a *global assignment at load time*.
+Minetest's built-in strictness works using a metatable on the global table and will log warnings for both cases. Minetest defines a global declaration as a *global assignment in a main chunk* - setting globals in any other function will not be considered a declaration and will trigger a warning:
+
+[source, lua]
+----
+-- Declarations according to Minetest's definition:
+global_var = 42
+for k, v in pairs{a = 1, b = 2} do _G[k] = v end
+-- Assignment to undeclared global:
+local function set_global()
+    another_global_var = 42
+end
+set_global()
+----
+
 
 . Reading an undeclared global variable will trigger an "undeclared global variable access" warning
 . Setting an undeclared global variable after load time will trigger an "assignment to undeclared global" warning
