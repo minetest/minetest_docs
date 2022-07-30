@@ -16,7 +16,7 @@ Minetest is able to read several types of file formats for use as assets in-game
 
 | PNG (`.png`)
 | All-round good losslessly compressed image format.
-| Yes (`minetest.encode_png()` ^(5.5+)^) (Third-party library ^(-5.4)^)
+| Yes (`minetest.encode_png()`^1^ ^(5.5+)^) (Third-party library)
 | Yes (Third-party library)
 
 | JPEG (`.jpg .jpeg`)
@@ -24,16 +24,20 @@ Minetest is able to read several types of file formats for use as assets in-game
 | No
 | No
 
-| TGA (`.tga`)
-| Easy to programmatically encode and decode due to being a simple image format, and is to be preferred over BMP. Might be smaller than PNG at times due to a smaller file header.
+| TGA (`.tga`) ^2^
+| Easy to programmatically encode and decode due to being a simple image format, and is to be preferred over BMP. Might be smaller than PNG for small or simple images due to a smaller file header.
 | Yes (Third-party library)
 | No
 
 | BMP (`.bmp`)
-| Another simple image format (but more complex than TGA). Kept due to IrrlichtMt depending on it internally.
+| Another simple image format (but more complex than TGA). Kept due to IrrlichtMt depending on it for built in fonts, and might be dropped in the future.
 | No
 | No
 |===
+
+^1^ `minetest.encode_png()` is known to generate large, unoptimized images and does not support writing indexed images.
+
+^2^ IrrlichtMt only supports Type 1-3 and 10 TGA images, if you try to load an unsupported type it will give an `Unsupported TGA file type` error.
 
 Prior to 5.5.0, Minetest used to be able to load PCX, PPM, PSD, PVR, DDS, WAL, LMP and RGB as part of Irrlicht's image loading capabilities. These are no longer supported and should be converted to a format that is still supported.
 
@@ -41,7 +45,7 @@ Prior to 5.5.0, Minetest used to be able to load PCX, PPM, PSD, PVR, DDS, WAL, L
 Normally when you export images with a regular image editor it is not exported in the most optimized way possible, and your editor will also embed metadata into the image. It is therefore standard practice to optimize your images in order to reduce their file size. This will not only reduce the size of your assets when a player downloads it but also reduce the time spent for media to be downloaded before joining a multiplayer server.
 
 ==== PNG
-For losslessly optimizing PNG images, http://optipng.sourceforge.net/[optipng] is a good tool. It is a command-line program that is run from the command prompt or terminal.
+For losslessly optimizing PNG images in Minetest, http://optipng.sourceforge.net/[optipng] is the most common tool. It is a command-line program that is run from the command prompt or terminal.
 
 When run with no arguments optipng optimizes completely losslessly (no color, metadata or transparency is lost). However there are arguments in addition that can be added in order to further reduce the size or to preserve specific data you might want to keep. A more exhaustive list of arguments and what they do can be found in optipng's manual or in the help text available with `optipng -h`.
 
@@ -67,7 +71,10 @@ When run with no arguments optipng optimizes completely losslessly (no color, me
 
 A general-purpose script for optimizing images as aggressively as possible without losing color information can be found in Minetest Game: https://github.com/minetest/minetest_game/blob/master/utils/optimize_textures.sh[optimize_textures.sh]
 
-=== Third-party libraries for writing and/or reading
+==== TGA
+Minetest supports Type 10 TGA files which use RLE (Run-Length-Encoding) for compression. This will lead to a significantly smaller filesize when generating images with large areas of a same color, and is recommended when writing images that do not need to be read back again programmatically.
+
+=== Third-party mod libraries
 If you would like to write or read image files in Lua for a format the engine does not support, there are various libraries available as mods you can use.
 
 ==== PNG
@@ -76,8 +83,8 @@ If you would like to write or read image files in Lua for a format the engine do
 
 ==== TGA
 ===== Writing
-// The actual repository is https://github.com/EliasFleckenstein03/tga_encoder/ but it is outdated and doesn't contain compression support or performance improvements that exist in the MineClone2 source tree.
-* `tga_encoder` (https://git.minetest.land/MineClone2/MineClone2/src/branch/master/mods/CORE/tga_encoder[MeseHub])
+* `tga_encoder` (https://content.minetest.net/packages/erlehmann/tga_encoder/[ContentDB] https://git.minetest.land/erlehmann/tga_encoder[MeseHub])
+** Supports writing all TGA formats Minetest supports.
 
 == Models
 Minetest's support of various model formats can be seen as lacking. This is a side-effect of Minetest relying on the aging Irrlicht graphics engine which mostly only has support for old or obsolete model formats.
@@ -120,7 +127,18 @@ Minetest's support of various model formats can be seen as lacking. This is a si
 | https://github.com/minetest/io_scene_x[io_scene_x] (with caveats; see README.md)
 |===
 
-=== Third-party libraries for writing and/or reading
+=== Third-party mod libraries
 ==== Blitz3D model
-===== Reading
+===== Writing & Reading
 * `modlib` (https://content.minetest.net/packages/LMD/modlib/[ContentDB], https://github.com/appgurueu/modlib[GitHub])
+
+== Audio
+Currently the only audio format Minetest supports is OGG Vorbis (`.ogg`). If the sound is to be used as a positional sound it must be mono.
+
+== Schematics
+Minetest provides built-in functionality for mods to place structures, or schematics, with decorations or with the `minetest.place_schematic` function. The binary schematic format is stored in `.mts` files and can be generated by the engine with `minetest.create_schematic`.
+
+There are also various third-party tools to create and edit them:
+
+* https://content.minetest.net/packages/Wuzzy/schemedit/[Schematic Editor] (`schemedit`) - A schematic editor implemented as a mod inside of Minetest
+* https://gitlab.com/bztsrc/mtsedit[MTSEdit] - Program for Windows, macOS and Linux to edit .mts files
