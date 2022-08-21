@@ -73,7 +73,10 @@ This takes one round-trip time (RTT).
 
 The obvious disadvantage is that FormSpecs can't be dynamically generated in response to user interaction;
 formspecs must be mostly static. To alleviate this, formspecs provide context-dependant placeholders
-like `context` or `current_player` to refer to inventories (see FormSpec).
+like the `context` or `current_player` inventory locations (see FormSpec).
+
+IMPORTANT: The `context` inventory location can only be used in FormSpecs using the special `formspec` NodeMetaData field.
+FormSpecs shown using `minetest.show_formspec` must use `nodemeta:<X>,<Y>,<Z>` to reference inventories instead.
 
 Another disadvantage is that plenty of redundant metadata - often a constant FormSpec - has to be stored with every node.
 This metadata also has to be sent to clients. Minetest's mapblock compression should be able to compress duplicate substrings -
