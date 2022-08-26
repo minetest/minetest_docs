@@ -242,8 +242,6 @@ end)
 
 NOTE: All scheduled callbacks are stored in a list until they are called. This list is traversed in linear time if *any* of the callbacks are executed. Excessive use of `minetest.after` may result in slow execution time.
 
-WARNING: `job:cancel()` might cause a memory leak if used naively: The job - including the arguments `...` - is still kept in the job list until the job expires; only the function call isn't made. Example: `minetest.after(math.huge, error, "a super long string"):cancel()` - the string will stay in memory forever despite the job being cancelled, as `math.huge` is never reached.
-
 == Entities
 
 === `entity:on_step(dtime, ...)`
