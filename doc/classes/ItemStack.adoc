@@ -1,0 +1,463 @@
+= ItemStack
+include::../../include/config.adoc[]
+include::../../include/types.adoc[]
+:description: Object representing a stack of items.
+:keywords: item, stack, itemstack
+
+ItemStack is an object representing one or more items which provides methods for manipulation of item count, wear, etc. 
+
+== ItemStack
+Creates a new ItemStack from the given data (or empty if nothing provided).
+
+=== Usage
+----
+local stack = ItemStack(data)
+----
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `data` | `ItemStack` or `itemstring` or `{type-table}` or `{type-nil}` | The data from which the ItemStack will be created.
+|===
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `stack` | `ItemStack` | A stack representing the given data (or an empty stack).
+|===
+
+== ItemStack Methods
+=== is_empty
+Checks if the given ItemStack is empty.
+
+==== Usage
+----
+local empty = stack:is_empty()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `empty` | `{type-bool}` | Whether the stack is empty or not.
+|===
+
+=== get_name
+Returns the name of the given ItemStack.
+
+==== Usage
+----
+local name = stack:get_name()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `name` | `{type-string}` | The item name of the stack.
+|===
+
+=== set_name
+Sets the name of the given ItemStack (or clears it if empty).
+
+==== Usage
+----
+local cleared = stack:set_name(name)
+----
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `name` | `{type-string}` | The name to give the stack. Will clear the stack if given an empty string.
+|===
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `cleared` | `{type-bool}` | Whether or not the stack was cleared.
+|===
+
+=== get_count
+Counts the number of items in the given ItemStack.
+
+==== Usage
+----
+local count = stack:get_count()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `count` | `{type-number}` | The number of items in the stack.
+|===
+
+=== set_count
+Sets the number of items in the given ItemStack (and clears it if zero).
+
+==== Usage
+----
+local cleared = stack:set_count(count)
+----
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `count` | `{type-number}` | The amount of items to set the stack to. Must be between `0` and `65535` (inclusive).
+|===
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `cleared` | `{type-bool}` | Whether or not the stack was cleared.
+|===
+
+=== get_wear
+Gets the wear of a given ItemStack if it is a tool.
+
+==== Usage
+----
+local wear = stack:get_wear()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `wear` | `{type-number}` | The wear of the tool, between `0` and `65535` (inclusive). `0` if non-tool.
+|===
+
+=== set_wear
+Sets the wear of a given ItemStack if it is a tool (and breaks the tool if set to zero).
+
+==== Usage
+----
+local cleared = stack:set_wear(wear)
+----
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `wear` | `{type-number}` | The desired wear of the tool, between `0` and `65535` (inclusive). `0` will clear the stack.
+|===
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `cleared` | `{type-bool}` | Whether or not the stack was cleared.
+|===
+
+=== get_meta
+Returns an xref:ItemStackMetaData.adoc[ItemStackMetaData].
+
+==== Usage
+----
+local meta = stack:get_meta()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `meta` | `xref:ItemStackMetaData.adoc[ItemStackMetaData]` | The metadata of the stack.
+|===
+
+=== get_metadata
+Returns the metadata attacked to an itemstack as a string.
+
+WARNING: This method is deprecated. Use <<_get_meta, `ItemStack:get_meta`>> instead.
+
+==== Usage
+----
+local metadata = stack:get_metadata()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `metadata` | `{type-string}` | The string metadata of the given stack.
+|===
+
+=== set_metadata
+Sets the string metadata of the given ItemStack.
+
+WARNING: This method is deprecated. See xref:ItemStackMetaData.adoc[ItemStackMetaData].
+
+==== Usage
+----
+local success = stack:set_metadata(data)
+----
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `data` | `{type-string}` | The metadata to give the stack.
+|===
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `success` | `{type-bool}` | Always `true`.
+|===
+
+=== get_description
+Gets the description of the given ItemStack shown in inventory list tooltips. The fields used for finding the description of the item, in order:
+
+ * `description` in item metadata (see xref:ItemStackMetaData.adoc[ItemStackMetaData])
+ * `description` in item definition
+ * item name
+
+==== Usage
+----
+local description = stack:get_description()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `description` | `{type-string}` | The description of the given stack.
+|===
+
+=== get_short_description
+Gets the short description of the given ItemStack, if any. Unlike the description, this does not include new lines. Fields for finding the short description, in order:
+
+ * `short_description` in item metadata (see xref:ItemStackMetaData.adoc[ItemStackMetaData])
+ * `short_description` in item definition
+ * first line of the description (see <<_get_description,`ItemStack:get_description`>>)
+
+==== Usage
+----
+local short_description = stack:get_short_description()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `short_description` | `{type-string}` or `{type-nil}` | The short description of the stack, if any.
+|===
+
+=== clear
+Clears the given ItemStack, making it empty.
+
+==== Usage
+----
+stack:clear()
+----
+
+=== replace
+Replace the contents of the given ItemStack.
+
+==== Usage
+----
+stack:replace(item)
+----
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `item` |  `ItemStack` or `itemstring` or `{type-table}` | The item to replace the contents with.
+|===
+
+=== to_string
+Returns the given ItemStack in itemstring form.
+
+==== Usage
+----
+local itemstring = stack:to_string()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `itemstring` | `{type-string}` | The stack represented as a string.
+|===
+
+
+=== to_table
+Returns the given ItemStack in table form.
+
+==== Usage
+----
+local item = stack:to_table()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `item` | `{type-table}` | The stack represented as a table.
+|===
+
+=== get_stack_max
+Returns the maximum size of the given ItemStack.
+
+==== Usage
+----
+local max_size = stack:get_stack_max()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `max_size` | `{type-number}` | The maximum size of the stack (depends on the item definition).
+|===
+
+=== get_free_space
+Returns the remaining space for items in the given ItemStack. Equivalent to `ItemStack:get_stack_max() - ItemStack:get_count()`.
+
+==== Usage
+----
+local free_space = stack:get_free_space()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `free_space` | `{type-number}` | The remaining space for items in the stack.
+|===
+
+=== is_known
+Determines if the name of the given ItemStack refers to a defined item type.
+
+==== Usage
+----
+local known = stack:is_known()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `known` | `{type-bool}` | Whether or not the stack name is a defined item.
+|===
+
+=== get_definition()
+Returns the item definition table for the given ItemStack. See Item Definition.
+
+==== Usage
+----
+local definition = stack:get_definition()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `definition` | `{type-table}` | The item definition of the stack.
+|===
+
+=== get_tool_capabilities
+Returns the digging properties of the given ItemStack. Will return the properties of the hand if no properties are defined for this item type.
+
+==== Usage
+----
+local tool_caps = stack:get_tool_capabilities()
+----
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `tool_caps` | `{type-table}` | The tool capabilities of this item type.
+|===
+
+=== add_wear
+Increases wear if the given ItemStack is a tool. Will do nothing if item is not a tool.
+
+==== Usage
+----
+stack:add_wear(wear)
+----
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `wear` | `{type-number}` | The amount of wear to add. Must be between `0` and `65535` (inclusive).
+|===
+
+=== add_wear_by_uses
+Increases wear of the given ItemStack such that the tool will break after this method is called the given amount of times. Will do nothing if item is not a tool or given amount is zero.
+
+==== Usage
+----
+stack:add_wear_by_uses(max_uses)
+----
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `max_uses` | `{type-number}` | The maximum amount of uses this tool should have before it breaks. This method will need to be called this many times for the tool to break.
+|===
+
+=== add_item
+Adds an item to the given itemstack.
+
+==== Usage
+----
+local remaining = stack:add_item(item)
+----
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `item` | `ItemStack` or `itemstring` or `{type-table}` or `{type-nil}` | The item(s) to add to the stack.
+|===
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `remaining` | `ItemStack` | The leftover items that did not fit in the stack.
+|===
+
+=== item_fits
+Checks if if the given item completely fits inside the given ItemStack.
+
+==== Usage
+----
+local fits = stack:item_fits(item)
+----
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `item` | `ItemStack` or `itemstring` or `{type-table}` or `{type-nil}` | The item(s) to check against the stack.
+|===
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `fits` | `{type-bool}` | Whether or not the given item fits completely inside the stack.
+|===
+
+=== take_item
+Takes and removes the given amount of items from the given ItemStack.
+
+==== Usage
+----
+local taken = stack:take_item(item)
+----
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `item` | `ItemStack` or `itemstring` or `{type-table}` or `{type-nil}` | The item(s) to remove from the stack.
+|===
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `taken` | `ItemStack` | The item(s) taken from the stack.
+|===
+
+=== peek_item
+Copies (and does not remove) the given amount of items from the given ItemStack.
+
+==== Usage
+----
+local taken = stack:peek_item(item)
+----
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `item` | `ItemStack` or `itemstring` or `{type-table}` or `{type-nil}` | The item(s) to copy from the stack.
+|===
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `taken` | `ItemStack` | The item(s) copied from the stack.
+|===
+
+include::../../include/footer.adoc[]
