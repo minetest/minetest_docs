@@ -65,7 +65,6 @@ time = minetest.get_us_time()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `time` | `{type-number}` | System-dependent timestamp in microseconds since an arbitrary starting point (µs)
 |===
@@ -103,7 +102,6 @@ time = minetest.get_gametime()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `time` | `{type-number}` | Time passed "in-game" since world creation in seconds ("gametime"). Does not increase while the game is paused or not running. Gametime is stored with the world and continuously increases.
 |===
@@ -148,7 +146,6 @@ end)
 ----
 
 ==== Params
-[%autowidth, frame=none]
 |===
 | `dtime` | `{type-number}` | Delta (elapsed) time since last step in seconds
 |===
@@ -213,7 +210,6 @@ end
 ----
 
 ==== Params
-[%autowidth, frame=none]
 |===
 | `time` | `{type-number}` | Time in seconds that must have passed for the callback to be executed.
 | `func` | `{type-function}` | Function to be called. Objects with the `__call` metamethod are supported as well.
@@ -221,7 +217,6 @@ end
 |===
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `job` | job object | Simple object providing a `job:cancel()` method to cancel a scheduled "job".
 |===
@@ -257,7 +252,6 @@ end
 ----
 
 ==== Params
-[%autowidth, frame=none]
 |===
 | `self` | entity | The entity itself (implicit parameter)
 | `dtime` | `{type-number}` | Delta (passed) time since last step in seconds (same as globalstep)

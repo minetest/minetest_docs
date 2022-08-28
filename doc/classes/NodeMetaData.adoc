@@ -23,14 +23,12 @@ Obtains a mutable NodeMetaData reference for the node at `pos`.
 
 === Arguments
 
-[%autowidth, frame=none]
 |===
 | `pos` | Vector | Node position on the map; floats are rounded appropriately.
 |===
 
 === Returns
 
-[%autowidth, frame=none]
 |===
 | `meta` | NodeMetaData | Corresponding NodeMetaData reference
 |===
@@ -43,7 +41,6 @@ Searches a region for nodes with non-empty metadata.
 
 Cuboid corners are rounded properly if they are not integers.
 
-[%autowidth, frame=none]
 |===
 | `pos1` | Vector | First corner of the cuboid region (inclusive)
 | `pos2` | Vector | Second corner of the cuboid region (inclusive)
@@ -51,7 +48,6 @@ Cuboid corners are rounded properly if they are not integers.
 
 === Returns
 
-[%autowidth, frame=none]
 |===
 | `positions` | List of Vector | List of integer positions of nodes that have non-empty meta
 |===
@@ -115,7 +111,6 @@ NOTE: `to_table` and `from_table` do not keep track of which fields were marked 
 
 ==== Arguments
 
-[%autowidth, frame=none]
 |===
 | `keys` | `{type-string}` or list of `{type-string}` | Either:
 * A single key to mark as private, or
@@ -126,7 +121,6 @@ NOTE: `to_table` and `from_table` do not keep track of which fields were marked 
 
 ==== Returns
 
-[%autowidth, frame=none]
 |===
 | `inv` | Inventory | The inventory associated with the node
 |===

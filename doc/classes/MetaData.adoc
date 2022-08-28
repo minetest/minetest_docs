@@ -61,7 +61,6 @@ you don't have to worry about C(++) type bounds.
 
 All getters take only a single argument: The key/name.
 
-[%autowidth, frame=none]
 |===
 | `key` | `{type-string}` | the key/name
 |===
@@ -71,7 +70,6 @@ All getters take only a single argument: The key/name.
 Checks for the existence of a key-value pair.
 
 ===== Returns
-[%autowidth, frame=none]
 |===
 | `has` | `nil`, `true` or `false` |One of:
  
@@ -85,7 +83,6 @@ Checks for the existence of a key-value pair.
 Retrieves the value associated with a key.
 
 ===== Returns
-[%autowidth, frame=none]
 |===
 | `value` | `nil` or `{type-string}` | Either:
  * `nil` if no matching key-value pair exists, or
@@ -97,7 +94,6 @@ Retrieves the value associated with a key.
 Retrieves the value associated with a key & coerces to string.
 
 ===== Returns
-[%autowidth, frame=none]
 |===
 | `value` | `{type-string}` | Either:
  * `""` if no matching key-value pair exists, or
@@ -109,7 +105,6 @@ Retrieves the value associated with a key & coerces to string.
 Retrieves the value associated with a key & coerces it to an integer.
 
 ===== Returns
-[%autowidth, frame=none]
 |===
 | `value` | `{type-number}` | Either:
  * `0` if no matching key-value pair exists, or
@@ -121,7 +116,6 @@ Retrieves the value associated with a key & coerces it to an integer.
 Retrieves the value associated with a key & coerces it to a floating-point number.
 
 ===== Returns
-[%autowidth, frame=none]
 |===
 | `value` | `{type-number}` | Either:
  * `0` if no matching key-value pair exists, or
@@ -134,7 +128,6 @@ Retrieves the value associated with a key & coerces it to a floating-point numbe
 
 Setters have no return values; they all take exactly two arguments: Key & value.
 
-[%autowidth, frame=none]
 |===
 | `key` | `{type-string}` | the key/name
 | `value` | depends on the setter | the value
@@ -144,7 +137,6 @@ Setters have no return values; they all take exactly two arguments: Key & value.
 ==== `:set_string(key, value)`
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `value` | `{type-string}` | The value to associate with `key`. Either:
  * `""` to remove the key-value pair, or
@@ -154,7 +146,6 @@ Setters have no return values; they all take exactly two arguments: Key & value.
 ==== `:set_int(key, value)`
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `value` | `{type-number}` | The integer value to coerce to a string & associate with `key`
 
@@ -167,7 +158,6 @@ Keep `value` between `-2^31` and `2^31 - 1`, both inclusive.
 ==== `:set_float(key, value)`
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `value` | `{type-number}` | The floating-point value to coerce to a string & associate with `key`
 
@@ -179,13 +169,11 @@ This may lead to a precision loss. Large numbers in particular may be hardly rep
 ==== `:equals(other)`
 
 ===== Arguments
-[%autowidth, frame=none]
 |===
 | `other` | MetaData | a MetaData object
 |===
 
 ===== Returns
-[%autowidth, frame=none]
 |===
 | `same` | `{type-bool}` | whether `self` has the same key-value pairs as `other`
 |===
@@ -195,7 +183,6 @@ This may lead to a precision loss. Large numbers in particular may be hardly rep
 Converts the metadata to a Lua table representation.
 
 ===== Returns
-[%autowidth, frame=none]
 |===
 | `value` | `nil` or `{type-table}` | Either:
  * `nil` if the metadata is invalid (?), or
@@ -211,7 +198,6 @@ TIP: Use `table = assert(meta:to_table())` to error if the operation failed.
 Sets the key-value pairs to match those of a given table representation or clears the metadata.
 
 ===== Arguments
-[%autowidth, frame=none]
 |===
 | `table` | `{type-table}` or any other type | Either:
 * The table representation as produced by `:to_table()`, or
@@ -219,7 +205,6 @@ Sets the key-value pairs to match those of a given table representation or clear
 |===
 
 ===== Returns
-[%autowidth, frame=none]
 |===
 | `value` | `{type-bool}` | whether loading the table representation succeeded
 |===

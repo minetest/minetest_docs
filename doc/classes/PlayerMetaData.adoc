@@ -20,7 +20,6 @@ Used to obtain a mutable PlayerMetaData reference.
 
 === Arguments
 
-[%autowidth, frame=none]
 |===
 | `player` | A valid Player object
 |===
@@ -38,7 +37,6 @@ to make PlayerMetaData available for offline players exists;
 
 === Returns
 
-[%autowidth, frame=none]
 |===
 | `meta` | PlayerMetaData | Public & shared PlayerMetaData object for the player
 |===

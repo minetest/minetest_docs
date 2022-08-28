@@ -33,7 +33,6 @@ Must be called at load time.
 
 === Returns
 
-[%autowidth, frame=none]
 |===
 | `storage` | ModStorage | Private ModStorage object for the currently loading mod
 |===

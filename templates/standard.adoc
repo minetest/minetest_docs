@@ -26,14 +26,12 @@ vehicle = Vehicle.new(pos, properties)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `pos` | `{class-vector}` | The position at which the vehicle will be spawned.
 | `properties` | `{type-table}` | A list of <<Vehicle Properties, Vehicle properties>>.
 |===
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `vehicle` | `Vehicle` | The created vehicle.
 |===
@@ -61,7 +59,6 @@ vehicle:set_properties(properties)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `properties` | `{type-table}` | A list of <<Vehicle Properties, Vehicle properties>>.
 |===
@@ -81,7 +78,6 @@ vehicle:get_properties()
 _None_
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `properties` | `{type-table}` | A list of <<Vehicle Properties, Vehicle properties>>.
 |===
@@ -95,7 +91,6 @@ vehicle:set_pos(pos)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `pos` | `{class-vector}` | The position to move the vehicle to.
 |===
@@ -115,7 +110,6 @@ vehicle:get_pos()
 _None_
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `pos` | `{class-vector}` | The current position of the vehicle.
 |===
@@ -127,7 +121,6 @@ success = vehicle:set_gear(gear)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `gear` | `{type-number}` a| The gear to shift to. Should be one of
  
@@ -137,7 +130,6 @@ success = vehicle:set_gear(gear)
 |===
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `success` | `{type-bool}` | Whether placement was successful.
 |===
@@ -154,7 +146,6 @@ gear = vehicle:get_gear()
 _None_
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `gear` | `{type-number}` | Gear the vehicle is currently in.
 |===
@@ -178,7 +169,6 @@ different, things = Vehicle:some_function(foo, bar)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `foo` | `{class-vector}` | Something.
 | `bar`? | `{class-vector}` | Something else.
@@ -188,14 +178,12 @@ different, things = Vehicle:some_function(foo, bar)
 [horizontal]
 1::
 +
-[%autowidth, frame=none]
 |===
 | `stuff` | `{type-table}` | Some things.
 |===
 
 2::
 +
-[%autowidth, frame=none]
 |===
 | `different` | `{type-table}` | Different things.
 | `things` | `{type-table}` | More stuff.
@@ -212,16 +200,13 @@ name = gear_to_name(gear)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `gear` | `{type-number}` | Gear to convert to name.
 |===
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `name` | `{type-string}` a| The name of the given gear. Expected values:
-[%autowidth, frame=none]
 !===
 a! `-1` a! `reverse`
 a! `0` a! `park`
@@ -240,7 +225,6 @@ vtype = vehicle_type(make, model)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `make` | `{type-string}` | The vehicle make.
 | `model` | `{type-string}` | The vehicle model.

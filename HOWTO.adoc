@@ -121,8 +121,7 @@ All types should link somewhere at some point (cross-reference or outside).
  ----
  
  ==== Arguments
- [%autowidth, frame=none]
- |===
+  |===
  | `argument1`  | `type` | Argument description.
  | `argument1` | `type` | Argument description.
  |===
@@ -132,8 +131,7 @@ All types should link somewhere at some point (cross-reference or outside).
  _None_
  
  ==== Returns
- [%autowidth, frame=none]
- |===
+  |===
  | `return_name`  | `type` | Return value description.
  |===
 

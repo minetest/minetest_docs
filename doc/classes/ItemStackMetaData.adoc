@@ -41,7 +41,6 @@ Integer (use with `:get_int` and `:set_int`).
 Alignment of the displayed item count value is encoded as `x_align + 4 * y_align`
 where `x_align` and `y_align` are one of:
 
-[%autowidth, frame=none]
 |===
 | Value | X-alignment (horizontally) | Y-alignment (vertically)
 | `0` | Default (currently same as `3`: Right) | Default (currently same as `3`: Bottom/Down)
@@ -106,7 +105,6 @@ Allows overriding the tool capabilities specified in the item definition.
 
 ==== Arguments
 
-[%autowidth, frame=none]
 |===
 | `tool_capabilities` | `nil` or a tool capabilities table | Either:
 * `nil`: Clears the tool capability override, or

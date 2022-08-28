@@ -15,13 +15,11 @@ local stack = ItemStack(data)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `data` | `ItemStack` or `itemstring` or `{type-table}` or `{type-nil}` | The data from which the ItemStack will be created.
 |===
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `stack` | `ItemStack` | A stack representing the given data (or an empty stack).
 |===
@@ -36,7 +34,6 @@ local empty = stack:is_empty()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `empty` | `{type-bool}` | Whether the stack is empty or not.
 |===
@@ -50,7 +47,6 @@ local name = stack:get_name()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `name` | `{type-string}` | The item name of the stack.
 |===
@@ -64,13 +60,11 @@ local cleared = stack:set_name(name)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `name` | `{type-string}` | The name to give the stack. Will clear the stack if given an empty string.
 |===
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `cleared` | `{type-bool}` | Whether or not the stack was cleared.
 |===
@@ -84,7 +78,6 @@ local count = stack:get_count()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `count` | `{type-number}` | The number of items in the stack.
 |===
@@ -98,13 +91,11 @@ local cleared = stack:set_count(count)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `count` | `{type-number}` | The amount of items to set the stack to. Must be between `0` and `65535` (inclusive).
 |===
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `cleared` | `{type-bool}` | Whether or not the stack was cleared.
 |===
@@ -118,7 +109,6 @@ local wear = stack:get_wear()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `wear` | `{type-number}` | The wear of the tool, between `0` and `65535` (inclusive). `0` if non-tool.
 |===
@@ -132,13 +122,11 @@ local cleared = stack:set_wear(wear)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `wear` | `{type-number}` | The desired wear of the tool, between `0` and `65535` (inclusive). `0` will clear the stack.
 |===
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `cleared` | `{type-bool}` | Whether or not the stack was cleared.
 |===
@@ -152,7 +140,6 @@ local meta = stack:get_meta()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `meta` | `xref:ItemStackMetaData.adoc[ItemStackMetaData]` | The metadata of the stack.
 |===
@@ -168,7 +155,6 @@ local metadata = stack:get_metadata()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `metadata` | `{type-string}` | The string metadata of the given stack.
 |===
@@ -184,13 +170,11 @@ local success = stack:set_metadata(data)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `data` | `{type-string}` | The metadata to give the stack.
 |===
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `success` | `{type-bool}` | Always `true`.
 |===
@@ -208,7 +192,6 @@ local description = stack:get_description()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `description` | `{type-string}` | The description of the given stack.
 |===
@@ -226,7 +209,6 @@ local short_description = stack:get_short_description()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `short_description` | `{type-string}` or `{type-nil}` | The short description of the stack, if any.
 |===
@@ -248,7 +230,6 @@ stack:replace(item)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `item` |  `ItemStack` or `itemstring` or `{type-table}` | The item to replace the contents with.
 |===
@@ -262,7 +243,6 @@ local itemstring = stack:to_string()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `itemstring` | `{type-string}` | The stack represented as a string.
 |===
@@ -277,7 +257,6 @@ local item = stack:to_table()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `item` | `{type-table}` | The stack represented as a table.
 |===
@@ -291,7 +270,6 @@ local max_size = stack:get_stack_max()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `max_size` | `{type-number}` | The maximum size of the stack (depends on the item definition).
 |===
@@ -305,7 +283,6 @@ local free_space = stack:get_free_space()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `free_space` | `{type-number}` | The remaining space for items in the stack.
 |===
@@ -319,7 +296,6 @@ local known = stack:is_known()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `known` | `{type-bool}` | Whether or not the stack name is a defined item.
 |===
@@ -333,7 +309,6 @@ local definition = stack:get_definition()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `definition` | `{type-table}` | The item definition of the stack.
 |===
@@ -347,7 +322,6 @@ local tool_caps = stack:get_tool_capabilities()
 ----
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `tool_caps` | `{type-table}` | The tool capabilities of this item type.
 |===
@@ -361,7 +335,6 @@ stack:add_wear(wear)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `wear` | `{type-number}` | The amount of wear to add. Must be between `0` and `65535` (inclusive).
 |===
@@ -375,7 +348,6 @@ stack:add_wear_by_uses(max_uses)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `max_uses` | `{type-number}` | The maximum amount of uses this tool should have before it breaks. This method will need to be called this many times for the tool to break.
 |===
@@ -389,13 +361,11 @@ local remaining = stack:add_item(item)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `item` | `ItemStack` or `itemstring` or `{type-table}` or `{type-nil}` | The item(s) to add to the stack.
 |===
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `remaining` | `ItemStack` | The leftover items that did not fit in the stack.
 |===
@@ -409,13 +379,11 @@ local fits = stack:item_fits(item)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `item` | `ItemStack` or `itemstring` or `{type-table}` or `{type-nil}` | The item(s) to check against the stack.
 |===
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `fits` | `{type-bool}` | Whether or not the given item fits completely inside the stack.
 |===
@@ -429,13 +397,11 @@ local taken = stack:take_item(item)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `item` | `ItemStack` or `itemstring` or `{type-table}` or `{type-nil}` | The item(s) to remove from the stack.
 |===
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `taken` | `ItemStack` | The item(s) taken from the stack.
 |===
@@ -449,13 +415,11 @@ local taken = stack:peek_item(item)
 ----
 
 ==== Arguments
-[%autowidth, frame=none]
 |===
 | `item` | `ItemStack` or `itemstring` or `{type-table}` or `{type-nil}` | The item(s) to copy from the stack.
 |===
 
 ==== Returns
-[%autowidth, frame=none]
 |===
 | `taken` | `ItemStack` | The item(s) copied from the stack.
 |===
