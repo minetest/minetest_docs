@@ -244,4 +244,4 @@ Result: A texture of dimensions `w` times `h` on which all `textures` have been 
 
 ===== `[inventorycube{<top>{<left>{<right>`
 
-Renders a cube with the three given textures using simple software rendering. The resulting image will be 9 times the nearest power of 2 that is large enough to represent the contain the dimensions of the largest image, clamped to a range of at least 4 and at most 64.
+Renders a cube with the three given textures using simple software rendering. The resulting image will be 9 times the nearest power of 2 that is large enough to contain the dimensions of the largest image, clamped to a range of at least 4 and at most 64.
