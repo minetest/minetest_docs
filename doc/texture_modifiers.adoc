@@ -27,9 +27,9 @@ TIP: Use texture modifiers mostly statically. Keep dynamically generated texture
 Texture modifiers can be used in texture overrides.
 // TODO link texture pack doc
 
-WARNING: Usage of certain texture modifiers might require certain texture resolutions to be used by texture packs, as texture modifiers operate on pixels instead of relative units.
+IMPORTANT: Usage of certain texture modifiers might require certain texture resolutions to be used by texture packs, as texture modifiers operate on pixels instead of relative units.
 
-WARNING: Generated textures can not be replaced by a texture pack (except through texture overrides); only base textures can be properly replaced.
+IMPORTANT: Generated textures can not be replaced by a texture pack (except through texture overrides); only base textures can be properly replaced.
 
 == In Lua
 
@@ -37,13 +37,16 @@ WARNING: Generated textures can not be replaced by a texture pack (except throug
 
 ==== `minetest.inventorycube(img1, img2, img3)`
 
-The only function provided. Escapes it's three arguments and returns an `[inventorycube{img1{img2{img3` texture modifier in string form.
+The only function provided. Escapes its three arguments and returns an `[inventorycube{img1{img2{img3` texture modifier in string form.
 
 === String Notations
 
 Lua provides three string notations: Quoted (single or double) and long. The type of quotes doesn't really matter, as texture names shouldn't include either type of quotes anyways. Keep in mind that to encode a backslash in quoted strings, you have to escape it with another backslash: `a.png^[mask:b.png\^c.png` would be encoded as `"a.png^[mask:b.png\\^c.png"` using double quotes.
 
-Long strings enclose their content a pair of at least two square brackets `[[...]]`. Within them, no escaping applies, which means that texture modifiers can be written down literally; a leading square bracket such as that of a generating texture modifier is not a problem. Example: `[[[combine:1x1:0,0=a.png]]`.
+Long strings enclose their content with a pair of two square brackets and an arbitrary number of matching equal signs: `[[...]]` and `[===[...]===]` are examples of valid long strings.
+Within them, no escaping applies, which means that texture modifiers can be written down literally;
+a leading square bracket such as that of a generating texture modifier is not a problem.
+Example: `[[[combine:1x1:0,0=a.png]]`. Using equals signs is not necessary since texture modifiers won't contain `[[` or `]]`.
 
 === String Builders / DSLs
 
@@ -53,7 +56,9 @@ It is possible to set metamethods in order to obtain a neat, possibly OOP-ish Lu
 
 The original documentation in `lua_api.txt` is rather vague. Further details have been determined by examining the shotgun parser in `tile.cpp`.
 
-WARNING: Texture modifiers are only parsed clientside, where errors lead to poor behavior (error messages in the best case, sometimes the wrong texture, crashes in the worst case). They are not validated serverside. Take additional care to ensure no syntax errors or values which cause undefined behavior.
+WARNING: Texture modifiers are only parsed clientside, where errors lead to poor behavior
+(error messages in the best case, sometimes the wrong texture, crashes in the worst case).
+They are not validated serverside. Take additional care to ensure no syntax errors or values which cause undefined behavior.
 
 TIP: Use some form of string builder that guarantees valid texture modifiers.
 
@@ -61,7 +66,8 @@ TIP: Use some form of string builder that guarantees valid texture modifiers.
 
 Texture modifiers work on _base textures_ which are specified in a string form as media file names. See the supported file formats.
 
-Naming convention dictates the texture name be the modname, plus a series of lowercase terms separated by underscores. Example: `mymod_mything_mytexture.png`.
+TIP: Naming convention: It is considered good practice for the texture name to be the modname
+plus a series of lowercase terms separated by underscores. Example: `mymod_mything_mytexture.png`.
 
 For the sake of simplicity, `<x>`, single letters x, y, z, a, b, c, d are used to denote textures below.
 
