@@ -79,7 +79,7 @@ Minetest alternatively offers a serializer implemented in Lua, which serializes 
 ** Upvalues or the context of the function (function environment) aren't preserved
 ** C functions which lack Lua bytecode (such as `math.sqrt` or most Minetest API functions) can't be (de)serialized at all
 
-Userdata objects (like `ItemStack` for example) aren't supported. Threads aren't supported either.
+Userdata objects (like `ItemStack` for example) aren't supported. Threads (coroutines) aren't supported either.
 
 ==== `minetest.serialize(data)`
 
@@ -190,5 +190,9 @@ Minetest provides metadata objects which all provide a simple string key-value s
 . Players: xref:classes/PlayerMetaData.adoc[PlayerMetaData]: SQLite-backed key-value storage, however only available while the player is online
 . Mods: xref:classes/ModStorage.adoc[ModStorage]: SQLite-backed key-value storage; older versions use a JSON-backed store unsuitable for large data (as serialization will block the main thread)
 
+<<<<<<< HEAD
 Utilities for setting & getting non-string datatypes like integers and floats are provided; the datatype is however not stored with the entries.
 The granularity of all these key-value stores is determined by the `server_map_save_interval` setting.
+=======
+TIP: Store only small data in ItemStackMetaRefs. Make sure to limit user input.
+>>>>>>> 13da8f0e9024f94f28a5e0c1d4fc42b3d4cd9049
