@@ -91,6 +91,15 @@ Equivalent to `vector.apply(v, math.round)`
 
 Returns a new `vector` where each component of `v` has had `func` applied to it.
 
+=== `vector.combine(v, w, func) -> vector`
+* `v`: `vector`
+* `w`: `vector`
+* `func`: `function`
+
+Returns a new `vector` where each pair of respective components of `v` and `w` has had `func` applied to it.
+
+Example: `vector.combine(v, w, math.pow)` is the same as `vector.new(math.pow(v.x, w.x), math.pow(v.y, w.y), math.pow(v.z, w.z))`.
+
 === `vector.distance(a, b) -> number`
 * `a`, `b`: `vector`
 
