@@ -393,7 +393,7 @@ where stem:[d] is the set of dimensions (width & height) of all faces.
 
 == Examples
 
-==== Cracked Nodes
+=== Cracked Nodes
 
 * Cracked Stone: `default_stone.png^[crack:1:2`
 ** Use the third crack progression (`2` if 0-indexed)...
@@ -404,7 +404,7 @@ where stem:[d] is the set of dimensions (width & height) of all faces.
 
 If in doubt, prefer an explicit `verticalframe` and overlaying over `crack`.
 
-==== Cropping
+=== Cropping
 
 Cropping can be accomplished using the `[combine` texture modifier:
 
@@ -413,13 +413,13 @@ Examples (cropping `default_stone.png`, 16x16):
 * Remove left & top 6px: `[combine:8x8:-8,-8=default_stone.png`
 * Remove right & bottom 6px: `[combine:8x8:0,0=default_stone.png`
 
-==== Progress Bars
+=== Progress Bars
 
 Combine or lowpart and rotate (the latter more TP-agnostic)
 
 The below examples use `progress_bar.png` & `progress_bar_bg.png` from Minetest's base textures, both 256x48.
 
-* Using nested `combine`s: `[combine:256x48:0,0=progress_bar_bg.png:0,0=[combine\:128x48\:0,0=progress_bar.png`
+* Using nested ``combine``s: `[combine:256x48:0,0=progress_bar_bg.png:0,0=[combine\:128x48\:0,0=progress_bar.png`
 ** First crop the foreground to its left half (`128` of `256` pixels); escape this
 ** Then create a new blank image with the progress bar resolution, blit the background and after that the cropped foreground
 ** *Downside: Heavily resolution-dependent*; making it (mostly) resolution-independent requires (up)scaling textures first
@@ -430,4 +430,4 @@ The below examples use `progress_bar.png` & `progress_bar_bg.png` from Minetest'
 ** Rotate everything by 270° to undo the vertical orientation
 ** *Advantage over using `combine`*: Due to the usage of `lowpart`, this is resolution-agnostic (will work with texture packs of different resolutions)
 
-NOTE: For HUDs, `statbar`s should be preferred over `image`s using texture modifiers.
+NOTE: For HUDs, ``statbar``s should be preferred over ``image``s using texture modifiers.
