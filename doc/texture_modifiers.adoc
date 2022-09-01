@@ -361,6 +361,9 @@ local function embedded_png(width, height, data)
 end
 ====
 
+IMPORTANT: Not supported by Minetest 5.4 and older clients. May lead to client crashes if used in node tiles.
+Minetest 5.5 and newer servers will automatically prepend `blank.png^` to `[png` tiles to mitigate this.
+
 WARNING: Do not use this for large textures. If used as an object texture,
 the texture modifier will get sent arbitrarily often, putting a strain on the network.
 
@@ -379,6 +382,13 @@ Nesting `combine` is possible through escaping.
 
 Generates a texture of dimensions `w`, `h` on which all `textures` have been blit at the specified locations.
 The background is black and transparent (`#00000000`).
+
+IMPORTANT: Node tiles starting with `[combine` are broken on Minetest 5.4 and older clients connecting to 5.5 servers
+due to the aforementioned `[png` workaround accidentally being applied to `[combine` as well.
+
+TIP: To work around this, you can enclose your node tile texture modifiers using `[combine` in parentheses: `([combine:...)`.
+A generic patch which loops over node definitions and wraps matching texture modifiers
+https://gist.github.com/appgurueu/dea1d1d9d8494e9c00114d36d58c5932[is available as well].
 
 ===== `[inventorycube{<top>{<left>{<right>`
 
