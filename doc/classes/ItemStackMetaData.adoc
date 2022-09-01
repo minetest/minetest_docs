@@ -1,7 +1,7 @@
 = ItemStackMetaData
 
-include::../include/config.adoc[]
-include::../include/types.adoc[]
+include::../../include/config.adoc[]
+include::../../include/types.adoc[]
 :description: Per-ItemStack persistent key-value store
 :keywords: meta, data, metadata, item, stack, storage, key, value, persistence
 
