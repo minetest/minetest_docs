@@ -1,10 +1,7 @@
 = Lua Environment
+include::../include/config.adoc[]
 :description: Documentation of the global environment Minetest mods run in
 :keywords: lua, luajit, environment, mod, security, portability, platform, library
-:toc:
-:toclevels: 5
-
-:url-reference-manual: https://www.lua.org/manual/5.1/manual.html
 
 Minetest uses Lua 5.1. The environment in which Minetest executes mods depends on four factors:
 
@@ -22,13 +19,56 @@ See the {url-reference-manual}[Lua 5.1 Reference Manual] for platform- and OS-en
 * Some parts of the `io` library like `io.popen` (only available in an insecure environment) or handling of binary files
 * `require` and `package.loadlib` (only available in an insecure environment anyways)
 
+== Global Strictness
+
+Variables in Lua are global by default (both assignment and access). This often leads to mistaken use of global variables, with the two perhaps most common issues being:
+
+. Missspelling a local variable and accessing a global variable instead (which will usually be `nil`)
+. Forgetting `local` when assigning to a variable, (over)writing a global variable, leading to "global pollution"
+
+Minetest's built-in strictness works using a metatable on the global table and will log warnings for both cases. Minetest defines a global declaration as a *global assignment in a main chunk* - setting globals in any other function will not be considered a declaration and will trigger a warning:
+
+[source, lua]
+----
+-- Declarations according to Minetest's definition:
+global_var = 42
+for k, v in pairs{a = 1, b = 2} do _G[k] = v end
+-- Assignment to undeclared global:
+local function set_global()
+    another_global_var = 42
+end
+set_global()
+----
+
+
+. Reading an undeclared global variable will trigger an "undeclared global variable access" warning
+. Setting an undeclared global variable after load time will trigger an "assignment to undeclared global" warning
+
+Warnings are identified by their location as returned by `debug.getinfo` (`short_src` and `currentline`) and won't be logged twice.
+
+WARNING: Accessing undeclared global variables will be an order of magnitude slower than accessing declared globals due to the executed strictness checking code.
+
+TIP: These warnings are only triggered at run time as the global variable access or assignment occurs. It is recommended to use a linter like [`luacheck`](https://github.com/mpeterv/luacheck) to detect mistaken global variable usage statically at the time of development.
+
+=== Checking for global existence
+
+For mod compatibility, the existence of global variables must be checked. A simple `if name then ... end` check might trigger an "undeclared global variable access" warning if the variable doesn't exist (is `nil`) and has not been declared either (usually when an optional dependency isn't present).
+
+As Minetest implements global strictness over a metatable, `rawget(_G, name)` can be used in place of just `name` to access possibly `nil` globals without triggering a warning. Similarly, `rawset(_G, name, value)` may be used to set globals at run time.
+
+==== `minetest.global_exists(name)`
+
+Returns `true` if a global variable with the given `name` exists (is not `nil`), `false` otherwise. An error is thrown if `name` is not a string.
+
+NOTE: This wraps `rawget(_G, name)` in the end but might be considered more readable as it makes the intention clear.
+
 == Standard Library Extensions
 
 === `math`
 
 ==== `math.hypot(x, y)`
 
-Finds the length of the hypotenuse `z` according to the Pythagorean Theorem: `z^2 = x^2 + y^2`. Shorthand for `math.sqrt(x*x + y*y)`.
+Finds the length of the hypotenuse `z` according to the Pythagorean Theorem: stem:[z^2 = x^2 + y^2]. Shorthand for `math.sqrt(x*x + y*y)`.
 
 ==== `math.sign(x, [tolerance])`
 
@@ -40,7 +80,7 @@ Finds the length of the hypotenuse `z` according to the Pythagorean Theorem: `z^
 
 As Python has built-in big integer support (and uses 64-bit `float`), it can be used to easily determine for which `x` this implementation becomes imprecise due to float precision limitations:
 
-[source,python3]
+[source, python]
 ----
 def factorial(x):
 	return x if x == 1 else x * factorial(x-1)
@@ -114,6 +154,15 @@ Deepcopies the table `t` and all it's subtables - both keys and values. Non-tabl
 
 The `seen` table is a lookup for already copied tables, which are used as keys. The value is the copy. By providing `[table] = table` entries for certain tables, you can prevent them from being copied.
 
+Example: Preservation of referential structure means the ``assert``ion in the following code will work:
+
+[source,lua]
+----
+a = {}; b = {a, a}; c = table.copy(b); assert(c[1] == c[2])
+----
+
+A different deep cloning implementation might clone `a` twice, leading to `c[1] ~= c[2]`.
+
 ==== `table.insert_all(t, other)`
 
 Adds all the list entries of `other` to `t` (list part concatenation).
@@ -122,7 +171,7 @@ Adds all the list entries of `other` to `t` (list part concatenation).
 
 Returns a new table with the keys of `t` as values and the corresponding values as keys. If a value occurs multiple times in `t`, any of the keys might be the value in the resulting table.
 
-==== `table.shuffle(t, from, to, random)`
+==== `table.shuffle(t, [from], [to], [random])`
 
 Performs a Fisher-Yates shuffling on the specified range of the list part of `t`.
 
@@ -134,7 +183,7 @@ Returns nothing.
 
 == LuaJIT extensions
 
-Minetest builds compiled with LuaJIT (`ENABLE_LUAJIT=1`) provide the https://luajit.org/extensions.html[LuaJIT extensions]. These include syntactical Lua 5.2 language features like `goto`, which will lead to a syntax error on PUC Lua 5.1. Hex escapes will be converted into the raw characters by PUC Lua 5.1.
+Minetest builds compiled with LuaJIT (`ENABLE_LUAJIT=1`) provide the https://luajit.org/extensions.html[LuaJIT extensions]. These include syntactical Lua 5.2 language features like `goto`, which will lead to a syntax error on PUC Lua 5.1. Hex escapes will be converted into the raw characters by PUC Lua 5.1 (Example: `"\xFF"` which is the same as `"\255"` on LuaJIT will be `"xFF"` on PUC Lua 5.1).
 
 == Common extensions
 
@@ -194,8 +243,7 @@ Some library tables are restricted by whitelists as well:
 ** `time`
 ** SSM-only:
 *** `getenv`
-*** `setlocale`
-*** `tmpname`
+*** `setlocale`: Severely restricted, can only be used to get locale
 * `debug`:
 ** `gethook`
 ** `traceback`
