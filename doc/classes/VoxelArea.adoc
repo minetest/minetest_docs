@@ -1,5 +1,5 @@
 = `VoxelArea`
-include::../include/config.adoc[]
+include::../../include/config.adoc[]
 :description: Documentation for the `VoxelArea` "class"
 :keywords: voxel, area, voxelmanip
 

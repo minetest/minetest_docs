@@ -1,7 +1,7 @@
 = MetaData
 
-include::../include/config.adoc[]
-include::../include/types.adoc[]
+include::../../include/config.adoc[]
+include::../../include/types.adoc[]
 :description: Base class of various meta data classes used to persist key-value pairs
 :keywords: meta, data, metadata, storage, key, value, persistence
 
