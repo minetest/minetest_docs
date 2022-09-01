@@ -71,7 +71,7 @@ Checks for the existence of a key-value pair.
 
 ===== Returns
 |===
-| `has` | `nil`, `true` or `false` |One of:
+| `has` | `nil`, `true` or `false` a| One of:
  
  * `nil`: Invalid `self`
  * `false`: No key-value pair with the given key exists.
@@ -84,7 +84,8 @@ Retrieves the value associated with a key.
 
 ===== Returns
 |===
-| `value` | `nil` or `{type-string}` | Either:
+| `value` | `nil` or `{type-string}` a| Either:
+
  * `nil` if no matching key-value pair exists, or
  * `{type-string}`: The associated value
 |===
@@ -95,7 +96,8 @@ Retrieves the value associated with a key & coerces to string.
 
 ===== Returns
 |===
-| `value` | `{type-string}` | Either:
+| `value` | `{type-string}` a| Either:
+
  * `""` if no matching key-value pair exists, or
  * `{type-string}`: The associated value
 |===
@@ -106,7 +108,8 @@ Retrieves the value associated with a key & coerces it to an integer.
 
 ===== Returns
 |===
-| `value` | `{type-number}` | Either:
+| `value` | `{type-number}` a| Either:
+
  * `0` if no matching key-value pair exists, or
  * `{type-number}`: The associated value, coerced to an integer
 |===
@@ -117,7 +120,8 @@ Retrieves the value associated with a key & coerces it to a floating-point numbe
 
 ===== Returns
 |===
-| `value` | `{type-number}` | Either:
+| `value` | `{type-number}` a| Either:
+
  * `0` if no matching key-value pair exists, or
  * `{type-number}`: The associated value, coerced to a floating point number
 |===
@@ -138,7 +142,8 @@ Setters have no return values; they all take exactly two arguments: Key & value.
 
 ==== Arguments
 |===
-| `value` | `{type-string}` | The value to associate with `key`. Either:
+| `value` | `{type-string}` a| The value to associate with `key`. Either:
+
  * `""` to remove the key-value pair, or
  * any other string to update/insert a key-value pair
 |===
@@ -147,7 +152,7 @@ Setters have no return values; they all take exactly two arguments: Key & value.
 
 ==== Arguments
 |===
-| `value` | `{type-number}` | The integer value to coerce to a string & associate with `key`
+| `value` | `{type-number}` a| The integer value to coerce to a string & associate with `key`
 
 WARNING: Integer refers to a C(++) `int` as internally used by the implementation - usually 32 bits wide -
 meaning it is unable to represent as large integer numbers as the Lua number type.
@@ -159,7 +164,7 @@ Keep `value` between `-2^31` and `2^31 - 1`, both inclusive.
 
 ==== Arguments
 |===
-| `value` | `{type-number}` | The floating-point value to coerce to a string & associate with `key`
+| `value` | `{type-number}` a| The floating-point value to coerce to a string & associate with `key`
 
 WARNING: The implementation internally uses the C(++) `float` type - usually 32 bits wide -
 whereas Lua guarantees 64-bit "double-precision" floating point numbers.
@@ -184,7 +189,8 @@ Converts the metadata to a Lua table representation.
 
 ===== Returns
 |===
-| `value` | `nil` or `{type-table}` | Either:
+| `value` | `nil` or `{type-table}` a| Either:
+
  * `nil` if the metadata is invalid (?), or
  * `{type-table}`: A table representation of the metadata with the following fields:
  ** `fields`: Table `{[key] = value, ...}`
@@ -199,9 +205,10 @@ Sets the key-value pairs to match those of a given table representation or clear
 
 ===== Arguments
 |===
-| `table` | `{type-table}` or any other type | Either:
-* The table representation as produced by `:to_table()`, or
-* Any non-table value: Clears the metadata
+| `table` | `{type-table}` or any other type a| Either:
+
+ * The table representation as produced by `:to_table()`, or
+ * Any non-table value: Clears the metadata
 |===
 
 ===== Returns

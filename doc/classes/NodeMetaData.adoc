@@ -112,9 +112,10 @@ NOTE: `to_table` and `from_table` do not keep track of which fields were marked 
 ==== Arguments
 
 |===
-| `keys` | `{type-string}` or list of `{type-string}` | Either:
-* A single key to mark as private, or
-* A list of keys to mark as private
+| `keys` | `{type-string}` or list of `{type-string}` a| Either:
+
+ * A single key to mark as private, or
+ * A list of keys to mark as private
 |===
 
 === `:get_inventory()`
