@@ -108,9 +108,9 @@ Allows overriding the tool capabilities specified in the item definition.
 
 [%autowidth, frame=none]
 |===
-| `tool_capabilities` | `nil` or a tool capabilities table | Either:
-* `nil`: Clears the tool capability override, or
-* Tool capabilities table: Overrides the defined tool capabilities (see ItemDefinition for the table format)
+| `tool_capabilities` | `nil` or a tool capabilities table a| Either:
+ * `nil`: Clears the tool capability override, or
+ * Tool capabilities table: Overrides the defined tool capabilities (see ItemDefinition for the table format)
 |===
 
 NOTE: The corresponding `:get_tool_capabilities` is not a method of ItemStackMetaData but rather of the "parent" ItemStack.
