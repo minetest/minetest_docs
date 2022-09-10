@@ -1,0 +1,79 @@
+= `Settings`
+include::../include/config.adoc[]
+:description: Documentation for the `Settings` "class"
+:keywords: settings, configuration
+
+`Settings` TODO
+
+The engine provides `minetest.settings` for reading from and setting the global minetest configuration, which is a `Settings` object the engine takes care of.
+
+== Format
+It is a simple key-value data store, that is in plain text when written to the disk.
+
+[source]
+----
+# Lines beginning with a hashtag denote a comment.
+key = value
+another_key = """
+Multiline strings are supported with a Python-like syntax.
+"""
+----
+
+== `Settings(filepath)`
+
+Returns a `Settings` class object. The `filepath` argument is a required argument pointing to a filepath, if the file exists and is in a valid format then the `Settings` object will be initialised with the data from that file. If the filepath points to somewhere outside of the directories allowed by the secure environment then it will throw a mod security error.
+
+For the built-in `minetest.settings` object the engine will take care of saving it in a timely manner. For user-created objects, you will need to call the `:write()` method regularily to save any changes to `filepath`.
+
+== `:get(key)`
+Get a key, returning the value. If the key does not exist it will return `nil`.
+
+== `:get_bool(key, [default])`
+Get a boolean value. If the key does not exist it will return `default`, or `nil` if the argument is not provided or is a non-boolean value.
+
+If the value is not a boolean, it will always return `false` no matter the `default` argument.
+
+== `:get_np_group(key)`
+Get a `NoiseParams` table.
+
+== `:get_flags(key)`
+TODO
+
+== `:set(key, value)`
+Set `value` to `key`.
+
+Setting keys can't contain `="{}#` or spaces, and setting values can't contain the string `\n"""` within it.
+
+If the `minetest.settings` object, the following setting keys can't be set and will throw an error if tried:
+
+- Any key starting with `secure.`
+- `main_menu_script`
+- `shader_path`
+- `texture_path`
+- `screenshot_path`
+- `serverlist_file`
+- `serverlist_url`
+- `map-dir`
+- `contentdb_url`
+
+The `mg_name` or `mg_flags` keys are ignored and should be set with `minetest.set_mapgen_setting()` instead.
+
+== `:set_bool(key, value)`
+Set a boolean `value` to `key`, see `:set(key, value)`.
+
+== `:set_np_group(key, value)`
+Set a `NoiseParams` table `value` to key, see `:set(key, value)`.
+
+== `:remove(key)`
+Remove the `key` if it exists. Returns `true` if the key existed and `false` if not.
+
+== `:get_names()`
+Returns a table with a list of all key names.
+
+== `:write()`
+Write changes to the specified `filepath`.
+
+Unnecessary when using `minetest.settings` as it will save automatically, but still works when making sure settings have been set.
+
+== `:to_table()`
+Returns all data serialised into a table.
