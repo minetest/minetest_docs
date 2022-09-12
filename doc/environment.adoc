@@ -48,7 +48,7 @@ Warnings are identified by their location as returned by `debug.getinfo` (`short
 
 WARNING: Accessing undeclared global variables will be an order of magnitude slower than accessing declared globals due to the executed strictness checking code.
 
-TIP: These warnings are only triggered at run time as the global variable access or assignment occurs. It is recommended to use a linter like [`luacheck`](https://github.com/mpeterv/luacheck) to detect mistaken global variable usage statically at the time of development.
+TIP: These warnings are only triggered at run time as the global variable access or assignment occurs. It is recommended to use a linter like https://github.com/mpeterv/luacheck[`luacheck`] to detect mistaken global variable usage statically at the time of development.
 
 === Checking for global existence
 
@@ -63,6 +63,8 @@ Returns `true` if a global variable with the given `name` exists (is not `nil`),
 NOTE: This wraps `rawget(_G, name)` in the end but might be considered more readable as it makes the intention clear.
 
 == Standard Library Extensions
+
+NOTE: It is considered bad practice to extend the standard library yourself, as this may collide with other mods doing the same as well as future engine changes including Lua version upgrades. Put your extensions into distinct API tables instead of modifying Lua's builtin libraries.
 
 === `math`
 
