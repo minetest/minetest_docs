@@ -1,4 +1,0 @@
-
-'''
-
-Made with https://asciidoctor.org/[AsciiDoctor] | Contribute on {url-docs-repo}[GitHub]
