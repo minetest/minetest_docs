@@ -1,0 +1,35 @@
+= Registering Content
+include::../include/config.adoc[]
+include::../include/types.adoc[]
+:description: Adding Content to Minetest
+:keywords: node, register, definition
+
+Minetest's Lua API can be used to add new content to Minetest. This includes nodes (blocks), items, entities, ABMs and LBMs.
+
+IMPORTANT: You may only call registering functions at load time. Content cannot be registered dynamically while the world is running.
+
+== Functions
+
+=== `minetest.register_node(id, definition)
+
+Registers (adds) a new Node into the game. Each node has a unique identifier.
+
+TIP: You should use IDs in the form of `modname:nodeid`. For example, if your mod is called "mymod", use an id of `mymod:myblock`
+
+==== Usage
+
+[source, lua]
+----
+-- this registers a simple node with a Description and a texture. There are a lot of possibilities to customize this node.
+minetest.register_node("mymod:mynode", {
+    description = "My Block",
+    tiles = {"mymod_mynode.png"}
+}
+----
+
+==== Params
+[%autowidth, frame=none]
+|===
+| `id` | `{type-string}` | The id that will be assigned to the node.
+| `definition` | `{type-link:types/NodeDefinition.adoc[NodeDefinition]}` | The properties and behaviour that will be applied to the node
+|===

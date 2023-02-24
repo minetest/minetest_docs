@@ -1,0 +1,26 @@
+= Node Definition
+
+==== Properties
+[%autowidth, frame=none]
+|===
+| `drawtype` | `{type-string}` | The way the node should be rendered. | `default:"normal"`
+| `visual_scale` | `{type-float}` | Affects the size at which the node will be rendered. Acts as a multiplier. Supported for drawtypes "plantlike", "signlike", "torchlike", firelike", "mesh", "nodebox", "allfaces". For plantlike and firelike, the image will start at the bottom of the node. For torchlike, the image will start at the surface to which the node "attaches". For the other drawtypes the image will be centered on the node. | `default:1.0`
+| `tiles` | `{type-table{link:types/TileDefinition.adoc[TileDefinition]}}` | Textures of node; +Y, -Y, +X, -X, +Z, -Z. The list can be shortened to needed length. | `default:TODO`
+| `overlay_tiles` | `{type-table{link:types/TileDefinition.adoc[TileDefinition]}}` | Same as `tiles`, but these textures are drawn on top of the base tiles. You can use this to colorize only specific parts of your texture. If the texture name is an empty string, that overlay is notdrawn. Since such tiles are drawn twice, it is not recommended to use overlays on very common nodes. | `default:nil`
+| `special_tiles` | `{type-table{link:types/TileDefinition.adoc[TileDefinition]}}` | Special textures of node; used rarely. List can be shortened to needed length. | `default:nil`
+| `color` | `{type-{link:types/Colorspec.adoc[ColorSpec]}` |  The node's original color will be multiplied with this color. If the node has a palette, then this setting only has an effect in the inventory and on the wield item. | `default:nil`
+| `use_texture_alpha` | `{type-string}` |  | `default:"opaque"`
+| `palette` | `{type-string}` |  | `default:"opaque"`
+| `post_effect_color` | `{type-string}` |  | `default:"#000000"`
+| `paramtype` | `{type-string}` |  | `default:"none"`
+| `paramtype2` | `{type-string}` |  | `default:"none"`
+| `place_param2` | `{type-number}` |  | `default:0`
+| `is_ground_content` | `{type-boolean}` |  | `default:true`
+| `sunlight_propagates` | `{type-boolean}` |  | `default:false`
+| `walkable` | `{type-boolean}` |  | `default:true`
+| `pointable` | `{type-boolean}` |  | `default:true`
+| `diggable` | `{type-boolean}` |  | `default:true`
+| `climbable` | `{type-boolean}` |  | `default:false`
+|===
+
+NOTE: This file is incomplete
