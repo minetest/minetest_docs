@@ -1,6 +1,10 @@
 = Node Definition
+include::../../include/config.adoc[]
+include::../../include/types.adoc[]
+:description: Definition for register_node
+:keywords: node, register, definition
 
-==== Properties
+== Properties
 [%autowidth, frame=none]
 |===
 | `drawtype` | `{type-string}` | The way the node should be rendered. | `default:"normal"`
