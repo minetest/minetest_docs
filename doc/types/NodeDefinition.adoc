@@ -4,27 +4,142 @@ include::../../include/types.adoc[]
 :description: Definition for register_node
 :keywords: node, register, definition
 
+
 == Properties
 [%autowidth, frame=none]
 |===
-| `drawtype` | `{type-string}` | The way the node should be rendered. | `default:"normal"`
-| `visual_scale` | `{type-float}` | Affects the size at which the node will be rendered. Acts as a multiplier. Supported for drawtypes "plantlike", "signlike", "torchlike", firelike", "mesh", "nodebox", "allfaces". For plantlike and firelike, the image will start at the bottom of the node. For torchlike, the image will start at the surface to which the node "attaches". For the other drawtypes the image will be centered on the node. | `default:1.0`
-| `tiles` | `{type-table{link:types/TileDefinition.adoc[TileDefinition]}}` | Textures of node; +Y, -Y, +X, -X, +Z, -Z. The list can be shortened to needed length. | `default:TODO`
-| `overlay_tiles` | `{type-table{link:types/TileDefinition.adoc[TileDefinition]}}` | Same as `tiles`, but these textures are drawn on top of the base tiles. You can use this to colorize only specific parts of your texture. If the texture name is an empty string, that overlay is notdrawn. Since such tiles are drawn twice, it is not recommended to use overlays on very common nodes. | `default:nil`
-| `special_tiles` | `{type-table{link:types/TileDefinition.adoc[TileDefinition]}}` | Special textures of node; used rarely. List can be shortened to needed length. | `default:nil`
-| `color` | `{type-{link:types/Colorspec.adoc[ColorSpec]}` |  The node's original color will be multiplied with this color. If the node has a palette, then this setting only has an effect in the inventory and on the wield item. | `default:nil`
-| `use_texture_alpha` | `{type-string}` |  | `default:"opaque"`
-| `palette` | `{type-string}` |  | `default:"opaque"`
-| `post_effect_color` | `{type-string}` |  | `default:"#000000"`
-| `paramtype` | `{type-string}` |  | `default:"none"`
-| `paramtype2` | `{type-string}` |  | `default:"none"`
-| `place_param2` | `{type-number}` |  | `default:0`
-| `is_ground_content` | `{type-boolean}` |  | `default:true`
-| `sunlight_propagates` | `{type-boolean}` |  | `default:false`
-| `walkable` | `{type-boolean}` |  | `default:true`
-| `pointable` | `{type-boolean}` |  | `default:true`
-| `diggable` | `{type-boolean}` |  | `default:true`
-| `climbable` | `{type-boolean}` |  | `default:false`
+| `drawtype` | `{type-string}` | The way the node should be rendered. 
+| `visual_scale` | `{type-number}` | Affects the size at which the node will be rendered. Acts as a multiplier. Supported for drawtypes `"plantlike"`, `"signlike"`, `"torchlike"`, `"firelike"`, `"mesh"`, `"nodebox"`, `"allfaces"`. For plantlike and firelike, the image will start at the bottom of the node. For torchlike, the image will start at the surface to which the node "attaches". For the other drawtypes the image will be centered on the node.
+| `tiles` | `{type-table}` | Textures of node; +Y, -Y, +X, -X, +Z, -Z. The list can be shortened to needed length.
+| `overlay_tiles` | `{type-table}` | Same as `tiles`, but these textures are drawn on top of the base tiles. You can use this to colorize only specific parts of your texture. If the texture name is an empty string, that overlay is notdrawn. Since such tiles are drawn twice, it is not recommended to use overlays on very common nodes.
+| `special_tiles` | `{type-table}` | Special textures of node; used rarely. List can be shortened to needed length.
+| `color` | `{type-table}` |  The node's original color will be multiplied with this color. If the node has a palette, then this setting only has an effect in the inventory and on the wield item.
+| `use_texture_alpha` | `{type-string}` | Specifies how the texture's alpha channel will be used for rendering.
+possible values:
+
+* "opaque": Node is rendered opaque regardless of alpha channel
+* "clip": A given pixel is either fully see-through or opaque depending on the alpha channel being below/above 50% in value
+* "blend": The alpha channel specifies how transparent a given pixel of the rendered node is
+
+The default is "opaque" for drawtypes normal, liquid and flowingliquid; "clip" otherwise.
+If set to a boolean value (deprecated): true either sets it to blend or clip, false sets it to clip or opaque mode depending on the drawtype.
+
+| `palette` | `{type-string}` | The node's `param2` is used to select a pixel from the image. Pixels are arranged from left to right and from top to bottom. The node's color will be multiplied with the selected pixel's color. Tiles can override this behavior.
+NOTE: Only when `paramtype2` supports palettes.
+
+| `post_effect_color` | `{type-colorspec}`| Screen tint if player is inside node
+| `paramtype` | `{type-string}` | See "Nodes"
+| `paramtype2` | `{type-string}` | See "Nodes"
+| `place_param2` | `{type-number}` | Value for param2 that is set when player places node
+| `is_ground_content` | `{type-bool}` | If false, the cave generator and dungeon generator will not carve through this node.Specifically, this stops mod-added nodes being removed by caves and dungeons when those generate in a neighbor mapchunk and extend out beyond the edge of that mapchunk.
+
+| `sunlight_propagates` | `{type-bool}` | If true, sunlight will go infinitely through this node
+| `walkable` | `{type-bool}` | If true, objects collide with node
+| `pointable` | `{type-bool}`| If true, can be pointed at
+| `diggable` | `{type-bool}` | If false, can never be dug
+| `climbable` | `{type-bool}` | If true, can be climbed on like a ladder
+| `move_resistance` | `{type-number}` | Slows down movement of players through this node (max. 7). If this is nil, it will be equal to liquid_viscosity.
+
+Note: If liquid movement physics apply to the node (see `liquid_move_physics`), the movement speed will also be affected by the `movement_liquid_*` settings.
+
+| `buildable_to` | `{type-bool}` | If true, placed nodes can replace this node
+| `floodable` | `{type-bool}` | If true, liquids flow into and replace this node.
+
+WARNING: making a liquid node 'floodable' will cause problems.
+
+| `liquidtype` | `{type-string}` | specifies liquid flowing physics
+
+* "none":    no liquid flowing physics
+* "source":  spawns flowing liquid nodes at all 4 sides and below; recommended drawtype: "liquid".
+* "flowing": spawned from source, spawns more flowing liquid nodes around it until `liquid_range` is reached; will drain out without a source; recommended drawtype: "flowingliquid".
+
+NOTE: If it's "source" or "flowing", then the `liquid_alternative_*` fields *must* be specified
+
+| `liquid_alternative_flowing` | `{type-string}` | These fields may contain node names that represent the flowing version (`liquid_alternative_flowing`) and source version (`liquid_alternative_source`) of a liquid.
+
+Specifically, these fields are required if any of these is true:
+
+* `liquidtype ~= "none"
+* `drawtype == "liquid"
+* `drawtype == "flowingliquid"
+
+Liquids consist of up to two nodes: source and flowing. There are two ways to define a liquid:
+1. Source node and flowing node. This requires both fields to be specified for both nodes.
+2. Standalone source node (cannot flow). `liquid_alternative_source` must be specified and `liquid_range` must be set to 0.
+
+Example:
+[source,lua]
+----
+-- ... other properties ...
+liquid_alternative_flowing = "example:water_flowing",
+liquid_alternative_source = "example:water_source",
+-- ... other properties ...
+----
+
+
+| `liquid_alternative_source` | `{type-string}` | See `liquid_alternative_flowing`
+| `liquid_viscosity` | `{type-number}` | Controls speed at which the liquid spreads/flows (max. 7). 0 is fastest, 7 is slowest. By default, this also slows down movement of players inside the node (can be overridden using `move_resistance`).
+
+| `liquid_renewable` | `{type-bool}` | If true, a new liquid source can be created by placing two or more sources nearby.
+| `liquid_move_physics` | `{type-bool} or {type-nil}` | specifies movement physics if inside node.
+
+* false: No liquid movement physics apply.
+* true: Enables liquid movement physics. Enables things like ability to "swim" up/down, sinking slowly if not moving, smoother speed change when falling into, etc. The `movement_liquid_*` settings apply.
+* nil: Will be treated as true if `liquidtype ~= "none"` and as false otherwise.
+
+| `liquid_range` | `{type-number}` | Maximum distance that flowing liquid nodes can spread around source on flat land; maximum = 8;set to 0 to disable liquid flow.
+| `leveled` | `{type-number}` | Only valid for "nodebox" drawtype with 'type = "leveled"'. Allows defining the nodebox height without using param2. The nodebox height is 'leveled' / 64 nodes. The maximum value of 'leveled' is `leveled_max`.
+| `leveled_max` | `{type-number}` | Maximum value for `leveled` (0-127), enforced in `minetest.set_node_level` and `minetest.add_node_level`. Values above 124 might causes collision detection issues.
+| `drowning` | `{type-number}` | Player will take this amount of damage if no bubbles are left.
+| `damage_per_second` | `{type-number}` | If player is inside node, this damage is caused.
+| `node_box` | `{type-table}` | See "Node boxes"
+| `connects_to` | `{type-table}` | Used for nodebox nodes with the type == "connected". Specifies to what neighboring nodes connections will be drawn.
+Example: `{"group:fence", "default:wood"}` or `"default:stone"`
+
+| `connect_sides` | `{type-table}` | Tells connected nodebox nodes to connect only to these sides of this node. Possible: "top", "bottom", "front", "left", "back", "right".
+
+| `mesh` | `{type-string}` | File name of mesh when using "mesh" drawtype
+| `selection_box` | `{type-table}` | Custom selection box definition. Multiple boxes can be defined. If "nodebox" drawtype is used and selection_box is nil, then node_box definition is used for the selection box. See [Node boxes] for possibilities.
+| `collision_box` | `{type-table}` | Custom collision box definition. Multiple boxes can be defined. If "nodebox" drawtype is used and collision_box is nil, then node_box definition is used for the collision box. See [Node boxes] for possibilities.
+| `legacy_facedir_simple` | `{type-bool}` | Support maps made in and before January 2012
+| `legacy_wallmounted` | `{type-bool}` | Support maps made in and before January 2012
+| `waving` | `{type-number}` | Valid for drawtypes: mesh, nodebox, plantlike, allfaces_optional, liquid, flowingliquid.
+* 1 - wave node like plants (node top moves side-to-side, bottom is fixed)
+* 2 - wave node like leaves (whole node moves side-to-side)
+* 3 - wave node like liquids (whole node moves up and down)
+
+Not all models will properly wave.
+
+* plantlike drawtype can only wave like plants.
+* allfaces_optional drawtype can only wave like leaves.
+* liquid, flowingliquid drawtypes can only wave like liquids.
+
+| `sounds` | `{type-nodesounddefinition}` | Definition of node sounds to be played at various events. See {type-nodesoundspec}
+| `drop` | `{type-string} or {type-nodedropspec}` | By default, the dropped item is the node itself. If a {type-string} is given, `drop` will be dropped (for example: `"default:stone"`). Using a table allows multiple items, drop chances and item filtering, see {type-nodedropspec}
+| `mod_origin` | `{type-string}` | stores which mod actually registered a node. If the source could not be determined it contains `"??"`. This is useful for getting which mod truly registered something.
+
+Example: if a node is registered as `":othermodname:nodename"`, nodename will show `"othermodname"`, but mod_origin will say `"modname"`.
+
+| `on_construct` | `{type-function}` |
+| `on_destruct` | `{type-function}` |
+| `after_destruct` | `{type-function}` |
+| `after_place_node` | `{type-function}` |
+| `after_dig_node` | `{type-function}` |
+| `can_dig` | `{type-function}` |
+| `on_dig` | `{type-function}` |
+| `on_flood` | `{type-function}` |
+| `on_punch` | `{type-function}` |
+| `on_receive_fields` | `{type-function}` |
+| `on_rightclick` | `{type-function}` |
+| `on_timer` | `{type-function}` |
+| `preserve_metadata` | `{type-function}` |
+| `allow_metadata_inventory_move` | `{type-function}` |
+| `allow_metadata_inventory_put` | `{type-function}` |
+| `allow_metadata_inventory_take` | `{type-function}` |
+| `on_metadata_inventory_move` | `{type-function}` |
+| `on_metadata_inventory_put` | `{type-function}` |
+| `on_metadata_inventory_take` | `{type-function}` |
+| `on_blast` | `{type-function}` |
 |===
 
 NOTE: This file is incomplete
