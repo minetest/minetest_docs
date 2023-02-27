@@ -16,3 +16,4 @@
 
 // This should probably be macro'd or something
 :class-vector: link:../doc/classes/vector.adoc[vector]
+:class-nodemetadata: link:../doc/classes/NodeMetaData.adoc[NodeMetaData]
