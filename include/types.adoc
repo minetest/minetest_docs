@@ -13,6 +13,7 @@
 :type-nodesoundspec: link:../doc/types/NodeSoundSpec.adoc[NodeSoundSpec]
 :type-nodedropspec: link:../doc/types/NodeDropSpec.adoc[NodeDropSpec]
 :type-colorspec: link:../doc/types/ColorSpec.adoc[ColorSpec]
+:type-tilespec: link:../doc/types/TileSpec.adoc[TileSpec]
 
 // This should probably be macro'd or something
 :class-vector: link:../doc/classes/vector.adoc[vector]
