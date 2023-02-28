@@ -157,24 +157,24 @@ NOTE: Like in `on_construct`, this function is not called for bulk node placemen
 
 NOTE: Like in `on_construct`, this function is not called for bulk node placement. | `nil`
 
-| `after_place_node` | `{type-function}(pos:{class-vector}, placer:{class-playerref}, itemstack:{class-itemstack}, pointed_thing:{type-???})` | Called after constructing the node when the node was placed using `minetest.item_place_node` or `minetest.place_node`. If the function returns true, no item is taken from the {class-itemstack}. `placer` may be any valid {class-objectref} or {type-nil}. | `nil`
+| `after_place_node` | `{type-function}(pos:{class-vector}, placer:{class-playerref}, itemstack:{class-itemstack}, pointed_thing:{type-pointedthing})` | Called after constructing the node when the node was placed using `minetest.item_place_node` or `minetest.place_node`. If the function returns true, no item is taken from the {class-itemstack}. `placer` may be any valid {class-objectref} or {type-nil}. | `nil`
 
 | `after_dig_node` | `{type-function}(pos:{class-vector}, oldnode:{class-noderef}, oldmetadata:{type-table}, digger:{class-playerref})` | Called after destructing the node when the node was dug using `minetest.node_dig` or `minetest.dig_node`. | `nil`
 
 | `can_dig` | `{type-function}(pos:{class-vector}, player:{class-playerref}\|{type-nil})` | If the node shall be diggable, this functions should return true, false otherwise. | `nil`
 
-| `on_dig` | `{type-function}(pos:{class-vector}, node:{class-noderef}, pointed_thing:{type-???})` | Called when the node was dug. By default, this checks privileges (if the node can be dug). If the item used to dig this node is a tool, the tools durability will be deducted. Return true if the node was dug successfully, false otherwise. | `nil`
+| `on_dig` | `{type-function}(pos:{class-vector}, node:{class-noderef}, pointed_thing:{type-pointedthing})` | Called when the node was dug. By default, this checks privileges (if the node can be dug). If the item used to dig this node is a tool, the tools durability will be deducted. Return true if the node was dug successfully, false otherwise. | `nil`
 
 | `on_flood` | `{type-function}(pos:{class-vector}, oldnode:{class-noderef}, newnode:{class-noderef})` | Called when a liquid (`newnode`) is about to flood `oldnode`, if it has `floodable = true` in the {type-nodedefinition}. This function is not called for bulk node placement (i.e. schematics and VoxelManip) or air nodes. If this function returns true, the node is not flooded, but `on_flood` will most likely be called over and over again every liquid update interval.
 
 WARNING: making a liquid node 'floodable' will cause problems. | `nil`
 
-| `on_punch` | `{type-function}(pos:{class-vector}, node:{class-noderef}, puncher:{class-objectref}, pointed_thing:{type-???})` | Called when `puncher` punches the `node` at `pos`. By default, `minetest.register_on_punchnode` callbacks are called. | `nil`
+| `on_punch` | `{type-function}(pos:{class-vector}, node:{class-noderef}, puncher:{class-objectref}, pointed_thing:{type-pointedthing})` | Called when `puncher` punches the `node` at `pos`. By default, `minetest.register_on_punchnode` callbacks are called. | `nil`
 
 | `on_receive_fields` | `{type-function}(pos:{type-vector}, formname:{type-string}, fields:{type-table}, sender:{class-playerref})` | Called when a Formspec (e.g. sign text input) returns data. See `minetest.register_on_player_receive_fields` for more info.
 NOTE: the `fields` are supplied in a key-value format: `fields = {name1 = value1, name2 = value2, ...}` | `nil`
 
-| `on_rightclick` | `{type-function}(pos:{class-vector}, node:{class-noderef}, clicker:{class-objectref}, itemstack:{class-itemstack}, pointed_thing:{type-???})` | Called when `clicker` used the 'place/build' key (not necessarily an actual rightclick) while pointing at the `node` at pos with 'node'. `itemstack` will hold the wielded item of the `clicker`. This function shall return the leftover itemstack.
+| `on_rightclick` | `{type-function}(pos:{class-vector}, node:{class-noderef}, clicker:{class-objectref}, itemstack:{class-itemstack}, pointed_thing:{type-pointedthing})` | Called when `clicker` used the 'place/build' key (not necessarily an actual rightclick) while pointing at the `node` at pos with 'node'. `itemstack` will hold the wielded item of the `clicker`. This function shall return the leftover itemstack.
 
 NOTE: pointed_thing can be nil, if a mod calls this function. This function does not get triggered by clients running version 0.4.16 or earlier if the `"formspec"` node metadata field is set. | `nil`
 

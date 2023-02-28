@@ -14,6 +14,7 @@
 :type-nodedropspec: link:../doc/types/NodeDropSpec.adoc[NodeDropSpec]
 :type-colorspec: link:../doc/types/ColorSpec.adoc[ColorSpec]
 :type-tilespec: link:../doc/types/TileSpec.adoc[TileSpec]
+:type-pointedthing: link:../doc/classes/Raycast.adoc#pointed-thingdoc/classes/Raycast.adoc#pointed-thing[PointedThing]
 
 // This should probably be macro'd or something
 :class-vector: link:../doc/classes/vector.adoc[vector]
