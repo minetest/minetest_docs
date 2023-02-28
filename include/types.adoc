@@ -17,4 +17,7 @@
 
 // This should probably be macro'd or something
 :class-vector: link:../doc/classes/vector.adoc[vector]
+:class-itemstack: link:../doc/classes/ItemStack.adoc[ItemStack]
 :class-nodemetadata: link:../doc/classes/NodeMetaData.adoc[NodeMetaData]
+:class-playerref: link:../doc/classes/PlayerRef.adoc[PlayerRef]
+:class-noderef: link:../doc/classes/NodeRef.adoc[NodeRef]
