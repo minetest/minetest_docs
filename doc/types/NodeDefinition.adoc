@@ -30,12 +30,14 @@ possible values:
 * "blend": The alpha channel specifies how transparent a given pixel of the rendered node is
 
 The default is `"opaque"` for drawtypes normal, liquid and flowingliquid; `"clip"` otherwise.
+
 NOTE: If set to a boolean value *(deprecated)*: true either sets it to blend or clip, false sets it to clip or opaque mode depending on the drawtype. | `"opaque"`\|`"clip"`
 
 | `palette` | `{type-string}` | Assign a palette by a filename to the node. The nodes `param2` is used to select a pixel from the image. Pixels are arranged from left to right and from top to bottom. The nodes color will be multiplied with the selected pixels color. Tiles can override this behavior.
+
 NOTE: Only when `paramtype2` supports palettes. | `""`
 
-| `post_effect_color` | `{type-colorspec}` | Tint the screen if the player is inside the node. | `#00000000`
+| `post_effect_color` | `{type-colorspec}` | Tint the screen if the player is inside the node. | `"#00000000"`
 
 | `paramtype` | `{type-string}` | See "Nodes" | `"none"`
 | `paramtype2` | `{type-string}` | See "Nodes" | `"none"`
@@ -51,9 +53,11 @@ NOTE: Only when `paramtype2` supports palettes. | `""`
 | `climbable` | `{type-bool}` | If true, the node can be climbed on like a ladder. | `false`
 | `buildable_to` | `{type-bool}` | If true, placed nodes can replace this node. | `false`
 | `floodable` | `{type-bool}` | If true, liquids flow into and replace this node.
+
 WARNING: making a liquid node 'floodable' will cause problems. | `false`
 
 | `move_resistance` | `{type-number}` | Slows down movement of players through this node (max. 7). If this is nil, it will be equal to liquid_viscosity.
+
 NOTE: If liquid movement physics apply to the node (see `liquid_move_physics`), the movement speed will also be affected by the `movement_liquid_*` settings. | `0`
 
 
@@ -108,12 +112,12 @@ liquid_alternative_source = "example:water_source",
 | `node_box` | `{type-table}` | See "Node boxes" | `{type = "regular"}`
 | `connects_to` | `{type-table}` | Used for nodebox nodes with the `type == "connected"`. This specifies to what neighboring nodes connections will be drawn.
 Example: `{"group:fence", "default:wood"}` or `"default:stone"` | `{}`
-
 | `connect_sides` | `{type-table}` | Tells connected nodebox nodes to connect only to these sides of this node. Possible: `"top"`, `"bottom"`, `"front"`, `"left"`, `"back"`, `"right"`. | `{}`
 
 | `mesh` | `{type-string}` | File name of mesh when using the `"mesh"`` drawtype. | `""`
 
 | `selection_box` | `{type-table}` | Custom selection box definition. Multiple boxes can be defined. If `"nodebox"` drawtype is used and `selection_box` is `nil`, then `node_box` definition is used for the selection box. See [Node boxes] for possibilities. | `nil`
+
 | `collision_box` | `{type-table}` | Custom collision box definition. Multiple boxes can be defined. If `"nodebox"` drawtype is used and `collision_box` is `nil`, then `node_box definition` is used for the collision box. See [Node boxes] for possibilities. | `nil`
 
 // is this still needed? (It's been 11 years)
@@ -139,44 +143,63 @@ Not all models will properly wave.
 
 Example: if a node is registered as `":othermodname:nodename"`, nodename will show `"othermodname"`, but mod_origin will say `"modname"`. | `"<modname>"`
 
-| `on_construct` | `{type-function}(pos:{class-vector})` | Node constructor; called after adding node. Can set up metadata and stuff like that.
-Not called for bulk node placement (i.e. schematics and VoxelManip).
-NOTE: Within an on_construct callback, minetest.set_node can cause an infinite loop if it invokes the same callback. Consider using minetest.swap_node instead. | `nil`
+| `on_construct` | `{type-function}(pos:{class-vector})` | The node constructor function called after adding the node to the world. This can, for example, be used to add metadata to the node.
 
-| `on_destruct` | `{type-function}(pos:{class-vector})` | Node destructor; called before removing node. Not called for bulk node placement. | `nil`
-| `after_destruct` | `{type-function}(pos:{class-vector}, oldnode:{class-noderef})` | Node destructor; called after removing node. Not called for bulk node placement. | `nil`
-| `after_place_node` | `{type-function}(pos:{class-vector}, placer:{class-playerref}, itemstack:{class-itemstack}, pointed_thing:{type-???})` | Called after constructing node when node was placed using `minetest.item_place_node` / `minetest.place_node`. If return true no item is taken from itemstack. `placer` may be any valid ObjectRef or nil. | `nil`
+NOTE: This function is not called for bulk node placement (i.e. schematics and VoxelManip).
 
-| `after_dig_node` | `{type-function}(pos:{class-vector}, oldnode:{class-noderef}, oldmetadata:{class-nodemetadata}, digger:{class-playerref})` | oldmetadata is in table format. Called after destructing node when node was dug using `minetest.node_dig` / `minetest.dig_node`. | `nil`
+WARNING: Within an on_construct callback, minetest.set_node can cause an infinite loop if it invokes the same callback. Consider using `minetest.swap_node` instead. | `nil`
 
-| `can_dig` | `{type-function}(pos:{class-vector}, player:{class-playerref}\|{type-nil})` | Returns true if node can be dug, or false if not. | `nil`
+| `on_destruct` | `{type-function}(pos:{class-vector})` | The node destructor function called before removing the node from the world.
 
-| `on_dig` | `{type-function}(pos:{class-vector}, node:{class-noderef}, pointed_thing:{type-???})` | By default checks privileges, wears out item (if tool) and removes node. Return true if the node was dug successfully, false otherwise. | `nil`
+NOTE: Like in `on_construct`, this function is not called for bulk node placement. | `nil`
 
-| `on_flood` | `{type-function}` | Called when a liquid (newnode) is about to flood oldnode, if it has `floodable = true` in the nodedef. Not called for bulk node placement (i.e. schematics and VoxelManip) or air nodes. If return true the node is not flooded, but on_flood callback will most likely be called over and over again every liquid update interval.
+| `after_destruct` | `{type-function}(pos:{class-vector}, oldnode:{class-noderef})` | he node destructor function called after removing the node from the world.
+
+NOTE: Like in `on_construct`, this function is not called for bulk node placement. | `nil`
+
+| `after_place_node` | `{type-function}(pos:{class-vector}, placer:{class-playerref}, itemstack:{class-itemstack}, pointed_thing:{type-???})` | Called after constructing the node when the node was placed using `minetest.item_place_node` or `minetest.place_node`. If the function returns true, no item is taken from the {class-itemstack}. `placer` may be any valid {class-objectref} or {type-nil}. | `nil`
+
+| `after_dig_node` | `{type-function}(pos:{class-vector}, oldnode:{class-noderef}, oldmetadata:{type-table}, digger:{class-playerref})` | Called after destructing the node when the node was dug using `minetest.node_dig` or `minetest.dig_node`. | `nil`
+
+| `can_dig` | `{type-function}(pos:{class-vector}, player:{class-playerref}\|{type-nil})` | If the node shall be diggable, this functions should return true, false otherwise. | `nil`
+
+| `on_dig` | `{type-function}(pos:{class-vector}, node:{class-noderef}, pointed_thing:{type-???})` | Called when the node was dug. By default, this checks privileges (if the node can be dug). If the item used to dig this node is a tool, the tools durability will be deducted. Return true if the node was dug successfully, false otherwise. | `nil`
+
+| `on_flood` | `{type-function}(pos:{class-vector}, oldnode:{class-noderef}, newnode:{class-noderef})` | Called when a liquid (`newnode`) is about to flood `oldnode`, if it has `floodable = true` in the {type-nodedefinition}. This function is not called for bulk node placement (i.e. schematics and VoxelManip) or air nodes. If this function returns true, the node is not flooded, but `on_flood` will most likely be called over and over again every liquid update interval.
+
 WARNING: making a liquid node 'floodable' will cause problems. | `nil`
 
-| `on_punch` | `{type-function}(pos:{class-vector}, node:{class-noderef}, puncher:{class-playerref}, pointed_thing:{type-???})` | Called when puncher (an ObjectRef) punches the node at pos. By default calls `minetest.register_on_punchnode` callbacks. | `nil`
+| `on_punch` | `{type-function}(pos:{class-vector}, node:{class-noderef}, puncher:{class-objectref}, pointed_thing:{type-???})` | Called when `puncher` punches the `node` at `pos`. By default, `minetest.register_on_punchnode` callbacks are called. | `nil`
 
-| `on_receive_fields` | `{type-function}(pos:{type-vector}, formname:{type-string}, fields:{type-table}, sender:{class-playerref})` |  fields = {name1 = value1, name2 = value2, ...}; Called when an UI form (e.g. sign text input) returns data. See minetest.register_on_player_receive_fields for more info. | `nil`
+| `on_receive_fields` | `{type-function}(pos:{type-vector}, formname:{type-string}, fields:{type-table}, sender:{class-playerref})` | Called when a Formspec (e.g. sign text input) returns data. See `minetest.register_on_player_receive_fields` for more info.
+NOTE: the `fields` are supplied in a key-value format: `fields = {name1 = value1, name2 = value2, ...}` | `nil`
 
-| `on_rightclick` | `{type-function}(pos:{class-vector}, node:{class-noderef}, clicker:{class-playerref}, itemstack:{class-itemstack}, pointed_thing:{type-???})` | Called when clicker (an ObjectRef) used the 'place/build' key (not necessarily an actual rightclick) while pointing at the node at pos with 'node' being the node table. `itemstack` will hold clicker's wielded item. Shall return the leftover itemstack.
-NOTE: pointed_thing can be nil, if a mod calls this function. This function does not get triggered by clients <=0.4.16 if the "formspec" node metadata field is set. | `nil`
+| `on_rightclick` | `{type-function}(pos:{class-vector}, node:{class-noderef}, clicker:{class-objectref}, itemstack:{class-itemstack}, pointed_thing:{type-???})` | Called when `clicker` used the 'place/build' key (not necessarily an actual rightclick) while pointing at the `node` at pos with 'node'. `itemstack` will hold the wielded item of the `clicker`. This function shall return the leftover itemstack.
 
-| `on_timer` | `{type-function}(pos:{class-vector}, elapsed:{type-number})` | Called by NodeTimers, see minetest.get_node_timer and NodeTimerRef. `elapsed` is the total time passed since the timer was started. Return true to run the timer for another cycle with the same timeout value. | `nil`
+NOTE: pointed_thing can be nil, if a mod calls this function. This function does not get triggered by clients running version 0.4.16 or earlier if the `"formspec"` node metadata field is set. | `nil`
 
-| `preserve_metadata` | `{type-function}` | Called when oldnode is about be converted to an item, but before the node is deleted from the world or the drops are added. This is generally the result of either the node being dug or an attached node becoming detached.
-`oldmeta` are the metadata fields (table) of the node before deletion. `drops` is a table of ItemStacks, so any metadata to be preserved can be added directly to one or more of the dropped items. See {class-nodemetadata} | `nil`
+| `on_timer` | `{type-function}(pos:{class-vector}, elapsed:{type-number})` | Called by NodeTimers, `get_node_timer` and {class-nodetimerref}. `elapsed` is the total time passed since the timer was started. Return true to run the timer for another cycle with the same timeout value. | `nil`
 
-| `allow_metadata_inventory_move` | `{type-function}(pos:{class-vector}, from_list:{type-string}, from_index:{type-number}, to_list:{type-string}, to_index:{type-number}, count:{type-number}, player:{class-playerref})` | Called when a player wants to move items inside the inventory. Return value: number of items allowed to move. | `nil`
+| `preserve_metadata` | `{type-function}(pos:{class-vector}, oldnode:{class-noderef}, oldmeta:{type-table}, drops:{type-table})` | Called when `oldnode` is about be converted to an item, but before the node is deleted from the world or the drops are added. This is generally the result of either the node being dug or an attached node becoming detached.
+`oldmeta` contains the metadata fields (table) of the node before deletion. `drops` is a table of ItemStacks, so any metadata to be preserved can be added directly to one or more of the dropped items. See {class-nodemetadata} | `nil`
 
-| `allow_metadata_inventory_put` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called when a player wants to put something into the inventory. Return value: number of items allowed to put. Return value -1: Allow and don't modify item count in inventory. | `nil`
+| `allow_metadata_inventory_move` | `{type-function}(pos:{class-vector}, from_list:{type-string}, from_index:{type-number}, to_list:{type-string}, to_index:{type-number}, count:{type-number}, player:{class-playerref})` | Called when a player wants to move items inside the inventory. This function should return the number of items allowed to move. | `nil`
 
-| `allow_metadata_inventory_take` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called when a player wants to take something out of the inventory. Return value: number of items allowed to take. Return value -1: Allow and don't modify item count in inventory. | `nil`
+| `allow_metadata_inventory_put` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called when a player wants to put something into the inventory. This function should return the number of items allowed to put.
 
-| `on_metadata_inventory_move` | `{type-function}(pos:{class-vector}, from_list:{type-string}, from_index:{type-number}, to_list:{type-string}, to_index:{type-number}, count:{type-number}, player:{class-playerref})` | Called after the actual action has happened, according to what was allowed. No return value. | `nil`
-| `on_metadata_inventory_put` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called after the actual action has happened, according to what was allowed. No return value. | `nil`
-| `on_metadata_inventory_take` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called after the actual action has happened, according to what was allowed. No return value. | `nil`
+NOTE: If `-1` is returned, the item count in `player`s inventory won't be modified and the put will be allowed. | `nil`
 
-| `on_blast` | `{type-function}(pos:{class-vector}, intensity:{type-number})` | intensity: 1.0 = mid range of regular TNT. If defined, called when an explosion touches the node, instead of removing the node. | `nil`
+| `allow_metadata_inventory_take` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called when a player wants to take something out of the inventory. This function should return the number of items `player` is allowed to take.
+
+NOTE: If `-1` is returned, the item count in `player`s inventory won't be modified and the put will be allowed. | `nil`
+
+| `on_metadata_inventory_move` | `{type-function}(pos:{class-vector}, from_list:{type-string}, from_index:{type-number}, to_list:{type-string}, to_index:{type-number}, count:{type-number}, player:{class-playerref})` | Called after the actual action has happened, according to what was allowed. This function should return nothing. | `nil`
+
+| `on_metadata_inventory_put` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called after the actual action has happened, according to what was allowed. This function should return nothing. | `nil`
+
+| `on_metadata_inventory_take` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called after the actual action has happened, according to what was allowed. This function should return nothing. | `nil`
+
+| `on_blast` | `{type-function}(pos:{class-vector}, intensity:{type-number})` | If this function is defined, it is called when an explosion touches the node. If this function is called, the node won't be removed.
+
+NOTE: an `intensity` of 1.0 is equivalent to the mid range of a regular TNT explosion.  | `nil`
 |===

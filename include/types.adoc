@@ -20,4 +20,6 @@
 :class-itemstack: link:../doc/classes/ItemStack.adoc[ItemStack]
 :class-nodemetadata: link:../doc/classes/NodeMetaData.adoc[NodeMetaData]
 :class-playerref: link:../doc/classes/PlayerRef.adoc[PlayerRef]
+:class-objectref: link:../doc/classes/ObjectRef.adoc[ObjectRef]
 :class-noderef: link:../doc/classes/NodeRef.adoc[NodeRef]
+:class-nodetimerref: link:../doc/classes/NodeTimerRef.adoc[NodeTimerRef]
