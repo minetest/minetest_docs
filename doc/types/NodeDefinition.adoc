@@ -8,17 +8,19 @@ include::../../include/types.adoc[]
 == Properties
 [%autowidth, frame=none]
 |===
-| `drawtype` | `{type-string}` | The way the node should be rendered.
+| Property | Type | Description | Default
 
-| `visual_scale` | `{type-number}` | Affects the size at which the node will be rendered. Acts as a multiplier. This is Supported for the following drawtypes: `"plantlike"`, `"signlike"`, `"torchlike"`, `"firelike"`, `"mesh"`, `"nodebox"`, `"allfaces"`. For `"plantlike"` and `"firelike"`, the image will start at the bottom of the node. For `"torchlike"`, the image will start at the surface to which the node "attaches". For the other drawtypes, the image will be centered on the node.
+| `drawtype` | `{type-string}` | The way the node should be rendered. | `"normal"`
 
-| `tiles` | `{type-table}` | A table (list) of {type-string} (file names) or {type-tilespec} that will be assigned to the node. The tiles are assigned in the following order: +Y (up), -Y (down), +X (right), -X (left), +Z (front), -Z (back). The list can be shortened to the needed length. If the list is shortened, the last element of the table will be used for the remaining tiles.
+| `visual_scale` | `{type-number}` | Affects the size at which the node will be rendered. Acts as a multiplier. This is Supported for the following drawtypes: `"plantlike"`, `"signlike"`, `"torchlike"`, `"firelike"`, `"mesh"`, `"nodebox"`, `"allfaces"`. For `"plantlike"` and `"firelike"`, the image will start at the bottom of the node. For `"torchlike"`, the image will start at the surface to which the node "attaches". For the other drawtypes, the image will be centered on the node. | `1.0`
 
-| `overlay_tiles` | `{type-table}` | Same as `tiles`, but these textures are drawn on top of the base tiles. You can use this to colorize only specific parts of your texture. If the texture name is an empty string, that overlay is not drawn. Since such tiles are drawn twice, it is not recommended to use overlays on very common nodes.
+| `tiles` | `{type-table}` | A table (list) of {type-string} (file names) or {type-tilespec} that will be assigned to the node. The tiles are assigned in the following order: +Y (up), -Y (down), +X (right), -X (left), +Z (front), -Z (back). The list can be shortened to the needed length. If the list is shortened, the last element of the table will be used for the remaining tiles. | `nil`
 
-| `special_tiles` | `{type-table}` | Special textures of node; used rarely. The list can be shortened in the same way as `tiles`.
+| `overlay_tiles` | `{type-table}` | Same as `tiles`, but these textures are drawn on top of the base tiles. You can use this to colorize only specific parts of your texture. If the texture name is an empty string, that overlay is not drawn. Since such tiles are drawn twice, it is not recommended to use overlays on very common nodes. | `nil`
 
-| `color` | `{type-table}` |  The node's original color will be multiplied with this color. If the node has a palette, then this setting only has an effect in the inventory and on the wield item.
+| `special_tiles` | `{type-table}` | Special textures of node; used rarely. The list can be shortened in the same way as `tiles`. | `nil`
+
+| `color` | `{type-table}` |  The node's original color will be multiplied with this color. If the node has a palette, then this setting only has an effect in the inventory and on the wield item. | `"#ffffff"`
 
 | `use_texture_alpha` | `{type-string}` | Specifies how the texture's alpha channel will be used for rendering.
 possible values:
@@ -28,34 +30,32 @@ possible values:
 * "blend": The alpha channel specifies how transparent a given pixel of the rendered node is
 
 The default is `"opaque"` for drawtypes normal, liquid and flowingliquid; `"clip"` otherwise.
-NOTE: If set to a boolean value *(deprecated)*: true either sets it to blend or clip, false sets it to clip or opaque mode depending on the drawtype.
+NOTE: If set to a boolean value *(deprecated)*: true either sets it to blend or clip, false sets it to clip or opaque mode depending on the drawtype. | `"opaque"`\|`"clip"`
 
 | `palette` | `{type-string}` | Assign a palette by a filename to the node. The nodes `param2` is used to select a pixel from the image. Pixels are arranged from left to right and from top to bottom. The nodes color will be multiplied with the selected pixels color. Tiles can override this behavior.
-NOTE: Only when `paramtype2` supports palettes.
+NOTE: Only when `paramtype2` supports palettes. | `""`
 
-| `post_effect_color` | `{type-colorspec}`| Tint the screen if the player is inside the node.
+| `post_effect_color` | `{type-colorspec}` | Tint the screen if the player is inside the node. | `#00000000`
 
-| `paramtype` | `{type-string}` | See "Nodes"
-| `paramtype2` | `{type-string}` | See "Nodes"
-| `place_param2` | `{type-number}` | Value for param2 that is set when player places the node.
+| `paramtype` | `{type-string}` | See "Nodes" | `"none"`
+| `paramtype2` | `{type-string}` | See "Nodes" | `"none"`
+| `place_param2` | `{type-number}` | Value for param2 that is set when player places the node. | `0`
 
-| `is_ground_content` | `{type-bool}` | If false, the cave generator and dungeon generator will not carve through this node. Specifically, this stops mod-added nodes being removed by caves and dungeons when those generate in a neighbor mapchunk and extend out beyond the edge of that mapchunk.
+| `is_ground_content` | `{type-bool}` | If false, the cave generator and dungeon generator will not carve through this node. Specifically, this stops mod-added nodes being removed by caves and dungeons when those generate in a neighbor mapchunk and extend out beyond the edge of that mapchunk. | `true`
 
-| `sunlight_propagates` | `{type-bool}` | If true, sunlight will go infinitely through this node.
+| `sunlight_propagates` | `{type-bool}` | If true, sunlight will go infinitely through this node. | `false`
 
-| `walkable` | `{type-bool}` | If true, objects collide with the node.
-| `pointable` | `{type-bool}`| If true, the node can be pointed at.
-| `diggable` | `{type-bool}` | If false, the node can never be dug.
-| `climbable` | `{type-bool}` | If true, the node can be climbed on like a ladder.
+| `walkable` | `{type-bool}` | If true, objects collide with the node. | `true`
+| `pointable` | `{type-bool}`| If true, the node can be pointed at. | `true`
+| `diggable` | `{type-bool}` | If false, the node can never be dug. | `true`
+| `climbable` | `{type-bool}` | If true, the node can be climbed on like a ladder. | `false`
+| `buildable_to` | `{type-bool}` | If true, placed nodes can replace this node. | `false`
+| `floodable` | `{type-bool}` | If true, liquids flow into and replace this node.
+WARNING: making a liquid node 'floodable' will cause problems. | `false`
 
 | `move_resistance` | `{type-number}` | Slows down movement of players through this node (max. 7). If this is nil, it will be equal to liquid_viscosity.
+NOTE: If liquid movement physics apply to the node (see `liquid_move_physics`), the movement speed will also be affected by the `movement_liquid_*` settings. | `0`
 
-NOTE: If liquid movement physics apply to the node (see `liquid_move_physics`), the movement speed will also be affected by the `movement_liquid_*` settings.
-
-| `buildable_to` | `{type-bool}` | If true, placed nodes can replace this node.
-| `floodable` | `{type-bool}` | If true, liquids flow into and replace this node.
-
-WARNING: making a liquid node 'floodable' will cause problems.
 
 | `liquidtype` | `{type-string}` | specifies liquid flowing physics
 
@@ -63,7 +63,7 @@ WARNING: making a liquid node 'floodable' will cause problems.
 * "source":  spawns flowing liquid nodes at all 4 sides and below; recommended drawtype: "liquid".
 * "flowing": spawned from source, spawns more flowing liquid nodes around it until `liquid_range` is reached; will drain out without a source; recommended drawtype: "flowingliquid".
 
-NOTE: If it's "source" or "flowing", then the `liquid_alternative_*` fields *must* be specified
+NOTE: If it's "source" or "flowing", then the `liquid_alternative_*` fields *must* be specified | `"none"`
 
 | `liquid_alternative_flowing` | `{type-string}` | These fields may contain node names that represent the flowing version (`liquid_alternative_flowing`) and source version (`liquid_alternative_source`) of a liquid.
 
@@ -84,41 +84,41 @@ Example:
 liquid_alternative_flowing = "example:water_flowing",
 liquid_alternative_source = "example:water_source",
 -- ... other properties ...
-----
+---- | `""`
 
-| `liquid_alternative_source` | `{type-string}` | See `liquid_alternative_flowing`
+| `liquid_alternative_source` | `{type-string}` | See `liquid_alternative_flowing` | `""`
 
-| `liquid_viscosity` | `{type-number}` | Liquid viscosity controls the speed at which the liquid spreads/flows (max. 7). 0 is the fastest, 7 the slowest. By default, this also slows down movement of players inside the node (can be overridden using `move_resistance`).
+| `liquid_viscosity` | `{type-number}` | Liquid viscosity controls the speed at which the liquid spreads/flows (max. 7). 0 is the fastest, 7 the slowest. By default, this also slows down movement of players inside the node (can be overridden using `move_resistance`). | `0`
 
-| `liquid_renewable` | `{type-bool}` | If true, a new liquid source can be created by placing two or more sources nearby.
+| `liquid_renewable` | `{type-bool}` | If true, a new liquid source can be created by placing two or more sources nearby. | `true`
 | `liquid_move_physics` | `{type-bool} or {type-nil}` | specifies movement physics if the player is inside the node.
 
 * false: No liquid movement physics apply.
 * true: Enables liquid movement physics. Enables things like ability to "swim" up/down, sinking slowly if not moving, smoother speed change when falling into, etc. The `movement_liquid_*` settings apply.
-* nil: Will be treated as true if `liquidtype ~= "none"` and as false otherwise.
+* nil: Will be treated as true if `liquidtype ~= "none"` and as false otherwise. | `nil`
 
-| `liquid_range` | `{type-number}` | Maximum distance that flowing liquid nodes can spread around source on flat land (max. 8). If this is set to 0, liquid flow will be disabled.
+| `liquid_range` | `{type-number}` | Maximum distance that flowing liquid nodes can spread around source on flat land (max. 8). If this is set to 0, liquid flow will be disabled. | `8`
 
-| `leveled` | `{type-number}` | This only applies to nodes that have the "nodebox" drawtype set to '"leveled"'. This allows defining the nodebox height without using param2. The nodebox height is 'leveled' / 64 nodes. The maximum value of 'leveled' is `leveled_max`.
-| `leveled_max` | `{type-number}` | Maximum value for `leveled` (0-127), enforced in `minetest.set_node_level` and `minetest.add_node_level`. Values above 124 might causes collision detection issues.
+| `leveled` | `{type-number}` | This only applies to nodes that have the "nodebox" drawtype set to '"leveled"'. This allows defining the nodebox height without using param2. The nodebox height is 'leveled' / 64 nodes. The maximum value of 'leveled' is `leveled_max`. | `0`
+| `leveled_max` | `{type-number}` | Maximum value for `leveled` (0-127), enforced in `minetest.set_node_level` and `minetest.add_node_level`. Values above 124 might causes collision detection issues. | `127`
 
-| `drowning` | `{type-number}` | Player will take this amount of damage per second if no bubbles are left.
-| `damage_per_second` | `{type-number}` | If player is inside this node, this damage is caused each second.
+| `drowning` | `{type-number}` | Player will take this amount of damage per second if no bubbles are left. | `0`
+| `damage_per_second` | `{type-number}` | If player is inside this node, this damage is caused each second. | `0`
 
-| `node_box` | `{type-table}` | See "Node boxes"
+| `node_box` | `{type-table}` | See "Node boxes" | `{type = "regular"}`
 | `connects_to` | `{type-table}` | Used for nodebox nodes with the `type == "connected"`. This specifies to what neighboring nodes connections will be drawn.
-Example: `{"group:fence", "default:wood"}` or `"default:stone"`
+Example: `{"group:fence", "default:wood"}` or `"default:stone"` | `{}`
 
-| `connect_sides` | `{type-table}` | Tells connected nodebox nodes to connect only to these sides of this node. Possible: `"top"`, `"bottom"`, `"front"`, `"left"`, `"back"`, `"right"`.
+| `connect_sides` | `{type-table}` | Tells connected nodebox nodes to connect only to these sides of this node. Possible: `"top"`, `"bottom"`, `"front"`, `"left"`, `"back"`, `"right"`. | `{}`
 
-| `mesh` | `{type-string}` | File name of mesh when using the `"mesh"`` drawtype.
+| `mesh` | `{type-string}` | File name of mesh when using the `"mesh"`` drawtype. | `""`
 
-| `selection_box` | `{type-table}` | Custom selection box definition. Multiple boxes can be defined. If `"nodebox"` drawtype is used and `selection_box` is `nil`, then `node_box` definition is used for the selection box. See [Node boxes] for possibilities.
-| `collision_box` | `{type-table}` | Custom collision box definition. Multiple boxes can be defined. If `"nodebox"` drawtype is used and `collision_box` is `nil`, then `node_box definition` is used for the collision box. See [Node boxes] for possibilities.
+| `selection_box` | `{type-table}` | Custom selection box definition. Multiple boxes can be defined. If `"nodebox"` drawtype is used and `selection_box` is `nil`, then `node_box` definition is used for the selection box. See [Node boxes] for possibilities. | `nil`
+| `collision_box` | `{type-table}` | Custom collision box definition. Multiple boxes can be defined. If `"nodebox"` drawtype is used and `collision_box` is `nil`, then `node_box definition` is used for the collision box. See [Node boxes] for possibilities. | `nil`
 
 // is this still needed? (It's been 11 years)
-| `legacy_facedir_simple` | `{type-bool}` | Support maps made in and before January 2012.
-| `legacy_wallmounted` | `{type-bool}` | Support maps made in and before January 2012.
+| `legacy_facedir_simple` | `{type-bool}` | Support maps made in and before January 2012. | `false`
+| `legacy_wallmounted` | `{type-bool}` | Support maps made in and before January 2012. | `false`
 
 | `waving` | `{type-number}` | This is valid for drawtypes: `"mesh"`, `"nodebox"`, `"plantlike"`, `"allfaces_optional"`, `"liquid"` and `"flowingliquid"`. The following values can be set:
 * 1 - wave node like plants (node top moves side-to-side, bottom is fixed)
@@ -129,54 +129,54 @@ Not all models will properly wave.
 
 * `"plantlike"` drawtype can only wave like plants.
 * `"allfaces_optional"` drawtype can only wave like leaves.
-* `"liquid"`, `"flowingliquid"` drawtypes can only wave like liquids.
+* `"liquid"`, `"flowingliquid"` drawtypes can only wave like liquids. | `0`
 
-| `sounds` | `{type-nodesoundspec}` | Definition of node sounds to be played at various events. See {type-nodesoundspec}.
+| `sounds` | `{type-nodesoundspec}` | Definition of node sounds to be played at various events. See {type-nodesoundspec}. | `nil`
 
-| `drop` | `{type-string} or {type-nodedropspec}` | By default, the dropped item is the node itself. If a {type-string} is given, `drop` will be dropped (for example: `"default:stone"`). Using a table allows multiple items, drop chances and item filtering, see {type-nodedropspec}.
+| `drop` | `{type-string} or {type-nodedropspec}` | By default, the dropped item is the node itself. If a {type-string} is given, `drop` will be dropped (for example: `"default:stone"`). Using a table allows multiple items, drop chances and item filtering, see {type-nodedropspec}. | `""`
 
 | `mod_origin` | `{type-string}` | stores which mod actually registered a node. If the source could not be determined, it contains `"??"`. This is useful for getting which mod truly registered something.
 
-Example: if a node is registered as `":othermodname:nodename"`, nodename will show `"othermodname"`, but mod_origin will say `"modname"`.
+Example: if a node is registered as `":othermodname:nodename"`, nodename will show `"othermodname"`, but mod_origin will say `"modname"`. | `"<modname>"`
 
 | `on_construct` | `{type-function}(pos:{class-vector})` | Node constructor; called after adding node. Can set up metadata and stuff like that.
 Not called for bulk node placement (i.e. schematics and VoxelManip).
-NOTE: Within an on_construct callback, minetest.set_node can cause an infinite loop if it invokes the same callback. Consider using minetest.swap_node instead.
+NOTE: Within an on_construct callback, minetest.set_node can cause an infinite loop if it invokes the same callback. Consider using minetest.swap_node instead. | `nil`
 
-| `on_destruct` | `{type-function}(pos:{class-vector})` | Node destructor; called before removing node. Not called for bulk node placement.
-| `after_destruct` | `{type-function}(pos:{class-vector}, oldnode:{class-noderef})` | Node destructor; called after removing node. Not called for bulk node placement.
-| `after_place_node` | `{type-function}(pos:{class-vector}, placer:{class-playerref}, itemstack:{class-itemstack}, pointed_thing:{type-???})` | Called after constructing node when node was placed using `minetest.item_place_node` / `minetest.place_node`. If return true no item is taken from itemstack. `placer` may be any valid ObjectRef or nil.
+| `on_destruct` | `{type-function}(pos:{class-vector})` | Node destructor; called before removing node. Not called for bulk node placement. | `nil`
+| `after_destruct` | `{type-function}(pos:{class-vector}, oldnode:{class-noderef})` | Node destructor; called after removing node. Not called for bulk node placement. | `nil`
+| `after_place_node` | `{type-function}(pos:{class-vector}, placer:{class-playerref}, itemstack:{class-itemstack}, pointed_thing:{type-???})` | Called after constructing node when node was placed using `minetest.item_place_node` / `minetest.place_node`. If return true no item is taken from itemstack. `placer` may be any valid ObjectRef or nil. | `nil`
 
-| `after_dig_node` | `{type-function}(pos:{class-vector}, oldnode:{class-noderef}, oldmetadata:{class-nodemetadata}, digger:{class-playerref})` | oldmetadata is in table format. Called after destructing node when node was dug using `minetest.node_dig` / `minetest.dig_node`.
+| `after_dig_node` | `{type-function}(pos:{class-vector}, oldnode:{class-noderef}, oldmetadata:{class-nodemetadata}, digger:{class-playerref})` | oldmetadata is in table format. Called after destructing node when node was dug using `minetest.node_dig` / `minetest.dig_node`. | `nil`
 
-| `can_dig` | `{type-function}(pos:{class-vector}, player:{class-playerref}\|{type-nil})` | Returns true if node can be dug, or false if not.
+| `can_dig` | `{type-function}(pos:{class-vector}, player:{class-playerref}\|{type-nil})` | Returns true if node can be dug, or false if not. | `nil`
 
-| `on_dig` | `{type-function}(pos:{class-vector}, node:{class-noderef}, pointed_thing:{type-???})` | By default checks privileges, wears out item (if tool) and removes node. Return true if the node was dug successfully, false otherwise.
+| `on_dig` | `{type-function}(pos:{class-vector}, node:{class-noderef}, pointed_thing:{type-???})` | By default checks privileges, wears out item (if tool) and removes node. Return true if the node was dug successfully, false otherwise. | `nil`
 
 | `on_flood` | `{type-function}` | Called when a liquid (newnode) is about to flood oldnode, if it has `floodable = true` in the nodedef. Not called for bulk node placement (i.e. schematics and VoxelManip) or air nodes. If return true the node is not flooded, but on_flood callback will most likely be called over and over again every liquid update interval.
-WARNING: making a liquid node 'floodable' will cause problems.
+WARNING: making a liquid node 'floodable' will cause problems. | `nil`
 
-| `on_punch` | `{type-function}(pos:{class-vector}, node:{class-noderef}, puncher:{class-playerref}, pointed_thing:{type-???})` | Called when puncher (an ObjectRef) punches the node at pos. By default calls `minetest.register_on_punchnode` callbacks.
+| `on_punch` | `{type-function}(pos:{class-vector}, node:{class-noderef}, puncher:{class-playerref}, pointed_thing:{type-???})` | Called when puncher (an ObjectRef) punches the node at pos. By default calls `minetest.register_on_punchnode` callbacks. | `nil`
 
-| `on_receive_fields` | `{type-function}(pos:{type-vector}, formname:{type-string}, fields:{type-table}, sender:{class-playerref})` |  fields = {name1 = value1, name2 = value2, ...}; Called when an UI form (e.g. sign text input) returns data. See minetest.register_on_player_receive_fields for more info.
+| `on_receive_fields` | `{type-function}(pos:{type-vector}, formname:{type-string}, fields:{type-table}, sender:{class-playerref})` |  fields = {name1 = value1, name2 = value2, ...}; Called when an UI form (e.g. sign text input) returns data. See minetest.register_on_player_receive_fields for more info. | `nil`
 
 | `on_rightclick` | `{type-function}(pos:{class-vector}, node:{class-noderef}, clicker:{class-playerref}, itemstack:{class-itemstack}, pointed_thing:{type-???})` | Called when clicker (an ObjectRef) used the 'place/build' key (not necessarily an actual rightclick) while pointing at the node at pos with 'node' being the node table. `itemstack` will hold clicker's wielded item. Shall return the leftover itemstack.
-NOTE: pointed_thing can be nil, if a mod calls this function. This function does not get triggered by clients <=0.4.16 if the "formspec" node metadata field is set.
+NOTE: pointed_thing can be nil, if a mod calls this function. This function does not get triggered by clients <=0.4.16 if the "formspec" node metadata field is set. | `nil`
 
-| `on_timer` | `{type-function}(pos:{class-vector}, elapsed:{type-number})` | Called by NodeTimers, see minetest.get_node_timer and NodeTimerRef. `elapsed` is the total time passed since the timer was started. Return true to run the timer for another cycle with the same timeout value.
+| `on_timer` | `{type-function}(pos:{class-vector}, elapsed:{type-number})` | Called by NodeTimers, see minetest.get_node_timer and NodeTimerRef. `elapsed` is the total time passed since the timer was started. Return true to run the timer for another cycle with the same timeout value. | `nil`
 
 | `preserve_metadata` | `{type-function}` | Called when oldnode is about be converted to an item, but before the node is deleted from the world or the drops are added. This is generally the result of either the node being dug or an attached node becoming detached.
-`oldmeta` are the metadata fields (table) of the node before deletion. `drops` is a table of ItemStacks, so any metadata to be preserved can be added directly to one or more of the dropped items. See {class-nodemetadata}
+`oldmeta` are the metadata fields (table) of the node before deletion. `drops` is a table of ItemStacks, so any metadata to be preserved can be added directly to one or more of the dropped items. See {class-nodemetadata} | `nil`
 
-| `allow_metadata_inventory_move` | `{type-function}(pos:{class-vector}, from_list:{type-string}, from_index:{type-number}, to_list:{type-string}, to_index:{type-number}, count:{type-number}, player:{class-playerref})` | Called when a player wants to move items inside the inventory. Return value: number of items allowed to move.
+| `allow_metadata_inventory_move` | `{type-function}(pos:{class-vector}, from_list:{type-string}, from_index:{type-number}, to_list:{type-string}, to_index:{type-number}, count:{type-number}, player:{class-playerref})` | Called when a player wants to move items inside the inventory. Return value: number of items allowed to move. | `nil`
 
-| `allow_metadata_inventory_put` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called when a player wants to put something into the inventory. Return value: number of items allowed to put. Return value -1: Allow and don't modify item count in inventory.
+| `allow_metadata_inventory_put` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called when a player wants to put something into the inventory. Return value: number of items allowed to put. Return value -1: Allow and don't modify item count in inventory. | `nil`
 
-| `allow_metadata_inventory_take` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called when a player wants to take something out of the inventory. Return value: number of items allowed to take. Return value -1: Allow and don't modify item count in inventory.
+| `allow_metadata_inventory_take` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called when a player wants to take something out of the inventory. Return value: number of items allowed to take. Return value -1: Allow and don't modify item count in inventory. | `nil`
 
-| `on_metadata_inventory_move` | `{type-function}(pos:{class-vector}, from_list:{type-string}, from_index:{type-number}, to_list:{type-string}, to_index:{type-number}, count:{type-number}, player:{class-playerref})` | Called after the actual action has happened, according to what was allowed. No return value.
-| `on_metadata_inventory_put` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called after the actual action has happened, according to what was allowed. No return value.
-| `on_metadata_inventory_take` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called after the actual action has happened, according to what was allowed. No return value.
+| `on_metadata_inventory_move` | `{type-function}(pos:{class-vector}, from_list:{type-string}, from_index:{type-number}, to_list:{type-string}, to_index:{type-number}, count:{type-number}, player:{class-playerref})` | Called after the actual action has happened, according to what was allowed. No return value. | `nil`
+| `on_metadata_inventory_put` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called after the actual action has happened, according to what was allowed. No return value. | `nil`
+| `on_metadata_inventory_take` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called after the actual action has happened, according to what was allowed. No return value. | `nil`
 
-| `on_blast` | `{type-function}(pos:{class-vector}, intensity:{type-number})` | intensity: 1.0 = mid range of regular TNT. If defined, called when an explosion touches the node, instead of removing the node.
+| `on_blast` | `{type-function}(pos:{class-vector}, intensity:{type-number})` | intensity: 1.0 = mid range of regular TNT. If defined, called when an explosion touches the node, instead of removing the node. | `nil`
 |===
