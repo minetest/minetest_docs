@@ -12,15 +12,17 @@ include::../../include/types.adoc[]
 
 | `drawtype` | `{type-string}` | The way the node should be rendered. | `"normal"`
 
-| `visual_scale` | `{type-number}` | Affects the size at which the node will be rendered. Acts as a multiplier. This is Supported for the following drawtypes: `"plantlike"`, `"signlike"`, `"torchlike"`, `"firelike"`, `"mesh"`, `"nodebox"`, `"allfaces"`. For `"plantlike"` and `"firelike"`, the image will start at the bottom of the node. For `"torchlike"`, the image will start at the surface to which the node "attaches". For the other drawtypes, the image will be centered on the node. | `1.0`
+| `visual_scale` | `{type-number}` | Affects the size at which the node will be rendered. Acts as a multiplier. This is Supported for the following drawtypes: `"plantlike"`, `"signlike"`, `"torchlike"`, `"firelike"`, `"mesh"`, `"nodebox"`, `"allfaces"`. For `"plantlike"` and `"firelike"`, the `tiles` images will start at the bottom of the node. For `"torchlike"`, the image will start at the surface to which the node "attaches". For the other drawtypes, the `tiles` images will be centered on the node. | `1.0`
 
 | `tiles` | `{type-table}` | A table (list) of {type-string} (file names) or {type-tilespec} that will be assigned to the node. The tiles are assigned in the following order: +Y (up), -Y (down), +X (right), -X (left), +Z (front), -Z (back). The list can be shortened to the needed length. If the list is shortened, the last element of the table will be used for the remaining tiles. | `nil`
 
 | `overlay_tiles` | `{type-table}` | Same as `tiles`, but these textures are drawn on top of the base tiles. You can use this to colorize only specific parts of your texture. If the texture name is an empty string, that overlay is not drawn. Since such tiles are drawn twice, it is not recommended to use overlays on very common nodes. | `nil`
 
-| `special_tiles` | `{type-table}` | Special textures of node; used rarely. The list can be shortened in the same way as `tiles`. | `nil`
+| `special_tiles` | `{type-table}` | Special textures of node; used rarely. The list can be shortened in the same way as `tiles`. 
 
-| `color` | `{type-table}` |  The node's original color will be multiplied with this color. If the node has a palette, then this setting only has an effect in the inventory and on the wield item. | `"#ffffff"`
+NOTE: Depending on `paramtype2`, `special_tiles` fulfill specific purposes. See link:../paramtype.adoc[paramtypes] | `nil`
+
+| `color` | `{type-colorspec}` |  The node's original color will be multiplied with this color. If the node has a palette, then this setting only has an effect in the inventory and on the wield item. | `"#ffffff"`
 
 | `use_texture_alpha` | `{type-string}` | Specifies how the texture's alpha channel will be used for rendering.
 possible values:
@@ -120,10 +122,6 @@ Example: `{"group:fence", "default:wood"}` or `"default:stone"` | `{}`
 
 | `collision_box` | `{type-table}` | Custom collision box definition. Multiple boxes can be defined. If `"nodebox"` drawtype is used and `collision_box` is `nil`, then `node_box definition` is used for the collision box. See [Node boxes] for possibilities. | `nil`
 
-// is this still needed? (It's been 11 years)
-| `legacy_facedir_simple` | `{type-bool}` | Support maps made in and before January 2012. | `false`
-| `legacy_wallmounted` | `{type-bool}` | Support maps made in and before January 2012. | `false`
-
 | `waving` | `{type-number}` | This is valid for drawtypes: `"mesh"`, `"nodebox"`, `"plantlike"`, `"allfaces_optional"`, `"liquid"` and `"flowingliquid"`. The following values can be set:
 * 1 - wave node like plants (node top moves side-to-side, bottom is fixed)
 * 2 - wave node like leaves (whole node moves side-to-side)
@@ -169,14 +167,14 @@ NOTE: Like in `on_construct`, this function is not called for bulk node placemen
 
 WARNING: making a liquid node 'floodable' will cause problems. | `nil`
 
-| `on_punch` | `{type-function}(pos:{class-vector}, node:{class-noderef}, puncher:{class-objectref}, pointed_thing:{type-pointedthing})` | Called when `puncher` punches the `node` at `pos`. By default, `minetest.register_on_punchnode` callbacks are called. | `nil`
+| `on_punch` | `{type-function}(pos:{class-vector}, node:{class-noderef}, puncher:{class-objectref}, pointed_thing:{type-pointedthing})` | Called when `puncher` punches the `node` at `pos`. By default, `minetest.register_on_punchnode` callbacks are called. | `minetest.node_punch`
 
-| `on_receive_fields` | `{type-function}(pos:{type-vector}, formname:{type-string}, fields:{type-table}, sender:{class-playerref})` | Called when a Formspec (e.g. sign text input) returns data. See `minetest.register_on_player_receive_fields` for more info.
+| `on_receive_fields` | `{type-function}(pos:{type-vector}, formname:{type-string}, fields:{type-table}, sender:{class-playerref})` | Called when the link:../formspec.adoc[formspec] associated with the node (e.g. a sign text input) through the `formspec` field in the nodes {type-nodemetadata} returns data. See `minetest.register_on_player_receive_fields` for more info.
 NOTE: the `fields` are supplied in a key-value format: `fields = {name1 = value1, name2 = value2, ...}` | `nil`
 
 | `on_rightclick` | `{type-function}(pos:{class-vector}, node:{class-noderef}, clicker:{class-objectref}, itemstack:{class-itemstack}, pointed_thing:{type-pointedthing})` | Called when `clicker` used the 'place/build' key (not necessarily an actual rightclick) while pointing at the `node` at pos with 'node'. `itemstack` will hold the wielded item of the `clicker`. This function shall return the leftover itemstack.
 
-NOTE: pointed_thing can be nil, if a mod calls this function. This function does not get triggered by clients running version 0.4.16 or earlier if the `"formspec"` node metadata field is set. | `nil`
+NOTE: pointed_thing can be nil, if a mod calls this function. | `nil`
 
 | `on_timer` | `{type-function}(pos:{class-vector}, elapsed:{type-number})` | Called by NodeTimers, `get_node_timer` and {class-nodetimerref}. `elapsed` is the total time passed since the timer was started. Return true to run the timer for another cycle with the same timeout value. | `nil`
 
@@ -191,7 +189,7 @@ NOTE: If `-1` is returned, the item count in `player`s inventory won't be modifi
 
 | `allow_metadata_inventory_take` | `{type-function}(pos:{class-vector}, listname:{type-string}, index:{type-number}, stack:{class-itemstack}, player:{class-playerref})` | Called when a player wants to take something out of the inventory. This function should return the number of items `player` is allowed to take.
 
-NOTE: If `-1` is returned, the item count in `player`s inventory won't be modified and the put will be allowed. | `nil`
+NOTE: If `-1` is returned, the item count in `player`s inventory won't be modified and the put will be allowed. Use this for creative inventories. | `nil`
 
 | `on_metadata_inventory_move` | `{type-function}(pos:{class-vector}, from_list:{type-string}, from_index:{type-number}, to_list:{type-string}, to_index:{type-number}, count:{type-number}, player:{class-playerref})` | Called after the actual action has happened, according to what was allowed. This function should return nothing. | `nil`
 

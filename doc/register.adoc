@@ -10,11 +10,11 @@ IMPORTANT: You may only call registering functions at load time. Content cannot 
 
 == Functions
 
-=== `minetest.register_node(id, definition)
+=== `minetest.register_node(nodename, definition)
 
 Registers (adds) a new Node into the game. Each node has a unique identifier.
 
-TIP: You should use IDs in the form of `modname:nodeid`. For example, if your mod is called "mymod", use an id of `mymod:myblock`
+NOTE: Minetest enforces IDs in the form of `modname:nodeid`. For example, if your mod is called "mymod", use an id of `mymod:myblock`. To circumvent this enforcement, use `:somemod:somenodename`
 
 ==== Usage
 
@@ -30,6 +30,6 @@ minetest.register_node("mymod:mynode", {
 ==== Params
 [%autowidth, frame=none]
 |===
-| `id` | `{type-string}` | The id that will be assigned to the node.
+| `nodename` | `{type-string}` | The id that will be assigned to the node.
 | `definition` | `{type-nodedefinition}` | The properties and behaviour that will be applied to the node
 |===
