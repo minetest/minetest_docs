@@ -8,5 +8,19 @@
 :type-function: {url-pil}/2.6.html[function]
 :type-userdata: {url-pil}/2.7.html[userdata]
 
+// minetest-specific types
+:type-nodedefinition: link:../doc/types/NodeDefinition.adoc[NodeDefinition]
+:type-nodesoundspec: link:../doc/types/NodeSoundSpec.adoc[NodeSoundSpec]
+:type-nodedropspec: link:../doc/types/NodeDropSpec.adoc[NodeDropSpec]
+:type-colorspec: link:../doc/types/ColorSpec.adoc[ColorSpec]
+:type-tilespec: link:../doc/types/TileSpec.adoc[TileSpec]
+:type-pointedthing: link:../doc/classes/Raycast.adoc#pointed-thingdoc/classes/Raycast.adoc#pointed-thing[PointedThing]
+
 // This should probably be macro'd or something
 :class-vector: link:../doc/classes/vector.adoc[vector]
+:class-itemstack: link:../doc/classes/ItemStack.adoc[ItemStack]
+:class-nodemetadata: link:../doc/classes/NodeMetaData.adoc[NodeMetaData]
+:class-playerref: link:../doc/classes/PlayerRef.adoc[PlayerRef]
+:class-objectref: link:../doc/classes/ObjectRef.adoc[ObjectRef]
+:class-noderef: link:../doc/classes/NodeRef.adoc[NodeRef]
+:class-nodetimerref: link:../doc/classes/NodeTimerRef.adoc[NodeTimerRef]
