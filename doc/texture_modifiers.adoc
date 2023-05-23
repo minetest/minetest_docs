@@ -433,7 +433,7 @@ The below examples use `progress_bar.png` & `progress_bar_bg.png` from Minetest'
 ** First crop the foreground to its left half (`128` of `256` pixels); escape this
 ** Then create a new blank image with the progress bar resolution, blit the background and after that the cropped foreground
 ** *Downside: Heavily resolution-dependent*; making it (mostly) resolution-independent requires (up)scaling textures first
-* Using `lowpart` and `transform` to rotate: `+progress_bar_bg.png^[transformR90^[lowpart:progress_bar.png\^[transformR90:50^[transformR270+`
+* Using `lowpart` and `transform` to rotate: `+progress_bar_bg.png^[transformR90^[lowpart:50:progress_bar.png\^[transformR90^[transformR270+`
 ** First take the background (horizontal) and rotate it by 90° counterclockwise to orient it vertically
 ** Now do the same for the foreground, again to convert horizontal into vertical orientation; escape this (`+\^+`)
 ** Use the rotated foreground as argument to `lowpart`; blit `50` % of the vertical foreground on the vertical background
