@@ -254,9 +254,9 @@ Multiplies the alpha value of each pixel of the base texture with `ratio/255` an
 
 The channels corresponding to the occurring characters (red, green, blue and alpha) will be inverted (set to `255 - value`).
 
-===== `+<base>^[transform<t>+`
+===== `+<base>^[transform<transforms>+`
 
-`t` is either a number or a name identifying a transformation from the following table:
+`<transforms>` is the concatenation of either numbers or names identifying transformations from the following table:
 
 [cols="1,1,1"]
 |===
@@ -271,6 +271,8 @@ The channels corresponding to the occurring characters (red, green, blue and alp
 | 6      | FY    | Flip Y (vertically)
 | 7      | FYR90 | Flip Y, then rotate by 90° counterclockwise
 |===
+
+Transformation names are case insensitive.
 
 ===== `+<base>^[verticalframe:<framecount>:<frame>+`
 
@@ -338,9 +340,9 @@ Masking is associative and commutative if all involved textures have the same di
 * `percent` is an integer from `0` to `100`
 * `texture` is an escaped texture modifier
 
-Overlays the lower `percent` part of `texture` on the base texture `x`.
+Overlays the lower `percent` part of `texture` on the base texture.
 
-TIP: Use `blank.png` as base texture `x` if you do not want a background.
+TIP: Use `blank.png` as base texture if you do not want a background.
 
 ==== Base Texture Generators
 
