@@ -1,0 +1,183 @@
+= Filesystem
+include::../include/config.adoc[]
+include::../include/types.adoc[]
+:description: Filesystem utilities provided by Minetest.
+:keywords: filesystem, file, directory, io, path
+
+Minetest provides various utility functions to help with
+managing paths, files & directories.
+
+IMPORTANT: Mod security restricts file system access to the mod path
+(at load time) and the world path later on in xref:environment.adoc[insecure environments].
+
+== Paths
+
+WARNING: Always operate on absolute paths, never on relative ones;
+no assumption about the current working directory can be made.
+
+=== Normalization
+
+Minetest normalizes paths you pass into filesystem-related functions,
+replacing `/` with the platform-specific path delimiter (usually `\` on Windows, `/` on UNIX).
+
+Using `/` in paths is thus always fine. However, paths returned by Minetest are usually not normalized.
+
+=== `DIR_DELIM`
+
+Global variable.
+
+Holds the path delimiter as a `{type-string}` (usually `\` on Windows, `/` on UNIX).
+
+Usually not necessary due to path normalization (perhaps only necessary when parsing paths),
+but may be used "for good measure" (user-friendly paths using the platform-specific delimiters).
+
+== `minetest.get_modpath`
+
+=== Arguments
+[%autowidth, frame=none]
+|===
+| `modname` | `{type-string}` | The mod name
+|===
+
+TIP: Use `local modpath = minetest.get_modpath(minetest.get_current_modname())` rather than hardcoding your modname.
+
+=== Returns
+[%autowidth, frame=none]
+|===
+| `modpath` | `{type-string}` | The absolute, non-normalized path to the mod directory
+|===
+
+== `minetest.get_worldpath`
+
+No arguments.
+
+=== Returns
+[%autowidth, frame=none]
+|===
+| `worldpath` | `{type-string}` | The absolute, non-normalized path to the world directory
+|===
+
+== Directories
+
+=== Common Returns
+[%autowidth, frame=none]
+|===
+| `success` | `{type-bool}` | Whether the operation succeeded.
+|===
+
+TIP: Use `assert` to error on failure.
+
+=== `minetest.mkdir`
+
+Creates a directory and nonexistent parent directories.
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `path` | `{type-string}` | Path to the directory to create
+|===
+
+=== `minetest.cpdir`
+
+Copies a source directory to a destination.
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `source_path` | `{type-string}` | Path to the source directory to copy
+| `destination_path` | `{type-string}` | Path to the destination directory
+|===
+
+CAUTION: If the destination directory exists already, it will be overwritten.
+
+=== `minetest.mvdir`
+
+Moves a source directory to a destination.
+
+If the destination is a non-empty directory, the move will fail.
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `source_path` | `{type-string}` | Path to the source directory to copy
+| `destination_path` | `{type-string}` | Path to the destination directory
+|===
+
+=== `minetest.rmdir`
+
+Removes a directory.
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `path` | `{type-string}` | Path to the directory to remove.
+| `recursive` | `{type-bool}` | Whether to recursively delete the directory's content;
+ if this is not set to `true`, removal will fail if the directory is nonempty
+|===
+
+=== `minetest.get_dir_list`
+
+Lists direct directory contents.
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `path` | `{type-string}` | Path to the directory to remove.
+| `is_dir` | `{type-nil}` or `{type-bool}` a| Whether to list:
+ * `nil`: Both directories and files
+ * `true`: Only directories
+ * `false`: Only files
+|===
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `entry_list` | list of `{type-string}` | List of entry names - **not paths!**;
+ you should make no assumptions concerning the order of this list.
+|===
+
+== Files
+
+=== `minetest.safe_file_write`
+
+Performs an *atomic binary file write*: Either all or nothing is overwritten.
+
+This is done by creating a temporary file, writing to it, then swapping with the temporary file.
+
+Use this function to prevent corruption of save files.
+
+Using `minetest.safe_file_write(path, content)` would be equivalent to
+
+[source,lua]
+----
+local f = io.open(path, "wb")
+f:write(content)
+f:close()
+----
+
+if this code block was atomic.
+
+==== Arguments
+[%autowidth, frame=none]
+|===
+| `path` | `{type-string}` | Path to the file to write.
+| `content` | `{type-string}` a| The content to write.
+|===
+
+==== Returns
+[%autowidth, frame=none]
+|===
+| `success` | `{type-bool}` | Whether the operation succeeded.
+|===
+
+=== Lua builtins
+
+All properly overridden by Minetest to apply mod security restrictions.
+
+* [https://www.lua.org/manual/5.1/manual.html#pdf-io.open]`io.open(filename [, mode])`: Open a file for reading or writing.
+	* IMPORTANT: Use `rb` and `wb` rather than `r` and `w` for working with binary files, otherwise your code will break on Windows.
+* [https://www.lua.org/manual/5.1/manual.html#pdf-io.lines]`io.lines([filename])`: Get an iterator over the lines of a file.
+* [https://www.lua.org/manual/5.1/manual.html#pdf-io.tmpfile]`io.tmpfile()`: Get a handle for a temporary file.
+* [https://www.lua.org/manual/5.1/manual.html#pdf-os.tmpname]`os.tmpname()`: Get a name for a temporary file.
+* [https://www.lua.org/manual/5.1/manual.html#pdf-os.remove]`os.remove(filename)`: Removes an entry (file or empty directory)
+* [https://www.lua.org/manual/5.1/manual.html#pdf-os.rename]`os.rename(oldname, newname)`: Moves/renames an entry (file or directory)
