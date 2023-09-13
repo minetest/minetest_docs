@@ -350,11 +350,12 @@ These modifiers do not accept a base texture as they generate one from their arg
 
 ===== `[png:<data>`
 
-* `data` is a base64-encoded PNG bytestring
+* `data` is a base64-encoded image bytestring
 
-Creates a texture from an embedded base64-encoded PNG image.
+Creates a texture from an embedded base64-encoded image.
+Contrary to the texture modifier's name, it supports any image format that IrrlichtMt supports, not only PNG.
 
-`data` can be built by combining `minetest.encode_base64` and `minetest.encode_png`:
+For PNG images, `data` can be built by combining `minetest.encode_base64` and `minetest.encode_png`:
 
 [source,lua]
 ====
