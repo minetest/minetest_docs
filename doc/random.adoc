@@ -58,6 +58,11 @@ make sure that both the upper & lower bound
 as well as their difference are within the C `int` range -
 otherwise you may get overflows & errors.
 
+WARNING: This is not portable; different builds on different platforms will produce different random numbers.
+PUC Lua 5.1 builds use a system-provided random generator.
+LuaJIT builds use LuaJIT's PRNG implementation.
+Do not use `math.random` in mapgen, for example.
+
 TIP: Use `math.random` as your go-to versatile "non-deterministic" random source.
 
 == Random Number Generators
