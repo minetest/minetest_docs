@@ -298,12 +298,10 @@ NOTE: This always scales the crack to the size of the base texture (or the tiles
 
 ===== `+<base>^[sheet:<w>x<h>:<x>,<y>+`
 
-* `w`, `h`: Tile dimensions (positive integers)
-* `x`, `y`: Tile position, 0-indexed
+* `w`, `h`: Tilesheet dimensions (positive integers, in tiles)
+* `x`, `y`: Tile position, 0-indexed (in tiles)
 
-Retrieves the tile at position `x`, `y`. Can be used to retrieve single pixels by setting `w`, `h` to `1`.
-
-WARNING: Setting `w` or `h` to `0` will trigger a floating point exception, crashing the client.
+Retrieves the tile at position `x`, `y`.
 
 ===== `+<base>^[multiply:<color>+`
 
