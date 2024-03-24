@@ -459,5 +459,3 @@ local taken = stack:peek_item(item)
 |===
 | `taken` | `ItemStack` | The item(s) copied from the stack.
 |===
-
-include::../../include/footer.adoc[]
