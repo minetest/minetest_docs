@@ -59,6 +59,7 @@ A table consisting of the following parameters
   * Boolean
   * Request status
 * `timeout`:
+  * Boolean
   * If it timed out or not, see HttpRequest timeout
 * `code`:
   * Int
