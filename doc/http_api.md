@@ -21,26 +21,26 @@ secure.http_mods = modname1, modnametwo, modenamethree
 
 A table consisting of the following paramaters:
 
-* url (required): 
+* `url` (required): 
   * `https://subdomain.domain.tld`
-* timeout (optional): 
+* `timeout` (optional): 
   * Time in seconds
   * Default is what `curl_timeout` setting is set to (NOTE: setting is 
     in milliseconds)
-* method (optional):
+* `method` (optional):
   * Supports `GET`, `POST`, `PUT`, `DELETE`
   * Default is `GET`
-* data (optional):
+* `data` (optional):
   * Supports string or table
   * Tables are encoded as `x-www-form-urlencoded` key value pairs
-* post_data (optional):
+* `post_data` (optional):
   * Deprecated, see data above
-* user_agent (optional):
+* `user_agent` (optional):
   * Replaces the default user agent if provided
-* extra_headers (optional):
+* `extra_headers` (optional):
   * Table of strings
   * Each string needs to follow http spec, `"key: value"`
-* multipart (optional):
+* `multipart` (optional):
   * Boolean, default false
   * Method must be `POST`
   * Learn more at [MIME (Wikpedia)](https://en.wikipedia.org/wiki/MIME#Multipart_messages)
@@ -49,18 +49,18 @@ A table consisting of the following paramaters:
 
 A table consisting of the following paramaters
 
-* completed:
+* `completed`:
   * Boolean
   * If requested finished
-* succeeded:
+* `succeeded`:
   * Boolean
   * Request status
-* timeout:
+* `timeout`:
   * If it timed out or not, see HttpRequest timeout
-* code:
+* `code`:
   * Int
   * Http status code
-* data:
+* `data`:
   * Table or string
   * Response returned
 
