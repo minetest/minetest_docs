@@ -95,7 +95,8 @@ being granted) is as follows:
 
 ### HttpApi.fetch(request, callback)
 
-Calls callback once completed
+Calls callback once completed. This method is recommended for the most 
+common use cases, see the next two methods for an alterate way
 
 * Request is of type HttpRequest
 * Callback receives one param of type `HttpRequestResult`
