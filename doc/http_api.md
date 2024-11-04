@@ -72,7 +72,7 @@ A table consisting of the following parameters
   * That the mod in question has been placed in on of the two 
     settings above
   * The engine was built with curl support
-  * Called from the mods init.lua file and not in a function
+  * `core.request_http_api()` is called from the mod's `init.lua` file and not in a function
 
 > [!WARNING]  
 > Store the result in a local variable, not a global, so that 
