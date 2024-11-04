@@ -22,7 +22,7 @@ secure.http_mods = modname1, modnametwo, modenamethree
 A table consisting of the following paramaters:
 
 * url (required): 
-  * `http://subdomain.domain.tld`
+  * `https://subdomain.domain.tld`
 * timeout (optional): 
   * Time in seconds
   * Default is what `curl_timeout` setting is set to (NOTE: setting is 
