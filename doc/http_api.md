@@ -90,7 +90,7 @@ being granted) is as follows:
     end
 ```
 
-### httpapi.fetch(request, callback)
+### HttpApi.fetch(request, callback)
 
 Calls callback once completed
 
