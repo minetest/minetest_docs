@@ -75,7 +75,7 @@ A table consisting of the following paramaters
   * Called from the mods init.lua file and not in a function
 
 > [!WARNING]  
-> Store the result in a local variable, not a global so that 
+> Store the result in a local variable, not a global, so that 
 > other mods cannot access it, they should request their own 
 > access
 
