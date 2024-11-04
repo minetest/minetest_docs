@@ -105,4 +105,4 @@ Returns a handle to be passed to `HttpApi.fetch_async_get`
 
 ### HttpApi.fetch_async_get(handle)
 
-Handle is provided by `HttpApi.fetch_async`
+Handle is provided by `HttpApi.fetch_async`, returns a HttpRequestResult
