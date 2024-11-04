@@ -1,6 +1,6 @@
 # HTTP API
 
-Minetest's HTTP API can be used to fetch data via http from endpoints
+Enables mods to make HTTP requests.
 
 ## Settings
 
@@ -19,7 +19,7 @@ secure.http_mods = modname1, modnametwo, modenamethree
 
 ### HttpRequest
 
-A table consisting of the following paramaters
+A table consisting of the following paramaters:
 
 * url (required): 
   * `http://subdomain.domain.tld`
