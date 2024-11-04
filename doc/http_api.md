@@ -5,7 +5,7 @@ Enables mods to make HTTP requests.
 ## Settings
 
 To use this API, mods need to be listed in one or the other following 
-settings in csv format:
+settings in CSV format:
 * `secure.trusted_mods`
 * `secure.http_mods`
 
