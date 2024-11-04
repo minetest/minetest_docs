@@ -79,7 +79,7 @@ A table consisting of the following paramaters
 > other mods cannot access it. Other mods should request their own 
 > access
 
-An example of how to use this api (handling both existence and permission 
+An example of how to use this API (handling both existence and permission 
 being granted) is as follows:
 ```lua
     --inside mods init.lua file
