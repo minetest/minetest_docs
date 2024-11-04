@@ -98,7 +98,7 @@ being granted) is as follows:
 Calls callback once completed
 
 * Request is of type HttpRequest
-* Callback recieves one param of type HttpRequestResult
+* Callback receives one param of type `HttpRequestResult`
 
 ### HttpApi.fetch_async(request)
 
