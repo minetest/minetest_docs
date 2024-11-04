@@ -77,7 +77,7 @@ A table consisting of the following parameters
 > [!WARNING]  
 > Store the result in a local variable, not a global, so that 
 > other mods cannot access it. Other mods should request their own 
-> access
+> access.
 
 An example of how to use this API (handling both existence and permission 
 being granted) is as follows:
