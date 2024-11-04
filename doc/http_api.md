@@ -43,7 +43,7 @@ A table consisting of the following paramaters:
 * multipart (optional):
   * Boolean, default false
   * Method must be `POST`
-  * [see here for more info](https://en.wikipedia.org/wiki/MIME#Multipart_messages)
+  * Learn more at [MIME (Wikpedia)](https://en.wikipedia.org/wiki/MIME#Multipart_messages)
 
 ### HttpRequestResult
 
