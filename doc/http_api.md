@@ -4,7 +4,7 @@ Enables mods to make HTTP requests.
 
 ## Settings
 
-To use this api, mods need to be listed in one or the other following 
+To use this API, mods need to be listed in one or the other following 
 settings in csv format:
 * `secure.trusted_mods`
 * `secure.http_mods`
