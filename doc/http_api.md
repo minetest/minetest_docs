@@ -21,13 +21,15 @@ secure.http_mods = modname1, modnametwo, modenamethree
 
 A table consisting of the following paramaters:
 
-* `url` (required): 
-  * `https://subdomain.domain.tld`
+* `url` (required):
+  * Type string
+  * Example: `https://subdomain.domain.tld`
 * `timeout` (optional): 
   * Time in seconds
   * Default is what `curl_timeout` setting is set to (NOTE: setting is 
     in milliseconds)
 * `method` (optional):
+  * Type string
   * Supports `GET`, `POST`, `PUT`, `DELETE`
   * Default is `GET`
 * `data` (optional):
@@ -36,6 +38,7 @@ A table consisting of the following paramaters:
 * `post_data` (optional):
   * Deprecated, see data above
 * `user_agent` (optional):
+  * Type string
   * Replaces the default user agent if provided
 * `extra_headers` (optional):
   * Table of strings
