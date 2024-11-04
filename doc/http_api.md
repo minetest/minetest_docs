@@ -47,7 +47,7 @@ A table consisting of the following paramaters:
 
 ### HttpRequestResult
 
-A table consisting of the following paramaters
+A table consisting of the following parameters
 
 * `completed`:
   * Boolean
