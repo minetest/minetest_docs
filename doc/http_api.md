@@ -69,7 +69,7 @@ A table consisting of the following parameters
 ### core.request_http_api()
 
 * Returns a table containing the following functions provided:
-  * That the mod in question has been placed in on of the two 
+  * That the mod in question has been listed in one of the two 
     settings above
   * The engine was built with curl support
   * `core.request_http_api()` is called from the mod's `init.lua` file and not in a function
