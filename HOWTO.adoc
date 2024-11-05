@@ -44,7 +44,6 @@ local emin, emax = vm:read_from_map(p1, p2) -- Emerged minimum and maximum posit
 The use of Admonitions (`NOTE`, `TIP`, `IMPORTANT`, `CAUTION`, and `WARNING`) are useful for bringing the reader's attention to a specific idea or statement.
 The use of these should generally follow these situation guidelines:
 
-
 NOTE: This information is noteworthy. You will find it insightful to understand something.
 
 TIP: This information is helpful. You will have an easier time doing something if you follow this.
@@ -158,5 +157,3 @@ All types should link somewhere at some point (cross-reference or outside).
 * `another_property:` `type`
 ** A description.
 ----
-
-include::include/footer.adoc[]

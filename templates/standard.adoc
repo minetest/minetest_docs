@@ -8,22 +8,18 @@ This is the standard template of how a good AsciiDoc should be structured.
 This paragraph describes the purpose of the document.
 In this example, an imaginary API for a vehicle will be documented.
 
-== Vehicle Properties
+== Properties
+[%autowidth, frame=none]
+|===
+| `make` | `{type-string}` | ...
+| `model` | `{type-string}` | ...
+| `year` | `{type-number}` | ...
+| `trim` | `{type-string}` | ...
+| `color` | `ColorSpec` | ...
+|===
 
-* `Vehicle.make`: `{type-string}`
-* `Vehicle.model`: `{type-string}`
-* `Vehicle.year`: `{type-number}`
-* `Vehicle.trim`: `{type-string}`
-* `Vehicle.color`: `ColorSpec`
-
-== Vehicle Methods
-=== Vehicle.new
+=== `Vehicle.new(pos, properties)`
 Spawns a new instance of a `Vehicle` at a given position and returns the new object.
-
-==== Usage
-----
-vehicle = Vehicle.new(pos, properties)
-----
 
 ==== Arguments
 [%autowidth, frame=none]
@@ -42,7 +38,7 @@ vehicle = Vehicle.new(pos, properties)
 ====
 [source,lua]
 ----
-local minivan = vehicle.new(vector.new(35, 2, 36), {
+local minivan = Vehicle.new(vector.new(35, 2, 36), {
     make = "Toyota",
     model = "Previa",
     year = 1992,
@@ -52,47 +48,28 @@ local minivan = vehicle.new(vector.new(35, 2, 36), {
 ----
 ====
 
-=== Vehicle:set_properties
+== Methods
+
+=== `:set_properties(properties)`
 Sets the properties of the vehicle.
 
-==== Usage
-----
-vehicle:set_properties(properties)
-----
-
 ==== Arguments
 [%autowidth, frame=none]
 |===
 | `properties` | `{type-table}` | A list of <<Vehicle Properties, Vehicle properties>>.
 |===
 
-==== Returns
-_None_
-
-=== Vehicle:set_properties
+=== `:get_properties()`
 Gets the properties of the vehicle.
 
-==== Usage
-----
-vehicle:get_properties()
-----
-
-==== Arguments
-_None_
-
 ==== Returns
 [%autowidth, frame=none]
 |===
 | `properties` | `{type-table}` | A list of <<Vehicle Properties, Vehicle properties>>.
 |===
 
-=== Vehicle:set_pos
+=== `:set_pos(pos)`
 Instantly moves the vehicle to the given position.
-
-==== Usage
-----
-vehicle:set_pos(pos)
-----
 
 ==== Arguments
 [%autowidth, frame=none]
@@ -100,19 +77,8 @@ vehicle:set_pos(pos)
 | `pos` | `{class-vector}` | The position to move the vehicle to.
 |===
 
-==== Returns
-_None_
-
-=== Vehicle:get_pos
+=== `:get_pos()`
 Gets the current position of the vehicle.
-
-==== Usage
-----
-vehicle:get_pos()
-----
-
-==== Arguments
-_None_
 
 ==== Returns
 [%autowidth, frame=none]
@@ -120,11 +86,7 @@ _None_
 | `pos` | `{class-vector}` | The current position of the vehicle.
 |===
 
-=== Vehicle:set_gear
-==== Usage
-----
-success = vehicle:set_gear(gear)
-----
+=== `:set_gear(gear)`
 
 ==== Arguments
 [%autowidth, frame=none]
@@ -142,16 +104,8 @@ success = vehicle:set_gear(gear)
 | `success` | `{type-bool}` | Whether placement was successful.
 |===
 
-=== Vehicle:get_gear
+=== `:get_gear()`
 Returns the current gear of the vehicle as a number. See <<Vehicle:set_gear>> for expected values.
-
-==== Usage
-----
-gear = vehicle:get_gear()
-----
-
-==== Arguments
-_None_
 
 ==== Returns
 [%autowidth, frame=none]
@@ -159,7 +113,7 @@ _None_
 | `gear` | `{type-number}` | Gear the vehicle is currently in.
 |===
 
-=== Vehicle:some_function
+=== `:some_method(...)`
 Does a thing.
 
 NOTE: This is a note.
@@ -169,19 +123,19 @@ NOTE: This is a note.
 1::
 +
 ----
-stuff = Vehicle:some_function(foo)
+stuff = vehicle:some_method(foo)
 ----
 2::
 +
 ----
-different, things = Vehicle:some_function(foo, bar)
+different, things = vehicle:some_method(foo, bar)
 ----
 
 ==== Arguments
 [%autowidth, frame=none]
 |===
 | `foo` | `{class-vector}` | Something.
-| `bar`? | `{class-vector}` | Something else.
+| `bar` | `{class-vector}` | Optional. Something else.
 |===
 
 ==== Returns
@@ -203,13 +157,8 @@ different, things = Vehicle:some_function(foo, bar)
 
 == Vehicle Helpers
 
-=== gear_to_name
+=== `gear_to_name(gear)`
 Returns the name of the given gear.
-
-==== Usage
-----
-name = gear_to_name(gear)
-----
 
 ==== Arguments
 [%autowidth, frame=none]
@@ -231,13 +180,8 @@ a! `3` a! `third`
 !===
 |===
 
-=== vehicle_type
+=== `vehicle_type(make, model)`
 Determines the vehicle type based on the make and model.
-
-==== Usage
-----
-vtype = vehicle_type(make, model)
-----
 
 ==== Arguments
 [%autowidth, frame=none]
@@ -270,5 +214,3 @@ end
 ----
 
 ====
-
-include::../include/footer.adoc[]
