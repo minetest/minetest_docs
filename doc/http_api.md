@@ -54,7 +54,7 @@ A table consisting of the following parameters
 
 * `completed`:
   * Boolean
-  * If requested finished. By way of success, failure, or timing out
+  * If request finished. By way of success, failure, or timing out.
 * `succeeded`:
   * Boolean
   * Request status
