@@ -1,3 +1,5 @@
 = Minetest Documentation
 
 This is the documentation repository for the https://github.com/minetest/minetest[Minetest engine] as per the https://gist.github.com/benrob0329/df3ced15dc5a2d5402010be709452f27[proposal]
+
+minetest_docs repo content has been moved to https://github.com/minetest/dev.luanti.org/tree/master/content/docs
